@@ -1,0 +1,17 @@
+
+
+.btn {
+  @apply bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded;
+}
+
+@media (min-width: 640px) {
+  .btn {
+    @apply text-lg;
+  }
+}
+
+@media (min-width: 768px) {
+  .btn {
+    @apply text-xl;
+  }
+}
