@@ -1,0 +1,7 @@
+@import "1-settings";
+
+  .card-overview{
+    &__container {
+      padding: $gutter;
+    }
+  }

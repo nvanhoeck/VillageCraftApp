@@ -1,1 +1,3 @@
-<p>cards-overview works!</p>
+<section class="card-overview__container" *ngFor="let card of cards;">
+  <app-game-card [card]="card"></app-game-card>
+</section>
