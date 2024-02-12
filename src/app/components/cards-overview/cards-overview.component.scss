@@ -1,7 +1,12 @@
 @import "1-settings";
 
-  .card-overview{
-    &__container {
-      padding: $gutter;
-    }
+.card-overview {
+  &__container {
+    padding: $gutter;
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    gap: 1rem;
+    flex-wrap: wrap;
   }
+}

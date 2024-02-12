@@ -14,7 +14,6 @@ export class CardsUseCaseService {
   }
 
   public getAllCards = () => {
-    this.gameCards.subscribe((cards) => console.log('cards', cards))
     return this.gameCards.asObservable()
   }
 }
