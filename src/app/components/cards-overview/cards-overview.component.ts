@@ -1,7 +1,9 @@
-import { Component } from '@angular/core';
+import {Component, Inject} from '@angular/core';
 import {GameCardComponent} from "../game-card/game-card.component";
 import {GameCard} from "../../domain/game-card";
 import {CommonModule} from "@angular/common";
+import {CardsUseCaseService} from "../../use-case/cards-use-case.service";
+import {Observable} from "rxjs";
 
 @Component({
   selector: 'app-cards-overview',
@@ -11,6 +13,9 @@ import {CommonModule} from "@angular/common";
   styleUrl: './cards-overview.component.scss'
 })
 export class CardsOverviewComponent {
-  public readonly cards: GameCard[] = [];
+  public readonly cards: Observable<GameCard[]> = this.cardsUseCase.getAllCards();
+
+  constructor(private cardsUseCase: CardsUseCaseService) {
+  }
 
 }

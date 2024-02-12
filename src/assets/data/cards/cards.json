@@ -1,11 +1,13 @@
-[
-  {
-    "cardId": "1",
-    "title": "Settlement",
-    "cardType": "settlement",
-    "health": 10,
-    "description": "When this card has been destroyed, you lose the game. <br/><b>Exhaust</b> Place 1 card from your <b>Hand</b> into your <b>Archive</b>",
-    "cardAffiliation": "base",
-    "deckLimit": 1
-  }
-]
+{
+  "data": [
+    {
+      "cardId": "1",
+      "title": "Settlement",
+      "cardType": "settlement",
+      "health": 10,
+      "description": "When this card has been destroyed, you lose the game. <br/><b>Exhaust</b> Place 1 card from your <b>Hand</b> into your <b>Archive</b>",
+      "cardAffiliation": "base",
+      "deckLimit": 1
+    }
+  ]
+}
