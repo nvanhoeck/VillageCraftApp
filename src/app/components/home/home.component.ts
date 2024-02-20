@@ -15,8 +15,10 @@ export class HomeComponent {
   }
 
   redirectToCardsOverview = async (evnt: Event) => {
-    console.log('clicked')
     await this.router.navigate(['/overview'])
+  };
+  redirectToPlayerVsPCOverview = async (evnt: Event) => {
+    await this.router.navigate(['/1-vs-pc'])
   };
 
 }

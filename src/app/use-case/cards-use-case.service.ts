@@ -2,7 +2,7 @@ import {Inject, Injectable} from '@angular/core';
 import {BehaviorSubject, Subject, take} from "rxjs";
 import {GameCard} from "../domain/game-card";
 import {CardsFetchPort} from "../ports/cards-fetch-port";
-import {GameCardsJsonReaderAdapterService} from "../adapters/game-cards-json-reader-adapter.service";
+import {GameCardsJsonReaderAdapterService} from "../adapters/cards/game-cards-json-reader-adapter.service";
 
 @Injectable({providedIn: 'root'})
 export class CardsUseCaseService {

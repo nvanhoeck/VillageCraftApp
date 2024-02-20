@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {AdaptersModule} from "../adapters/adapters.module";
 import {CardsUseCaseService} from "./cards-use-case.service";
+import {StartGameUseCaseService} from "./start-game-use-case.service";
 
 
 
@@ -12,7 +13,8 @@ import {CardsUseCaseService} from "./cards-use-case.service";
     AdaptersModule
   ],
   providers: [
-    CardsUseCaseService
+    CardsUseCaseService,
+    StartGameUseCaseService,
   ]
 })
 export class UseCaseModule { }

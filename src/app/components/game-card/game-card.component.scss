@@ -8,7 +8,7 @@
      border-radius: $border-radius-1;
      background-color: $color-whites;
      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Adjust the values as needed */
-     @apply flex flex-col items-center justify-between h-screen
+     @apply flex flex-col items-center justify-between
    }
    &__header {
      font-size: 2rem;
