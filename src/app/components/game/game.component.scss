@@ -19,8 +19,9 @@
   grid-row-end: 18;
   grid-column-start: 1;
   grid-column-end: 9;
-  background-color: rgba(0,0,0,0.66);
+  background-color: brown;
 }
+
 .player_deck {
   display: flex;
   justify-content: flex-start;
@@ -29,7 +30,7 @@
   grid-row-end: 18;
   grid-column-start: 9;
   grid-column-end: 11;
-  background-color: black;
+  background-color: rosybrown;
 }
 
 .player_discard_pile {
@@ -40,7 +41,7 @@
   grid-row-end: 18;
   grid-column-start: 11;
   grid-column-end: 13;
-  background-color: black;
+  background-color: saddlebrown;
 }
 
 .player_banish {
@@ -51,7 +52,7 @@
   grid-row-end: 18;
   grid-column-start: 13;
   grid-column-end: 15;
-  background-color: black;
+  background-color: sandybrown;
 }
 
 .player_graveyard {
@@ -62,7 +63,7 @@
   grid-row-end: 18;
   grid-column-start: 15;
   grid-column-end: 17;
-  background-color: black;
+  background-color: dimgrey;
 }
 
 

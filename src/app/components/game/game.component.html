@@ -1,13 +1,23 @@
 <section *ngIf="(game$ | async) as game" class="game-area">
-  <div class="player_hand"></div>
-  <div class="player_deck">deck</div>
+  <div *ngIf="game.players.length > 1" class="player_hand">
+    <app-player-hand></app-player-hand>
+  </div>
+  <div class="player_deck">
+    <app-player-deck></app-player-deck>
+  </div>
   <div class="player_discard_pile">discard pile</div>
   <div class="player_banish">banish</div>
   <div class="player_graveyard">graveyard</div>
   <div *ngIf="game.players.length > 1" class="player_settlement">
     <app-settlement></app-settlement>
   </div>
-  <div class="player_archive">archive</div>
-  <div class="player_building">building</div>
-  <div class="player_units">citizens</div>
+  <div *ngIf="game.players.length > 1" class="player_archive">
+    <app-archive></app-archive>
+  </div>
+  <div class="player_building">
+    <app-building-lane></app-building-lane>
+  </div>
+  <div class="player_units">
+    <app-citizen-lane></app-citizen-lane>
+  </div>
 </section>

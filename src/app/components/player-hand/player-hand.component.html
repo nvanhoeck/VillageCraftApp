@@ -1,0 +1,5 @@
+<div *ngIf="(hand$ | async) as hand">
+  <ng-container *ngFor="let card of hand">
+    <app-game-card [card]="card"></app-game-card>
+  </ng-container>
+</div>

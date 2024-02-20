@@ -76,4 +76,25 @@ export class Player {
   public findSettlement() {
     return this._settlement;
   }
+
+  public findHand() {
+    return this._hand;
+  }
+
+  findDeck() {
+    return this._deck;
+  }
+
+  findArchive() {
+    return this._archive;
+  }
+
+  findBuildingLane() {
+    return this._buildingLane
+  }
+
+  findCitizenLane() {
+    return this._citizenLane
+  }
+
 }
