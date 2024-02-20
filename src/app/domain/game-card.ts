@@ -1,9 +1,8 @@
-import {GameCommand} from "./commands/game-command";
-
 type CardType = 'unit' | 'building' | 'settlement' | 'event' | 'citizen'
 type CardAffilitation = 'base' | 'diplomacy' | 'military' | 'treasury' | 'learning' | 'visionary'
-type GamePhase = 'draw' | 'production' | 'action' | 'combat' | 'refresh' | 'consumption' |'end_turn'
+type GamePhase = 'draw' | 'production' | 'action' | 'combat' | 'refresh' | 'consumption' | 'end_turn'
 type Trigger = 'exhaust' | 'deploy' | 'condition' | 'banish' | 'claim' | 'foodGain' | 'build'
+type GameCommand = {} // TODO
 
 type CardAction = {
   triggers: Trigger[],
@@ -24,4 +23,16 @@ export type GameCard = {
   cardAffiliation: CardAffilitation
   deckLimit: number
   actions: CardAction[]
+}
+
+export const DefaultGameCard: GameCard = {
+  actions: [],
+  cardAffiliation: 'base',
+  cardId: "",
+  cardType: 'settlement',
+  deckLimit: 0,
+  description: "",
+  id: "",
+  title: ""
+
 }

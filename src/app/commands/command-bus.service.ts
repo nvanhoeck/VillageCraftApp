@@ -1,33 +1,43 @@
 import {Injectable} from '@angular/core';
 import {Command} from './model/command'
 import {CommandHandler} from "./handlers/command-handler";
-import {AsyncSubject, BehaviorSubject, filter, map, Subject, take} from "rxjs";
+import {BehaviorSubject, take} from "rxjs";
+import {SetupPlayerCommandHandlerService} from "./handlers/setup-player-command-handler.service";
+import {SetupGameCommandHandlerService} from "./handlers/setup-game-command-handler.service";
+import {LoadPlayerBaseDecksCommandHandlerService} from "./handlers/load-player-base-decks-command-handler.service";
 
 @Injectable({
   providedIn: 'root'
 })
 export class CommandBusService {
-  private handlers$: AsyncSubject<[string: CommandHandler[]]> = new AsyncSubject()
+  private handlers$: BehaviorSubject<{ [key: string]: CommandHandler[] }> = new BehaviorSubject({});
 
-  constructor() {
+  constructor(private readonly setupGameCommandHandlerService: SetupGameCommandHandlerService,
+              private readonly setupPlayerCommandHandlerService: SetupPlayerCommandHandlerService,
+              private readonly loadPlayerBaseDecksCommandHandlerService: LoadPlayerBaseDecksCommandHandlerService,
+  ) {
+    this.handlers$.next({
+      'SetupGame': [setupGameCommandHandlerService],
+      'SetupPlayer': [setupPlayerCommandHandlerService],
+      'LoadPlayerBaseDecks': [loadPlayerBaseDecksCommandHandlerService]
+    })
   }
 
-  registerHandler(command: string, cmdHandler: CommandHandler) {
-    this.handlers$.asObservable().pipe(map((handlers) => {
-        if (handlers[command]) {
-          //TODO Send event to error handler
-          throw new Error('Already registered handler for ' + command+ '. Only 1 allowed')
-        } else {
-          handlers[command] = [cmdHandler]
-        }
-        return handlers
+  /*registerHandler(command: string, cmdHandler: CommandHandler) {
+    console.log('handler registered', command, cmdHandler)
+    this.handlers$.asObservable().pipe(take(1)).subscribe((handlers) => {
+      if (handlers[command]) {
+        handlers[command] = [...handlers[command], cmdHandler];
+      } else {
+        handlers[command] = [cmdHandler];
       }
-    ), take(1)).subscribe((cmdHandlers) => this.handlers$.next(cmdHandlers))
-  }
+      this.handlers$.next(handlers);
+    });
+  }*/
 
   on(cmd: Command) {
-    this.handlers$.subscribe(handlers => {
-      handlers[cmd.type].forEach((cmdHandler) => cmdHandler.execute(cmd))
-    })
+    this.handlers$.pipe(take(1)).subscribe((handlers) => {
+      handlers[cmd.type].forEach((handler) => handler.execute(cmd))
+    });
   }
 }

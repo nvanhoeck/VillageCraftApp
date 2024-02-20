@@ -1,6 +1,6 @@
 <section class="game-area">
-  <div class="player_hand">hand</div>
-  <div class="player_deck">deck</div>
+  <div class="player_hand">hand: {{game$ | async | json}}</div>
+    <div class="player_deck">deck</div>
   <div class="player_discard_pile">discard pile</div>
   <div class="player_banish">banish</div>
   <div class="player_graveyard">graveyard</div>

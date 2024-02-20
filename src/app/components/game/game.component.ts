@@ -1,17 +1,20 @@
-import { Component } from '@angular/core';
-import {StartGameUseCaseService} from "../../use-case/start-game-use-case.service";
+import {Component} from '@angular/core';
+import {CommonModule} from "@angular/common";
+import {GameSetupFacadeService} from "../../facades/game-setup.facade.service";
 
 @Component({
   selector: 'app-game',
   standalone: true,
-  imports: [],
+  imports: [CommonModule],
   templateUrl: './game.component.html',
   styleUrl: './game.component.scss'
 })
 export class GameComponent {
 
-  constructor(startGameUseCase: StartGameUseCaseService) {
-    startGameUseCase.startPlayerVsPcGame()
+  game$ = this.gameSetupFacade.getGame$()
+
+  constructor(private readonly gameSetupFacade: GameSetupFacadeService) {
+    this.gameSetupFacade.setupPlayerVsPcGame()
   }
 
 }

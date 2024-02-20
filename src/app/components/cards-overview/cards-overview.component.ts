@@ -1,4 +1,4 @@
-import {Component, Inject} from '@angular/core';
+import {Component} from '@angular/core';
 import {GameCardComponent} from "../game-card/game-card.component";
 import {GameCard} from "../../domain/game-card";
 import {CommonModule} from "@angular/common";

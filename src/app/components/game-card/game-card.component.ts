@@ -1,5 +1,4 @@
 import {Component, Input} from '@angular/core';
-import {NO_TEXT} from "../../constants/labels";
 import {GameCard} from "../../domain/game-card";
 import {CommonModule} from "@angular/common";
 

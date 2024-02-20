@@ -8,10 +8,11 @@ import {GameCard} from "../../domain/game-card";
 @Injectable({
   providedIn: 'root',
 })
-export class GameCardsJsonReaderAdapterService implements CardsFetchPort{
+export class GameCardsJsonReaderAdapterService implements CardsFetchPort {
 
 
-  constructor(private http:HttpClient) { }
+  constructor(private http: HttpClient) {
+  }
 
   getAllCards(): Observable<GameCard[]> {
     return of(JSON.parse(JSON.stringify(jsonData.data)) as GameCard[])
