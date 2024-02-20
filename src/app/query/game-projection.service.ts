@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {BehaviorSubject} from "rxjs";
+import {BehaviorSubject, map} from "rxjs";
 import {Game} from "../domain/game";
 import {GameRepoService} from "./game-repo.service";
 
@@ -19,5 +19,18 @@ export class GameProjectionService {
 
   public getGame() {
     return this.game$.value
+  }
+
+  getPlayer$(playerId: string) {
+    return this.game$.asObservable().pipe(map((game) => {
+      console.log(game)
+      const foundPlayer = game.players.find((player) => player.id === playerId)
+      if (!foundPlayer) {
+        // TODO throw event error
+        throw new Error()
+      } else {
+        return foundPlayer
+      }
+    }))
   }
 }

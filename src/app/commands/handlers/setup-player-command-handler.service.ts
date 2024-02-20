@@ -22,7 +22,7 @@ export class SetupPlayerCommandHandlerService implements CommandHandler {
       const game = this.projectionStore.getGame()
       const player = new Player()
       // TODO v4 id
-      player.createPlayer('Niko', cmd.payload.playerType)
+      player.createPlayer(cmd.payload.playerType === 'HUMAN' ? 'niko' : 'pc', cmd.payload.playerType)
       game.addPlayer(player)
       const playerCreatedEvent = new PlayerCreatedEvent();
       playerCreatedEvent.apply(game.id, player.playerType)

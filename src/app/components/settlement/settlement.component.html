@@ -1,0 +1,3 @@
+<ng-container *ngIf="(settlement$ | async) as settlement">
+  <app-game-card [card]="settlement"></app-game-card>
+</ng-container>

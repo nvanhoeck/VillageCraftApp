@@ -1,11 +1,12 @@
 import {Component} from '@angular/core';
 import {CommonModule} from "@angular/common";
 import {GameSetupFacadeService} from "../../facades/game-setup.facade.service";
+import {SettlementComponent} from "../settlement/settlement.component";
 
 @Component({
   selector: 'app-game',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, SettlementComponent],
   templateUrl: './game.component.html',
   styleUrl: './game.component.scss'
 })

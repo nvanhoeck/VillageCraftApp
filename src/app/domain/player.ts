@@ -72,4 +72,8 @@ export class Player {
     this._id = id
     this._playerType = playerType
   }
+
+  public findSettlement() {
+    return this._settlement;
+  }
 }
