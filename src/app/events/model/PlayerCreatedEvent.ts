@@ -4,6 +4,7 @@ import {PlayerType} from "../../query/model/player-type";
 type PlayerCreatedEventPayload = {
   id: string,
   playerType: PlayerType
+  gameId: string
 }
 
 export class PlayerCreatedEvent extends GameEvent {

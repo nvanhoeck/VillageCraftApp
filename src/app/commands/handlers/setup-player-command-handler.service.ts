@@ -29,7 +29,7 @@ export class SetupPlayerCommandHandlerService implements CommandHandler {
       const game = this.gameStore.get(cmd.payload.gameId);
       const player = new Player(playerId)
       game.addPlayer(player)
-      this.eventBus.on(new PlayerCreatedEvent({id: player.id, playerType: player.playerType}))
+      this.eventBus.on(new PlayerCreatedEvent({id: player.id, playerType: player.playerType, gameId: game.id}))
     } else {
       this.errorMessageService.publish({
         level: 'ERROR', message: `Wrong command sent for SetupPlayerCommandHandlerService for ${cmd.type}`,

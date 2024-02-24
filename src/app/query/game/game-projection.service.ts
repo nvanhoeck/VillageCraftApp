@@ -8,7 +8,7 @@ import {PlayerCreatedEvent} from "../../events/model/PlayerCreatedEvent";
 import {ErrorMessagesAdapterService} from "../../adapters/events/error-messages-adapter.service";
 import {Game} from "../model/game";
 import {Player} from "../model/player";
-import {BehaviorSubject, EMPTY, take} from "rxjs";
+import {BehaviorSubject, EMPTY, map, take} from "rxjs";
 
 @Injectable({
   providedIn: 'root'
@@ -47,6 +47,20 @@ export class GameProjectionService implements EventHandler {
     }
   }
 
+  getPlayerIds$(gameId: string) {
+    if (this.games[gameId]) {
+      return this.games[gameId].pipe(map((game) => game.players))
+    } else {
+      this.errorMessageService.publish({
+        topic: "APPLICATION-ERROR",
+        level: "ERROR",
+        message: `Could not find players for ${gameId} at game-projection service`
+      })
+      return EMPTY
+    }
+  }
+
+
   getPlayer$(playerId: string) {
     if (this.players[playerId]) {
       return this.players[playerId].asObservable()
@@ -82,7 +96,12 @@ export class GameProjectionService implements EventHandler {
   }
 
   private handlePlayerCreatedEvent(event: PlayerCreatedEvent) {
-    console.log(event.payload.id)
     this.players[event.payload.id] = new BehaviorSubject<Player>(new Player(event.payload.id, event.payload.playerType))
+    this.games[event.payload.gameId].subscribe((game) => {
+      game.handlePlayerAdded(event.payload.id)
+      this.games[event.payload.id].next(game)
+    })
+
+
   }
 }

@@ -19,6 +19,7 @@ import {BuildingLaneComponent} from "../building-lane/building-lane.component";
 export class GameComponent {
 
   game$ = this.gameSetupFacade.getGame$()
+  playersIds$ = this.gameSetupFacade.getPlayerIds$()
 
   constructor(private readonly gameSetupFacade: GameSetupFacadeService) {
   }

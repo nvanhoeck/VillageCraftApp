@@ -1,23 +1,28 @@
 <section *ngIf="(game$ | async) as game" class="game-area">
-  <div *ngIf="game.players.length > 1" class="player_hand">
-    <app-player-hand></app-player-hand>
-  </div>
-  <div class="player_deck">
-    <app-player-deck></app-player-deck>
-  </div>
-  <div class="player_discard_pile">discard pile</div>
-  <div class="player_banish">banish</div>
-  <div class="player_graveyard">graveyard</div>
-  <div *ngIf="game.players.length > 1" class="player_settlement">
-    <app-settlement></app-settlement>
-  </div>
-  <div *ngIf="game.players.length > 1" class="player_archive">
-    <app-archive></app-archive>
-  </div>
-  <div class="player_building">
-    <app-building-lane></app-building-lane>
-  </div>
-  <div class="player_units">
-    <app-citizen-lane></app-citizen-lane>
-  </div>
+  <ng-container *ngIf="(playersIds$ | async) as playerIds; else gameLoading">
+    <div *ngIf="playerIds.length > 1" class="player_hand">
+      <app-player-hand></app-player-hand>
+    </div>
+    <div class="player_deck">
+      <app-player-deck></app-player-deck>
+    </div>
+    <div class="player_discard_pile">discard pile</div>
+    <div class="player_banish">banish</div>
+    <div class="player_graveyard">graveyard</div>
+    <div *ngIf="playerIds.length > 1" class="player_settlement">
+      <app-settlement></app-settlement>
+    </div>
+    <div *ngIf="playerIds.length > 1" class="player_archive">
+      <app-archive></app-archive>
+    </div>
+    <div class="player_building">
+      <app-building-lane></app-building-lane>
+    </div>
+    <div class="player_units">
+      <app-citizen-lane></app-citizen-lane>
+    </div>
+  </ng-container>
+  <ng-template #gameLoading>
+    <p>Game is Loading ...</p>
+  </ng-template>
 </section>

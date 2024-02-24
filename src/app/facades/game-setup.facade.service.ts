@@ -4,6 +4,7 @@ import {GetGameUseCaseService} from "../use-case/get-game-use-case.service";
 import {v4 as uuidv4} from "uuid";
 import {ErrorMessagesAdapterService} from "../adapters/events/error-messages-adapter.service";
 import {EMPTY, isEmpty, map} from "rxjs";
+import {GetPlayerUseCaseService} from "../use-case/get-player-use-case.service";
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +13,8 @@ export class GameSetupFacadeService {
   private gameId: string | undefined
   private playerId = 'niko'
 
-  constructor(private startGameUseCase: StartGameUseCaseService, private getGameUseCase: GetGameUseCaseService, private errorMessageService: ErrorMessagesAdapterService) {
+  constructor(private startGameUseCase: StartGameUseCaseService, private getGameUseCase: GetGameUseCaseService,
+              private errorMessageService: ErrorMessagesAdapterService, private getPlayerUseCase: GetPlayerUseCaseService) {
   }
 
   public setupPlayerVsPcGame() {
@@ -34,5 +36,9 @@ export class GameSetupFacadeService {
 
   gameExists$() {
     return this.getGameUseCase.getGame$(this.gameId!).pipe(isEmpty(), map((empty) => !empty))
+  }
+
+  getPlayerIds$() {
+    return this.getPlayerUseCase.getPlayerIds$(this.gameId!)
   }
 }
