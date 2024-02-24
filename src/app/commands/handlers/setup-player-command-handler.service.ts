@@ -1,36 +1,40 @@
 import {Injectable} from '@angular/core';
 import {CommandHandler} from "./command-handler";
 import {Command} from "../model/command";
-import {GameEventStoreService} from "../../events/game-event-store.service";
 import {isSetupPlayerCommand} from "../model/setup-player-command";
-import {GameProjectionService} from "../../query/game-projection.service";
-import {Player} from "../../domain/player";
+import {CommandBusService} from "../command-bus.service";
+import {GameStoreService} from "../../store/game-store.service";
 import {EventBusService} from "../../events/event-bus.service";
+import {ErrorMessagesAdapterService} from "../../adapters/events/error-messages-adapter.service";
+import {Player} from "../../domain/player";
 import {PlayerCreatedEvent} from "../../events/model/PlayerCreatedEvent";
-import {GameRepoService} from "../../query/game-repo.service";
 
 @Injectable({
   providedIn: 'root'
 })
 export class SetupPlayerCommandHandlerService implements CommandHandler {
 
-  constructor(private eventStore: GameEventStoreService, private projectionStore: GameProjectionService, private eventBus: EventBusService, private gameRepo: GameRepoService) {
+  constructor(
+    private commandBus: CommandBusService,
+    private gameStore: GameStoreService,
+    private eventBus: EventBusService,
+    private errorMessageService: ErrorMessagesAdapterService
+  ) {
+    commandBus.registerHandler('SetupPlayer', this)
   }
 
   execute(cmd: Command): void {
     if (isSetupPlayerCommand(cmd)) {
-      const game = this.projectionStore.getGame()
-      const player = new Player()
-      // TODO v4 id
-      player.createPlayer(cmd.payload.playerType === 'HUMAN' ? 'niko' : 'pc', cmd.payload.playerType)
+      const playerId = cmd.payload.playerId
+      const game = this.gameStore.get(cmd.payload.gameId);
+      const player = new Player(playerId)
       game.addPlayer(player)
-      const playerCreatedEvent = new PlayerCreatedEvent();
-      playerCreatedEvent.apply(game.id, player.playerType)
-      this.eventStore.applyChange(playerCreatedEvent)
-      this.eventBus.on(playerCreatedEvent)
-      this.gameRepo.update(game)
+      this.eventBus.on(new PlayerCreatedEvent({id: player.id, playerType: player.playerType}))
     } else {
-      // TODO sent event to error handler
+      this.errorMessageService.publish({
+        level: 'ERROR', message: `Wrong command sent for SetupPlayerCommandHandlerService for ${cmd.type}`,
+        topic: "APPLICATION-ERROR"
+      })
     }
   }
 }

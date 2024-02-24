@@ -1,0 +1,14 @@
+@import "1-settings";
+
+.toast {
+  height: 3rem;
+  padding: $gutter;
+  color: $color-whites;
+  background: rgb(0, 0, 0);
+  background: linear-gradient(90deg, rgba(0, 0, 0, 0.5) 0%, rgba(0, 0, 0, 0.8) 5%, rgba(0, 0, 0, 1) 10%, rgba(0, 0, 0, 1) 90%, rgba(0, 0, 0, 0.8) 95%, rgba(0, 0, 0, 0.5) 100%);
+  @include default-border-up-down(rgba(255, 255, 255, 0.80));
+  border-radius: $border-radius-1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

@@ -1,1 +1,20 @@
-$border-radius-1: 10px
+$border-radius-1: 4px;
+$border-radius-2: 8px;
+$border-radius-3: 12px;
+
+$border-size-100: 1px;
+$border-size-200: 2px;
+$border-size-300: 3px;
+$border-size-400: 4px;
+
+$border-style-default: solid;
+
+
+@mixin default-border($color) {
+  border: $border-style-default $border-size-200 $color;
+}
+
+@mixin default-border-up-down($color) {
+  border-top: $border-style-default $border-size-200 $color;
+  border-bottom: $border-style-default $border-size-200 $color;
+}

@@ -12,8 +12,8 @@ export class Player {
   private _archive: GameCard | undefined
   private _hand: GameCard[]
 
-  constructor() {
-    this._id = 'unknown'
+  constructor(id: string) {
+    this._id = id
     this._settlement = new Settlement(DefaultGameCard)
     this._playerType = 'PC'
     this._buildingLane = new Lane('building')
@@ -68,7 +68,7 @@ export class Player {
     this._deck = shuffleArray(this._deck)
   }
 
-  public createPlayer(id: string, playerType: PlayerType) {
+  public addPlayer(id: string, playerType: PlayerType) {
     this._id = id
     this._playerType = playerType
   }

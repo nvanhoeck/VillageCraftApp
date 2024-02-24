@@ -2,9 +2,10 @@ import {Command} from "./command";
 import {PlayerType} from "../../domain/player-type";
 
 
-
 type SetupPlayerCommandPayload = {
   playerType: PlayerType
+  gameId: string
+  playerId: string
 }
 
 export const isSetupPlayerCommand = (command: Command): command is SetupPlayerCommand => {

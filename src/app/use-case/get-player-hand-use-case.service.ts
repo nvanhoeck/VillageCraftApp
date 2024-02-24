@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {GameProjectionService} from "../query/game-projection.service";
+import {GameProjectionService} from "../query/game/game-projection.service";
 import {map} from "rxjs";
 
 @Injectable({

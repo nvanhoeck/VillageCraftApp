@@ -1,55 +1,18 @@
 import {GameEvent} from './gameEvent'
-import {PlayerType} from "../../domain/player-type";
+import {PlayerType} from "../../query/model/player-type";
 
-export class PlayerCreatedEvent implements GameEvent{
-  private _payload : {
-     id: string
-     playerType: PlayerType
-  }
-  private _guid: string;
-  private _timestamp: Date;
-  private _version: number;
-  private readonly _type = 'PlayerCreated'
+type PlayerCreatedEventPayload = {
+  id: string,
+  playerType: PlayerType
+}
 
-  constructor() {
-    this._payload = {
-      id: 'unknown',
-      playerType: "PC"
-    }
-    this._version = -1
-    this._guid = 'unknown'
-    this._timestamp = new Date()
+export class PlayerCreatedEvent extends GameEvent {
+
+  public constructor(payload: PlayerCreatedEventPayload) {
+    super('PlayerCreated', payload)
   }
 
-  public apply(id: string, playerType: PlayerType) {
-    this._payload = {
-      id: id,
-      playerType: playerType
-    }
-    this._guid = '1' //TODO new v4 guid
-    this._timestamp = new Date()
-    this._version = 0
+  public override get payload(): PlayerCreatedEventPayload {
+    return super.payload
   }
-
-  public get payload () {
-    return this._payload
-  }
-
-  public get guid () {
-    return this._guid
-  }
-
-  public get timestamp () {
-    return this._timestamp
-  }
-
-  public get version () {
-    return this._version
-  }
-
-  public get type () {
-    return this._type
-  }
-
-
 }

@@ -21,7 +21,6 @@ export class GameComponent {
   game$ = this.gameSetupFacade.getGame$()
 
   constructor(private readonly gameSetupFacade: GameSetupFacadeService) {
-    this.gameSetupFacade.setupPlayerVsPcGame()
   }
 
 }

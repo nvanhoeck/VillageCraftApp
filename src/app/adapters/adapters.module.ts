@@ -1,9 +1,8 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import {NgModule} from '@angular/core';
+import {CommonModule} from '@angular/common';
 import {GameCardsJsonReaderAdapterService} from "./cards/game-cards-json-reader-adapter.service";
-import {RouterModule} from "@angular/router";
-import {HttpClient, HttpClientModule} from "@angular/common/http";
-
+import {HttpClientModule} from "@angular/common/http";
+import {ErrorMessagesAdapterService} from "./events/error-messages-adapter.service";
 
 
 @NgModule({
@@ -13,7 +12,9 @@ import {HttpClient, HttpClientModule} from "@angular/common/http";
     CommonModule
   ],
   providers: [
-    GameCardsJsonReaderAdapterService
+    GameCardsJsonReaderAdapterService,
+    ErrorMessagesAdapterService,
   ]
 })
-export class AdaptersModule { }
+export class AdaptersModule {
+}

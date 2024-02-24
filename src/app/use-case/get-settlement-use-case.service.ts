@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {GameProjectionService} from "../query/game-projection.service";
+import {GameProjectionService} from "../query/game/game-projection.service";
 import {map} from "rxjs";
 
 @Injectable({
@@ -12,7 +12,9 @@ export class GetSettlementUseCaseService {
 
   public getSettlement$(playerId: string) {
     return this.projectionService.getPlayer$(playerId).pipe(map((player) => {
-      return player.findSettlement()
+      const settlement = player.findSettlement();
+      console.log('hello', settlement)
+      return settlement
     }))
   }
 }

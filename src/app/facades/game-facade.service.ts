@@ -10,8 +10,7 @@ import {GetPlayerCitizenLaneUseCaseService} from "../use-case/get-player-citizen
   providedIn: 'root'
 })
 export class GameFacadeService {
-
-  //TODO store playerID?
+  private playerId = 'niko';
 
   constructor(private getSettlementUseCase: GetSettlementUseCaseService,
               private getPlayerHandUseCase: GetPlayerHandUseCaseService,
@@ -23,27 +22,27 @@ export class GameFacadeService {
   }
 
   public getSettlement$() {
-    return this.getSettlementUseCase.getSettlement$('niko')
+    return this.getSettlementUseCase.getSettlement$(this.playerId)
   }
 
   getPlayerHand$() {
-    return this.getPlayerHandUseCase.getPlayerHand$('niko')
+    return this.getPlayerHandUseCase.getPlayerHand$(this.playerId)
   }
 
   getPlayerDeck$() {
-    return this.getPlayerDeckUseCase.getPlayerDeck$('niko')
+    return this.getPlayerDeckUseCase.getPlayerDeck$(this.playerId)
   }
 
   getPlayerArchive$() {
-    return this.getPlayerArchiveUseCase.getPlayerArchive$('niko')
+    return this.getPlayerArchiveUseCase.getPlayerArchive$(this.playerId)
   }
 
   getPlayerBuildingLane$() {
-    return this.getPlayerBuildingLaneUseCase.getPlayerBuildingLane$('niko')
+    return this.getPlayerBuildingLaneUseCase.getPlayerBuildingLane$(this.playerId)
   }
 
   getPlayerCitizenLane$() {
-    return this.getPlayerCitizenLaneUseCase.getPlayerCitizenLane$('niko')
+    return this.getPlayerCitizenLaneUseCase.getPlayerCitizenLane$(this.playerId)
   }
 
 

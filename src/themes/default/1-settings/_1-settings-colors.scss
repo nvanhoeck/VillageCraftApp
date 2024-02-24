@@ -1,9 +1,12 @@
-
-$total-transparent: rgba(0,0,0,0);
+$total-transparent: rgba(0, 0, 0, 0);
 
 $color-background: #04151F;
 $color-primary: #F59335;
 $color-secondary: #335C67;
 $color-whites: #F4F2F3;
 $color-super-white: #FFF;
+
+$color-error: #f53535;
+$color-error-darken: darken(#f53535, 15%);
+
 

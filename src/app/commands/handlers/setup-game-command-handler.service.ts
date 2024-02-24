@@ -2,31 +2,37 @@ import {Injectable} from '@angular/core';
 import {CommandHandler} from "./command-handler";
 import {isSetupGameCommand} from "../model/setup-game-command";
 import {Command} from "../model/command";
-import {GameEventStoreService} from "../../events/game-event-store.service";
 import {Game} from "../../domain/game";
-import {GameCreatedEvent} from "../../events";
+import {CommandBusService} from "../command-bus.service";
+import {GameStoreService} from "../../store/game-store.service";
 import {EventBusService} from "../../events/event-bus.service";
-import {GameRepoService} from "../../query/game-repo.service";
+import {GameCreatedEvent} from "../../events";
+import {ErrorMessagesAdapterService} from "../../adapters/events/error-messages-adapter.service";
 
 @Injectable({
   providedIn: 'root'
 })
 export class SetupGameCommandHandlerService implements CommandHandler {
 
-  constructor(private eventStore: GameEventStoreService, private eventBus: EventBusService, private gameRepo: GameRepoService) {
+  constructor(
+    private commandBus: CommandBusService,
+    private gameStore: GameStoreService,
+    private eventBus: EventBusService,
+    private errorMessageService: ErrorMessagesAdapterService
+  ) {
+    commandBus.registerHandler('SetupGame', this)
   }
 
   execute(cmd: Command): void {
     if (isSetupGameCommand(cmd)) {
-      const game = new Game()
-      game.createGame('1', cmd.payload.gameType)
-      const gameCreatedEvent = new GameCreatedEvent();
-      gameCreatedEvent.apply(game.id, game.gameType)
-      this.eventStore.applyChange(gameCreatedEvent)
-      this.eventBus.on(gameCreatedEvent)
-      this.gameRepo.update(game)
+      const game = new Game(cmd.payload.id, cmd.payload.gameType)
+      this.gameStore.create(game)
+      this.eventBus.on(new GameCreatedEvent({id: game.id, type: game.gameType}))
     } else {
-      // TODO sent event to error handler
+      this.errorMessageService.publish({
+        level: 'ERROR', message: `Wrong command sent for SetupGameCommandHandlerService for ${cmd.type}`,
+        topic: "APPLICATION-ERROR"
+      })
     }
   }
 }

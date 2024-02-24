@@ -1,0 +1,26 @@
+@keyframes fadeIn {
+  from {
+    opacity: 0; /* Start with 0 opacity (completely transparent) */
+  }
+  to {
+    opacity: 1; /* End with 1 opacity (fully visible) */
+  }
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1; /* Start with 0 opacity (completely transparent) */
+  }
+  to {
+    opacity: 0; /* End with 1 opacity (fully visible) */
+  }
+}
+
+
+@mixin fadeInAnimation {
+  animation: fadeIn 1s ease-in-out; /* Use the 'fadeIn' keyframes, with a duration of 1 second and ease-in-out timing function */
+}
+
+@mixin fadeOutAnimation {
+  animation: fadeOut 1s ease-in-out; /* Use the 'fadeIn' keyframes, with a duration of 1 second and ease-in-out timing function */
+}

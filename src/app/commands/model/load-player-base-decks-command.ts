@@ -1,7 +1,7 @@
 import {Command} from "./command";
 
 
-type LoadPlayerBaseDecksCommandPayload = {}
+type LoadPlayerBaseDecksCommandPayload = { gameId: string; playerIds: string[] }
 
 export const isLoadPlayerBaseDecksCommand = (command: Command): command is LoadPlayerBaseDecksCommand => {
   return command.type === 'LoadPlayerBaseDecks'

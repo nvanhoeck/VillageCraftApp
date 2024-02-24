@@ -2,9 +2,7 @@ import {Injectable} from '@angular/core';
 import {Command} from './model/command'
 import {CommandHandler} from "./handlers/command-handler";
 import {BehaviorSubject, take} from "rxjs";
-import {SetupPlayerCommandHandlerService} from "./handlers/setup-player-command-handler.service";
-import {SetupGameCommandHandlerService} from "./handlers/setup-game-command-handler.service";
-import {LoadPlayerBaseDecksCommandHandlerService} from "./handlers/load-player-base-decks-command-handler.service";
+import {ErrorMessagesAdapterService} from "../adapters/events/error-messages-adapter.service";
 
 @Injectable({
   providedIn: 'root'
@@ -12,19 +10,10 @@ import {LoadPlayerBaseDecksCommandHandlerService} from "./handlers/load-player-b
 export class CommandBusService {
   private handlers$: BehaviorSubject<{ [key: string]: CommandHandler[] }> = new BehaviorSubject({});
 
-  constructor(private readonly setupGameCommandHandlerService: SetupGameCommandHandlerService,
-              private readonly setupPlayerCommandHandlerService: SetupPlayerCommandHandlerService,
-              private readonly loadPlayerBaseDecksCommandHandlerService: LoadPlayerBaseDecksCommandHandlerService,
-  ) {
-    this.handlers$.next({
-      'SetupGame': [setupGameCommandHandlerService],
-      'SetupPlayer': [setupPlayerCommandHandlerService],
-      'LoadPlayerBaseDecks': [loadPlayerBaseDecksCommandHandlerService]
-    })
+  constructor(private readonly errorMessagesAdapter: ErrorMessagesAdapterService) {
   }
 
-  /*registerHandler(command: string, cmdHandler: CommandHandler) {
-    console.log('handler registered', command, cmdHandler)
+  registerHandler(command: string, cmdHandler: CommandHandler) {
     this.handlers$.asObservable().pipe(take(1)).subscribe((handlers) => {
       if (handlers[command]) {
         handlers[command] = [...handlers[command], cmdHandler];
@@ -33,11 +22,18 @@ export class CommandBusService {
       }
       this.handlers$.next(handlers);
     });
-  }*/
+  }
 
   on(cmd: Command) {
     this.handlers$.pipe(take(1)).subscribe((handlers) => {
-      handlers[cmd.type].forEach((handler) => handler.execute(cmd))
+      if (handlers[cmd.type]) {
+        handlers[cmd.type].forEach((handler) => handler.execute(cmd))
+      } else {
+        this.errorMessagesAdapter.publish({
+          level: 'ERROR', message: `Could not find command handler for ${cmd.type} at command-bus service`,
+          topic: "APPLICATION-ERROR"
+        })
+      }
     });
   }
 }
