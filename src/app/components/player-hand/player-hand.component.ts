@@ -12,7 +12,6 @@ import {GameCard} from "../../domain/game-card";
   styleUrl: './player-hand.component.scss'
 })
 export class PlayerHandComponent {
-  // TODO warning ngfor
   hand$ = this.gameFacade.getPlayerHand$()
 
   constructor(private readonly gameFacade: GameFacadeService) {

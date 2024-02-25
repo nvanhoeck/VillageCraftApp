@@ -1,9 +1,9 @@
 @import "1-settings";
 
 .game-area {
-  width: 2100px;
+  width: 98.75vw;
   height: 3150px;
-  background-color: $color-whites;
+  background-color: $color-super-white;
   gap: 0.25rem;
   padding: 0.25rem;
   overflow: hidden;
@@ -67,12 +67,17 @@
   display: flex;
   justify-content: flex-start;
   align-items: center;
+  grid-row-start: 13;
+  grid-row-end: 13;
+  grid-column-start: 1;
+  grid-column-end: 1;
 }
 
 .player_archive {
   display: flex;
   justify-content: flex-start;
   align-items: center;
+  margin-right: $gutter;
 }
 
 .player_building {

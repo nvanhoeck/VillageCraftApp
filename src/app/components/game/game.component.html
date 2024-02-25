@@ -9,9 +9,6 @@
     <div *ngIf="playerIds.length > 1" class="player_settlement">
       <app-settlement></app-settlement>
     </div>
-    <!--    <div *ngIf="playerIds.length > 1" class="player_archive">-->
-    <!--      <app-archive></app-archive>-->
-    <!--    </div>-->
     <!--    <div class="player_building">-->
     <!--      <app-building-lane></app-building-lane>-->
     <!--    </div>-->
@@ -24,6 +21,9 @@
       </div>
       <div *ngIf="playerIds.length > 1" class="player_hand">
         <app-player-hand></app-player-hand>
+      </div>
+      <div *ngIf="playerIds.length > 1" class="player_archive">
+        <app-archive></app-archive>
       </div>
       <div class="player_discarded_decks">
         <app-discard-pile/>

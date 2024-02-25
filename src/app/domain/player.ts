@@ -27,6 +27,7 @@ export class Player {
     this._discardPile = []
     this._graveyard = []
     this._banishment = []
+    this._archive = undefined
   }
 
   private _id: string
@@ -53,29 +54,30 @@ export class Player {
         // Farm
         case "2":
           this._buildingLane.addCard(card)
-          this._deck.push(card)
-          this._deck.push(card)
+          this._deck.push({...card, id: uuidv4()})
+          this._deck.push({...card, id: uuidv4()})
           break
         //Lumbermill
         case "3":
           this._buildingLane.addCard(card)
-          this._deck.push(card)
-          this._deck.push(card)
+          this._deck.push({...card, id: uuidv4()})
+          this._deck.push({...card, id: uuidv4()})
           break
         //Regular Citizen
         case "4":
           this._citizenLane.addCard(card);
-          this._citizenLane.addCard(card);
+          this._deck.push({...card, id: uuidv4()})
           break
         default:
           this._deck.push(card)
-          this._deck.push(card)
+          this._deck.push({...card, id: uuidv4()})
       }
     })
 
     this._deck = shuffleArray(this._deck)
 
     //TODO remove, test phase
+    this._hand.push(this._deck.pop()!)
     this._hand.push(this._deck.pop()!)
     this._hand.push(this._deck.pop()!)
     this._hand.push(this._deck.pop()!)
