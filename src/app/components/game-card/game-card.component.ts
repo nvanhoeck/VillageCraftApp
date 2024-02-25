@@ -3,6 +3,7 @@ import {GameCard} from "../../domain/game-card";
 import {CommonModule} from "@angular/common";
 
 type CardStyle = 'NORMAL' | 'SMALL'
+type CardSide = 'FRONT' | 'BACK'
 
 @Component({
   selector: 'app-game-card',
@@ -15,11 +16,26 @@ export class GameCardComponent {
   @Input()
   card?: GameCard = undefined;
   @Input()
-  style: CardStyle = 'NORMAL'
+  cardStyle: CardStyle = 'NORMAL'
+  @Input()
+  cardSide: CardSide = 'FRONT'
+  @Input()
+  handleHoverHandler?: (cardDetails: GameCard) => void
+  @Input()
+  handleHoverLeaveHandler?: (cardDetails: GameCard) => void
 
   constructor() {
-    console.log(this.style)
   }
 
+  handleHover: ($event: MouseEvent) => void = (event) => {
+    if (this.handleHoverHandler && this.card) {
+      this.handleHoverHandler(this.card)
+    }
+  }
 
+  handleHoverLeave: ($event: MouseEvent) => void = (event) => {
+    if (this.handleHoverLeaveHandler && this.card) {
+      this.handleHoverLeaveHandler(this.card)
+    }
+  }
 }

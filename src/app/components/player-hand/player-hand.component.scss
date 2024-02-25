@@ -1,0 +1,7 @@
+.player_hand {
+  position: fixed;
+  width: 80vw;
+  display: flex;
+  flex-direction: row;
+  bottom: calc(-315px / 2);
+}

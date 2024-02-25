@@ -1,5 +1,6 @@
-<div *ngIf="(hand$ | async) as hand">
+<div *ngIf="(hand$ | async) as hand" class="player_hand">
   <ng-container *ngFor="let card of hand">
-    <app-game-card [card]="card"></app-game-card>
+    <app-game-card [cardSide]="'FRONT'" [card]="card" [handleHoverHandler]="handleCardHover"
+                   [handleHoverLeaveHandler]="handleCardHoverLeave" cardStyle="NORMAL"/>
   </ng-container>
 </div>

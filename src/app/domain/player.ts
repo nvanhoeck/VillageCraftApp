@@ -3,6 +3,7 @@ import {DefaultGameCard, GameCard} from "./game-card";
 import {Settlement} from "./settlement";
 import {shuffleArray} from "../utils/shuffle";
 import {Lane} from "./lane";
+import {v4 as uuidv4} from "uuid";
 
 export class Player {
   private _deck: GameCard[]
@@ -37,6 +38,7 @@ export class Player {
   public loadBaseDeck(cards: GameCard[]) {
     // Logic for card duplication ?
     cards.forEach((card) => {
+      card.id = uuidv4()
       switch (card.cardId) {
         // Settlement
         case "1":
@@ -66,6 +68,13 @@ export class Player {
     })
 
     this._deck = shuffleArray(this._deck)
+
+    //TODO remove, test phase
+    this._hand.push(this._deck.pop()!)
+    this._hand.push(this._deck.pop()!)
+    this._hand.push(this._deck.pop()!)
+    this._hand.push(this._deck.pop()!)
+    this._hand.push(this._deck.pop()!)
   }
 
   public addPlayer(id: string, playerType: PlayerType) {

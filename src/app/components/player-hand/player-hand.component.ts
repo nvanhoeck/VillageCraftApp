@@ -2,6 +2,7 @@ import {Component} from '@angular/core';
 import {GameFacadeService} from "../../facades/game-facade.service";
 import {GameCardComponent} from "../game-card/game-card.component";
 import {CommonModule} from "@angular/common";
+import {GameCard} from "../../domain/game-card";
 
 @Component({
   selector: 'app-player-hand',
@@ -17,5 +18,13 @@ export class PlayerHandComponent {
   constructor(private readonly gameFacade: GameFacadeService) {
 
 
+  }
+
+  handleCardHover(card: GameCard) {
+    document.getElementById(card.id)!.style.transform = "translateY(-160px)";
+  }
+
+  handleCardHoverLeave(card: GameCard) {
+    document.getElementById(card.id)!.style.transform = "";
   }
 }

@@ -7,12 +7,13 @@ import {PlayerDeckComponent} from "../player-deck/player-deck.component";
 import {ArchiveComponent} from "../archive/archive.component";
 import {CitizenLaneComponent} from "../citizen-lane/citizen-lane.component";
 import {BuildingLaneComponent} from "../building-lane/building-lane.component";
+import {DragScrollComponent, DragScrollItemDirective} from "ngx-drag-scroll";
 
 @Component({
   selector: 'app-game',
   standalone: true,
   imports: [CommonModule, SettlementComponent, PlayerHandComponent, PlayerDeckComponent, ArchiveComponent,
-    CitizenLaneComponent, BuildingLaneComponent],
+    CitizenLaneComponent, BuildingLaneComponent, DragScrollComponent, DragScrollItemDirective],
   templateUrl: './game.component.html',
   styleUrl: './game.component.scss'
 })
@@ -23,5 +24,4 @@ export class GameComponent {
 
   constructor(private readonly gameSetupFacade: GameSetupFacadeService) {
   }
-
 }
