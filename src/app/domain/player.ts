@@ -7,6 +7,9 @@ import {v4 as uuidv4} from "uuid";
 
 export class Player {
   private _deck: GameCard[]
+  private _discardPile: GameCard[]
+  private _graveyard: GameCard[]
+  private _banishment: GameCard[]
   private _settlement: Settlement
   private _buildingLane: Lane
   private _citizenLane: Lane
@@ -21,6 +24,9 @@ export class Player {
     this._citizenLane = new Lane('citizen')
     this._hand = []
     this._deck = []
+    this._discardPile = []
+    this._graveyard = []
+    this._banishment = []
   }
 
   private _id: string
@@ -106,4 +112,15 @@ export class Player {
     return this._citizenLane
   }
 
+  findDiscardPile() {
+    return this._discardPile;
+  }
+
+  findGraveyard() {
+    return this._graveyard;
+  }
+
+  findBanishment() {
+    return this._banishment;
+  }
 }

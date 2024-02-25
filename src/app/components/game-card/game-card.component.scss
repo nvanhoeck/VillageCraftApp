@@ -1,6 +1,23 @@
 @import "1-settings";
 
+.back-text {
+  color: $color-whites;
+}
+
 .game-card {
+  &__placeholder {
+    box-sizing: content-box;
+    @include default-font;
+    width: 140px !important;
+    height: 210px !important;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Adjust the values as needed */
+    border-radius: $border-radius-2;
+    @include border-dashed($color-background);
+  }
+
   &--small {
     @include small-font;
     width: 140px !important;

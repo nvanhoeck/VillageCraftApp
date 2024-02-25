@@ -4,7 +4,6 @@
     <!--    <div class="player_deck">-->
     <!--      <app-player-deck></app-player-deck>-->
     <!--    </div>-->
-    <!--    <div class="player_discard_pile">discard pile</div>-->
     <!--    <div class="player_banish">banish</div>-->
     <!--    <div class="player_graveyard">graveyard</div>-->
     <div *ngIf="playerIds.length > 1" class="player_settlement">
@@ -25,6 +24,11 @@
       </div>
       <div *ngIf="playerIds.length > 1" class="player_hand">
         <app-player-hand></app-player-hand>
+      </div>
+      <div class="player_discarded_decks">
+        <app-discard-pile/>
+        <app-banishment/>
+        <app-graveyard/>
       </div>
     </div>
   </ng-container>

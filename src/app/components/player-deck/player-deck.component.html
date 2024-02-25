@@ -1,3 +1,3 @@
 <p *ngIf="(deck$ | async) as deck" class="player_deck">
-  <app-game-card [card]="defaultCard" cardSide="BACK" cardStyle="SMALL"/>
+  <app-game-card [backText]="'Deck'" [card]="defaultCard" cardSide="BACK" cardStyle="SMALL"/>
 </p>

@@ -8,12 +8,17 @@ import {ArchiveComponent} from "../archive/archive.component";
 import {CitizenLaneComponent} from "../citizen-lane/citizen-lane.component";
 import {BuildingLaneComponent} from "../building-lane/building-lane.component";
 import {DragScrollComponent, DragScrollItemDirective} from "ngx-drag-scroll";
+import {DiscardPileComponent} from "../discard-pile/discard-pile.component";
+import {BanishmentComponent} from "../banishment/banishment.component";
+import {GraveyardComponent} from "../graveyard/graveyard.component";
 
 @Component({
   selector: 'app-game',
   standalone: true,
   imports: [CommonModule, SettlementComponent, PlayerHandComponent, PlayerDeckComponent, ArchiveComponent,
-    CitizenLaneComponent, BuildingLaneComponent, DragScrollComponent, DragScrollItemDirective],
+    CitizenLaneComponent, BuildingLaneComponent, DragScrollComponent, DragScrollItemDirective, DiscardPileComponent,
+    BanishmentComponent, GraveyardComponent
+  ],
   templateUrl: './game.component.html',
   styleUrl: './game.component.scss'
 })

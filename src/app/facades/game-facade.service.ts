@@ -5,6 +5,9 @@ import {GetPlayerDeckUseCaseService} from "../use-case/get-player-deck-use-case.
 import {GetPlayerArchiveUseCaseService} from "../use-case/get-player-archive-use-case.service";
 import {GetPlayerBuildingLaneUseCaseService} from "../use-case/get-player-building-lane-use-case.service";
 import {GetPlayerCitizenLaneUseCaseService} from "../use-case/get-player-citizen-lane-use-case.service";
+import {GetPlayerDiscardPileUseCaseService} from "../use-case/get-player-discard-pile-use-case.service";
+import {GetPlayerGraveyardUseCaseService} from "../use-case/get-player-graveyard-use-case.service";
+import {GetPlayerBanishmentUseCaseService} from "../use-case/get-player-banishment-use-case.service";
 
 @Injectable({
   providedIn: 'root'
@@ -18,6 +21,9 @@ export class GameFacadeService {
               private getPlayerArchiveUseCase: GetPlayerArchiveUseCaseService,
               private getPlayerBuildingLaneUseCase: GetPlayerBuildingLaneUseCaseService,
               private getPlayerCitizenLaneUseCase: GetPlayerCitizenLaneUseCaseService,
+              private getPlayerDiscardPileUseCaseService: GetPlayerDiscardPileUseCaseService,
+              private getPlayerGraveyardUseCaseService: GetPlayerGraveyardUseCaseService,
+              private getPlayerBanishmentUseCaseService: GetPlayerBanishmentUseCaseService,
   ) {
   }
 
@@ -46,4 +52,17 @@ export class GameFacadeService {
   }
 
 
+  getPlayerDiscardPile$() {
+    return this.getPlayerDiscardPileUseCaseService.getPlayerDiscardPile$(this.playerId)
+  }
+
+  getPlayerGraveyard$() {
+    return this.getPlayerGraveyardUseCaseService.getPlayerGraveyard$(this.playerId)
+
+  }
+
+  getPlayerBanishment$() {
+    return this.getPlayerBanishmentUseCaseService.getPlayerBanishment$(this.playerId)
+
+  }
 }

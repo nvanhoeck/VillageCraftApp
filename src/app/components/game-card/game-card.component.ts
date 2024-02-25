@@ -2,7 +2,7 @@ import {Component, Input} from '@angular/core';
 import {GameCard} from "../../domain/game-card";
 import {CommonModule} from "@angular/common";
 
-type CardStyle = 'NORMAL' | 'SMALL'
+type CardStyle = 'NORMAL' | 'SMALL' | 'PLACEHOLDER'
 type CardSide = 'FRONT' | 'BACK'
 
 @Component({
@@ -19,6 +19,10 @@ export class GameCardComponent {
   cardStyle: CardStyle = 'NORMAL'
   @Input()
   cardSide: CardSide = 'FRONT'
+  @Input()
+  placeholderLabel: string = ''
+  @Input()
+  backText: string = ''
   @Input()
   handleHoverHandler?: (cardDetails: GameCard) => void
   @Input()

@@ -21,6 +21,5 @@ $border-style-dashed: dashed;
 }
 
 @mixin border-dashed($color) {
-  border-top: $border-style-dashed $border-size-200 $color;
-  border-bottom: $border-style-dashed $border-size-200 $color;
+  border: $border-style-dashed $border-size-200 $color;
 }

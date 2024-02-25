@@ -1,0 +1,8 @@
+<p *ngIf="(discardPile$ | async) as discardPile" class="player_deck">
+  <ng-container *ngIf="discardPile.length > 0; else noDiscardPile">
+    <app-game-card [card]="defaultCard" cardSide="BACK" cardStyle="SMALL"/>
+  </ng-container>
+  <ng-template #noDiscardPile>
+    <app-game-card [placeholderLabel]="'Discard Pile'" cardStyle="PLACEHOLDER"/>
+  </ng-template>
+</p>

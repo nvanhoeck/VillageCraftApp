@@ -19,6 +19,7 @@
   grid-column-end: 1;
   display: flex;
   flex-direction: row;
+  gap: $gutter;
 }
 
 .player_deck {
@@ -27,11 +28,18 @@
   align-items: center;
 }
 
+.player_discarded_decks {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: $gutter;
+}
+
 // TODO
 
 .player_hand {
   display: flex;
-  justify-content: flex-start;
+  justify-content: center;
   align-items: center;
 }
 

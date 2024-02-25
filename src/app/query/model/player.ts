@@ -5,6 +5,7 @@ import {DefaultGameCard, GameCard} from "../../domain/game-card";
 
 export class Player {
   private _deck: GameCard[]
+  private _discardPile: GameCard[]
   private _settlement: Settlement
   private _buildingLane: Lane
   private _citizenLane: Lane
@@ -12,6 +13,8 @@ export class Player {
   private _hand: GameCard[]
   private _id: string
   private _playerType: PlayerType
+  private _graveyard: GameCard[]
+  private _banishment: GameCard[]
 
   constructor(id: string, playerType: PlayerType) {
     this._id = id
@@ -21,6 +24,9 @@ export class Player {
     this._citizenLane = new Lane('citizen')
     this._hand = []
     this._deck = []
+    this._discardPile = []
+    this._graveyard = []
+    this._banishment = []
     this._playerType = playerType
   }
 
@@ -34,6 +40,18 @@ export class Player {
 
   updateDeck(gameCards: GameCard[]) {
     this._deck = gameCards
+  }
+
+  updateDiscardPile(gameCards: GameCard[]) {
+    this._discardPile = gameCards
+  }
+
+  updateBanishment(gameCards: GameCard[]) {
+    this._banishment = gameCards
+  }
+
+  updateGraveyard(gameCards: GameCard[]) {
+    this._graveyard = gameCards
   }
 
   updateHand(gameCards: GameCard[]) {
@@ -70,5 +88,17 @@ export class Player {
 
   findCitizenLane() {
     return this._citizenLane
+  }
+
+  findDiscardPile() {
+    return this._discardPile;
+  }
+
+  findGraveyard() {
+    return this._graveyard;
+  }
+
+  findBanishment() {
+    return this._banishment
   }
 }

@@ -1,0 +1,8 @@
+<p *ngIf="(graveyard$ | async) as graveyard" class="player_deck">
+  <ng-container *ngIf="graveyard.length > 0; else noDiscardPile">
+    <app-game-card [card]="defaultCard" cardSide="BACK" cardStyle="SMALL"/>
+  </ng-container>
+  <ng-template #noDiscardPile>
+    <app-game-card [placeholderLabel]="'Graveyard'" cardStyle="PLACEHOLDER"/>
+  </ng-template>
+</p>
