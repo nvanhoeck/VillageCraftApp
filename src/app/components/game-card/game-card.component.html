@@ -1,7 +1,8 @@
-<div class="game-card__container" *ngIf="card">
+<div *ngIf="card" [class.game-card--small]="style === 'SMALL'" class="game-card__container">
   <section class="game-card__header">
     <div class="game-card__title">{{card.title}}</div>
-    <div *ngIf="card.cardType === 'building' || card.cardType === 'settlement'" class="game-card__health-building game-card__stat">
+    <div *ngIf="card.cardType === 'building' || card.cardType === 'settlement'"
+         class="game-card__health-building game-card__stat">
       <p>{{card.health}}</p>
     </div>
   </section>

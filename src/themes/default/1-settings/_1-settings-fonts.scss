@@ -1,7 +1,11 @@
-
 $font-family-default: PT Serif, "Helvetica Neue", Arial, Helvetica, Verdana, sans-serif;
 
-@mixin default-font{
+@mixin default-font {
   font-family: $font-family-default;
   font-size: 16px;
+}
+
+@mixin small-font {
+  font-family: $font-family-default;
+  font-size: 12px;
 }

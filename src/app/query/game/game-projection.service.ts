@@ -97,9 +97,9 @@ export class GameProjectionService implements EventHandler {
 
   private handlePlayerCreatedEvent(event: PlayerCreatedEvent) {
     this.players[event.payload.id] = new BehaviorSubject<Player>(new Player(event.payload.id, event.payload.playerType))
-    this.games[event.payload.gameId].subscribe((game) => {
+    this.games[event.payload.gameId].pipe(take(1)).subscribe((game) => {
       game.handlePlayerAdded(event.payload.id)
-      this.games[event.payload.id].next(game)
+      this.games[event.payload.gameId].next(game)
     })
 
 

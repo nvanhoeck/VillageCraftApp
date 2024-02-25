@@ -1,15 +1,25 @@
 @import "1-settings";
 
 .game-card {
+  &--small {
+    @include small-font;
+
+    & b {
+      @include small-font;
+    }
+
+    & * {
+      @include small-font;
+    }
+  }
+
   &__container {
-    max-width: 200px;
-    width: 100%;
-    max-height: 300px;
-    height: 100%;
     border-radius: $border-radius-1;
     background-color: $color-whites;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Adjust the values as needed */
-    @apply flex flex-col items-center justify-between
+    @apply flex flex-col items-center justify-between;
+    aspect-ratio: 2/3;
+    height: 100%;
   }
 
   &__header {
