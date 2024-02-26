@@ -125,4 +125,16 @@ export class Player {
   findBanishment() {
     return this._banishment;
   }
+
+  playCardFromHandToArchive(cardId: string) {
+    const foundCard = this._hand.find((card) => card.id === cardId);
+    if (!foundCard) {
+      throw new Error('Card not found in hand')
+    }
+    if (!!this._archive) {
+      throw new Error('Archive already has card')
+    }
+    this._archive = foundCard
+    this._hand.splice(this._hand.indexOf(foundCard), 1)
+  }
 }

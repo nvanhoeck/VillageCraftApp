@@ -9,6 +9,8 @@ import {ErrorMessagesAdapterService} from "../../adapters/events/error-messages-
 import {Game} from "../model/game";
 import {Player} from "../model/player";
 import {BehaviorSubject, EMPTY, map, take} from "rxjs";
+import {CardPlayerFromHandEvent} from "../../events/model/CardPlayedFromHandEvent";
+import {CardPlayedToArchiveEvent} from "../../events/model/CardPlayedToArchiveEvent";
 
 @Injectable({
   providedIn: 'root'
@@ -25,6 +27,8 @@ export class GameProjectionService implements EventHandler {
     this.eventBus.registerHandler('GameCreated', this)
     this.eventBus.registerHandler('PlayerCreated', this)
     this.eventBus.registerHandler('PlayerBaseDecksLoaded', this)
+    this.eventBus.registerHandler('CardPlayedToArchiveEvent', this)
+    this.eventBus.registerHandler('CardPlayerFromHand', this)
   }
 
   execute(event: GameEvent): void {
@@ -37,6 +41,12 @@ export class GameProjectionService implements EventHandler {
         break;
       case 'PlayerBaseDecksLoaded':
         this.handlePlayerBaseDecksLoadedEvent(event);
+        break;
+      case 'CardPlayedToArchiveEvent':
+        this.handleCardPlayerToArchive(event);
+        break;
+      case 'CardPlayerFromHand':
+        this.handleCardPlayedFromHandEvent(event);
         break;
       default:
         this.errorMessageService.publish({
@@ -106,5 +116,19 @@ export class GameProjectionService implements EventHandler {
     })
 
 
+  }
+
+  private handleCardPlayedFromHandEvent(event: CardPlayerFromHandEvent) {
+    this.players[event.payload.playerId].pipe(take(1)).subscribe((player) => {
+      player.updateHand(event.payload.playerHand)
+      this.players[event.payload.playerId].next(player)
+    })
+  }
+
+  private handleCardPlayerToArchive(event: CardPlayedToArchiveEvent) {
+    this.players[event.payload.playerId].pipe(take(1)).subscribe((player) => {
+      player.updateArchive(event.payload.archive)
+      this.players[event.payload.playerId].next(player)
+    })
   }
 }

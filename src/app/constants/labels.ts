@@ -1,1 +1,1 @@
-export const NO_TEXT = '$$$NO TEXT$$$'
+export const NO_TEXT = ''

@@ -1,1 +1,4 @@
-<button class="btn" (click)="onClickHandler($event)">{{text}}</button>
+<button (click)="onClickHandler($event)" [class]="getClassNames().join(' ')">
+  <mat-icon *ngIf="!!icon" class="mat-icon-rtl-mirror">{{icon}}</mat-icon>
+  {{text}}
+</button>

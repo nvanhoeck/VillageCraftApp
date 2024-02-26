@@ -8,8 +8,8 @@
   &__placeholder {
     box-sizing: content-box;
     @include default-font;
-    width: 140px !important;
-    height: 210px !important;
+    width: 100px !important;
+    height: 150px !important;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -20,8 +20,8 @@
 
   &--small {
     @include small-font;
-    width: 140px !important;
-    height: 210px !important;
+    width: 100px !important;
+    height: 150px !important;
 
     & b {
       @include small-font;

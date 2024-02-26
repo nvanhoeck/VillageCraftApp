@@ -1,6 +1,13 @@
 <div *ngIf="(hand$ | async) as hand" class="player_hand">
   <ng-container *ngFor="let card of hand">
-    <app-game-card [cardSide]="'FRONT'" [card]="card" [handleHoverHandler]="handleCardHover"
-                   [handleHoverLeaveHandler]="handleCardHoverLeave" cardStyle="NORMAL"/>
+    <div (mouseenter)="handleCardHover(card.id)" (mouseleave)="handleCardHoverLeave()"
+         class="card-and-action-wrapper">
+      <app-card-actions-wrapper>
+        <app-game-card [cardSide]="'FRONT'" [card]="card"
+                       cardStyle="NORMAL"/>
+        <app-card-actions *ngIf="isHovered(card.id)" [actions]="actions" [cardId]="card.id"
+                          cardButtons/>
+      </app-card-actions-wrapper>
+    </div>
   </ng-container>
 </div>

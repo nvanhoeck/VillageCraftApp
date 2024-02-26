@@ -1,7 +1,18 @@
+@import "1-settings";
+
 .player_hand {
   position: fixed;
   width: 80vw;
   display: flex;
   flex-direction: row;
   bottom: calc(-315px / 2);
+  gap: $gutter;
+}
+
+.card-and-action-wrapper {
+  transition: transform 0.5s ease;
+
+  &:hover {
+    transform: translatey(-160px);
+  }
 }

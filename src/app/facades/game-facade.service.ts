@@ -8,14 +8,18 @@ import {GetPlayerCitizenLaneUseCaseService} from "../use-case/get-player-citizen
 import {GetPlayerDiscardPileUseCaseService} from "../use-case/get-player-discard-pile-use-case.service";
 import {GetPlayerGraveyardUseCaseService} from "../use-case/get-player-graveyard-use-case.service";
 import {GetPlayerBanishmentUseCaseService} from "../use-case/get-player-banishment-use-case.service";
+import {PlayCardFromToUseCaseService} from "../use-case/play-card-from-to-use-case.service";
+import {GameSetupFacadeService} from "./game-setup.facade.service";
 
 @Injectable({
   providedIn: 'root'
 })
 export class GameFacadeService {
   private playerId = 'niko';
+  private gameId = this.gameSetupFacade.getGameId();
 
-  constructor(private getSettlementUseCase: GetSettlementUseCaseService,
+  constructor(private gameSetupFacade: GameSetupFacadeService,
+              private getSettlementUseCase: GetSettlementUseCaseService,
               private getPlayerHandUseCase: GetPlayerHandUseCaseService,
               private getPlayerDeckUseCase: GetPlayerDeckUseCaseService,
               private getPlayerArchiveUseCase: GetPlayerArchiveUseCaseService,
@@ -24,6 +28,7 @@ export class GameFacadeService {
               private getPlayerDiscardPileUseCaseService: GetPlayerDiscardPileUseCaseService,
               private getPlayerGraveyardUseCaseService: GetPlayerGraveyardUseCaseService,
               private getPlayerBanishmentUseCaseService: GetPlayerBanishmentUseCaseService,
+              private playerCardFromUseCaseService: PlayCardFromToUseCaseService,
   ) {
   }
 
@@ -64,5 +69,9 @@ export class GameFacadeService {
   getPlayerBanishment$() {
     return this.getPlayerBanishmentUseCaseService.getPlayerBanishment$(this.playerId)
 
+  }
+
+  playCardFromTo(from: 'HAND', to: 'ARCHIVE', cardId: string) {
+    this.playerCardFromUseCaseService.playCardFromTo(from, to, cardId, this.playerId, this.gameId)
   }
 }

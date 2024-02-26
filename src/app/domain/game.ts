@@ -31,4 +31,11 @@ export class Game {
   }
 
 
+  playCardFromHandToArchive(playerId: string, cardId: string) {
+    const foundPlayer = this._players.find((player) => player.id === playerId);
+    if (!foundPlayer) {
+      throw new Error('player not found')
+    }
+    foundPlayer.playCardFromHandToArchive(cardId)
+  }
 }

@@ -1,0 +1,10 @@
+.card-actions {
+  display: flex;
+  flex-direction: row;
+
+  &-buttons {
+    display: flex;
+    flex-direction: row;
+  }
+
+}

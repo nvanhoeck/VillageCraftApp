@@ -22,6 +22,10 @@ export class GameSetupFacadeService {
     this.startGameUseCase.startPlayerVsPcGame(this.gameId, this.playerId)
   }
 
+  public getGameId() {
+    return this.gameId
+  }
+
   public getGame$() {
     if (this.gameId) {
       return this.getGameUseCase.getGame$(this.gameId)
