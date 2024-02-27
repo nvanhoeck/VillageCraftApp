@@ -1,0 +1,17 @@
+@import "1-settings";
+
+.game-toast {
+  position: fixed;
+  display: flex;
+  flex-direction: column;
+  top: 0;
+  margin: 0 auto;
+  align-self: center;
+  z-index: $z-index-highest;
+  width: 100vw;
+  background-color: rgba(0, 0, 0, 0);
+  gap: 1rem;
+  padding-right: 30vw;
+  padding-left: 30vw;
+  @include fadeInAnimation;
+}

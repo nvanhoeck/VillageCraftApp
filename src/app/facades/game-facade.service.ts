@@ -12,6 +12,7 @@ import {PlayCardFromToUseCaseService} from "../use-case/play-card-from-to-use-ca
 import {GameSetupFacadeService} from "./game-setup.facade.service";
 import {GameSpace} from "../domain/game-space";
 import {ShouldShowSlotsForPlayerUseCaseService} from "../use-case/should-show-slots-for-player-use-case.service";
+import {PlayerSelectSlotsForCardUseCaseService} from "../use-case/player-select-slots-for-card-use-case.service";
 
 @Injectable({
   providedIn: 'root'
@@ -31,6 +32,7 @@ export class GameFacadeService {
               private getPlayerGraveyardUseCaseService: GetPlayerGraveyardUseCaseService,
               private getPlayerBanishmentUseCaseService: GetPlayerBanishmentUseCaseService,
               private shouldShowSlotsForPlayerUseCaseService: ShouldShowSlotsForPlayerUseCaseService,
+              private playerSelectSlotsForCardUseCaseService: PlayerSelectSlotsForCardUseCaseService,
               private playerCardFromUseCaseService: PlayCardFromToUseCaseService,
   ) {
   }
@@ -84,5 +86,13 @@ export class GameFacadeService {
     } else {
       return this.shouldShowSlotsForPlayerUseCaseService.shouldShowBuildingSlotsForPlayer$(this.playerId, this.gameId!)
     }
+  }
+
+  citizenSlotSelected(index: number) {
+    this.playerSelectSlotsForCardUseCaseService.selectCitizenLaneSlot(index, this.gameId!, this.playerId)
+  }
+
+  buildingSlotSelected(index: number) {
+    this.playerSelectSlotsForCardUseCaseService.selectBuilingLaneSlot(index, this.gameId!, this.playerId)
   }
 }

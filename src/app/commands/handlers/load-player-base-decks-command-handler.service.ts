@@ -5,7 +5,7 @@ import {isLoadPlayerBaseDecksCommand} from "../model/load-player-base-decks-comm
 import {CommandBusService} from "../command-bus.service";
 import {GameStoreService} from "../../store/game-store.service";
 import {EventBusService} from "../../events/event-bus.service";
-import {ErrorMessagesAdapterService} from "../../adapters/events/error-messages-adapter.service";
+import {MessagesAdapterService} from "../../adapters/events/messages-adapter.service";
 import {GameDeckAdapterService} from "../../adapters/cards/game-deck-adapter.service";
 import {first} from "rxjs";
 import {PlayerBaseDecksLoadedEvent} from "../../events/model/PlayerBaseDecksLoadedEvent";
@@ -19,7 +19,7 @@ export class LoadPlayerBaseDecksCommandHandlerService implements CommandHandler 
     private commandBus: CommandBusService,
     private gameStore: GameStoreService,
     private eventBus: EventBusService,
-    private errorMessageService: ErrorMessagesAdapterService,
+    private errorMessageService: MessagesAdapterService,
     private deckAdapterService: GameDeckAdapterService
   ) {
     commandBus.registerHandler('LoadPlayerBaseDecks', this)

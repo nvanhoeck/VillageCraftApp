@@ -6,11 +6,12 @@ import {DefaultGameCard} from "../../domain/game-card";
 import {CardActionsComponent, CardBtnAction} from "../card-actions/card-actions.component";
 import {CardActionsWrapperComponent} from "../card-actions-wrapper/card-actions-wrapper.component";
 import {of} from "rxjs";
+import {CardSlotComponent} from "../card-slot/card-slot.component";
 
 @Component({
   selector: 'app-settlement',
   standalone: true,
-  imports: [CommonModule, GameCardComponent, CardActionsWrapperComponent, CardActionsComponent],
+  imports: [CommonModule, GameCardComponent, CardActionsWrapperComponent, CardActionsComponent, CardSlotComponent],
   templateUrl: './settlement.component.html',
   styleUrl: './settlement.component.scss'
 })
@@ -26,9 +27,14 @@ export class SettlementComponent {
     hide$: of(false)
   }] as CardBtnAction[]
 
-  constructor(private readonly gameFacade: GameFacadeService) {
+  showSlots$ = this.gameFacade.showSlots$('building');
+
+  constructor(private gameFacade: GameFacadeService) {
 
 
   }
 
+  handleSettlementSlotClicked(index: number) {
+    this.gameFacade.buildingSlotSelected(index)
+  }
 }

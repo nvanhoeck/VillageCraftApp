@@ -5,11 +5,12 @@ import {GameCardComponent} from "../game-card/game-card.component";
 import {CardActionsComponent, CardBtnAction} from "../card-actions/card-actions.component";
 import {CardActionsWrapperComponent} from "../card-actions-wrapper/card-actions-wrapper.component";
 import {map, of} from "rxjs";
+import {CardSlotComponent} from "../card-slot/card-slot.component";
 
 @Component({
   selector: 'app-citizen-lane',
   standalone: true,
-  imports: [CommonModule, GameCardComponent, CardActionsComponent, CardActionsWrapperComponent],
+  imports: [CommonModule, GameCardComponent, CardActionsComponent, CardActionsWrapperComponent, CardSlotComponent],
   templateUrl: './citizen-lane.component.html',
   styleUrl: './citizen-lane.component.scss'
 })
@@ -39,5 +40,9 @@ export class CitizenLaneComponent {
 
   isHovered(id: string) {
     return this.hoveredCard === id
+  }
+
+  handleClickOnSlot(index: number) {
+    this.gameFacade.citizenSlotSelected(index)
   }
 }

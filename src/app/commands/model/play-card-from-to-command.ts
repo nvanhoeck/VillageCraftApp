@@ -8,6 +8,7 @@ type PlayCardFromToCommandPayload = {
   cardId: string,
   playerId: string,
   gameId: string
+  index?: number
 }
 
 export const isPlayCardFromToCommand = (command: Command): command is PlayCardFromToCommand => {

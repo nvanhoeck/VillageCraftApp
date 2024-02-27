@@ -5,7 +5,7 @@ import {ApplicationMessageListener} from "./application-message-listener";
 @Injectable({
   providedIn: 'root'
 })
-export class ErrorMessagesAdapterService {
+export class MessagesAdapterService {
   private applicationMessageHandlers: { [key: string]: ApplicationMessageListener[] } = {}
 
   constructor() {

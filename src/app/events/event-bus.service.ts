@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {BehaviorSubject, take} from "rxjs";
 import {GameEvent} from "./model/gameEvent";
 import {EventHandler} from "./event-handler";
-import {ErrorMessagesAdapterService} from "../adapters/events/error-messages-adapter.service";
+import {MessagesAdapterService} from "../adapters/events/messages-adapter.service";
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +10,7 @@ import {ErrorMessagesAdapterService} from "../adapters/events/error-messages-ada
 export class EventBusService {
   private handlers$: BehaviorSubject<{ [key: string]: EventHandler[] }> = new BehaviorSubject({})
 
-  constructor(private readonly errorMessagesAdapter: ErrorMessagesAdapterService) {
+  constructor(private readonly errorMessagesAdapter: MessagesAdapterService) {
   }
 
   registerHandler(event: string, eventHandler: EventHandler) {

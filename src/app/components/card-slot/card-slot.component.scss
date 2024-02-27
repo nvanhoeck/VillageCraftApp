@@ -1,0 +1,23 @@
+@import "1-settings";
+
+.game-card-slot {
+  box-sizing: content-box;
+  @include default-font;
+  width: 100px !important;
+  height: 150px !important;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 0 8px $color-super-white;
+  border-radius: $border-radius-2;
+  background-color: rgba(0, 0, 0, 0.66);
+  color: $color-super-white;
+  fill: $color-super-white;
+  font-weight: bold;
+  transition: scale 0.5s ease;
+
+  &:hover {
+    cursor: pointer;
+    transform: scale(1.1);
+  }
+}

@@ -5,7 +5,7 @@ import {Observable} from "rxjs";
 import {GameFacadeService} from "../../facades/game-facade.service";
 import {GameSpace} from "../../domain/game-space";
 import {GameCard} from "../../domain/game-card";
-import {ErrorMessagesAdapterService} from "../../adapters/events/error-messages-adapter.service";
+import {MessagesAdapterService} from "../../adapters/events/messages-adapter.service";
 
 export type CardActionTypes = 'PLAY' | 'ARCHIVE' | 'INFO'
 
@@ -30,10 +30,11 @@ export class CardActionsComponent {
   card: GameCard | undefined = undefined
   cardActionBtnsStyles = BUTTON_TYPE_CARD_ACTION_SMALL
 
-  constructor(private gameFacade: GameFacadeService, private errorMessageService: ErrorMessagesAdapterService) {
+  constructor(private gameFacade: GameFacadeService, private errorMessageService: MessagesAdapterService) {
   }
 
   handleClick(origin: GameSpace, actionType: CardActionTypes) {
+    debugger
     switch (actionType) {
       case "ARCHIVE":
         this.gameFacade.playCardFromTo(origin, 'ARCHIVE', this.card!.id);

@@ -1,23 +1,22 @@
 import {Component} from '@angular/core';
-import {ApplicationMessageListener} from "../../adapters/events/application-message-listener";
-import {MessagesAdapterService} from "../../adapters/events/messages-adapter.service";
-import {ApplicationMessage} from "../../adapters/events/application-message";
+import {CommonModule} from "@angular/common";
 import {ToastComponent} from "../shared/toast/toast.component";
 import {BehaviorSubject, first} from "rxjs";
-import {CommonModule} from "@angular/common";
+import {MessagesAdapterService} from "../../adapters/events/messages-adapter.service";
+import {ApplicationMessage} from "../../adapters/events/application-message";
 
 @Component({
-  selector: 'app-error-messages-toast',
+  selector: 'app-game-messages-toast',
   standalone: true,
   imports: [CommonModule, ToastComponent],
-  templateUrl: './error-messages-toast.component.html',
-  styleUrl: './error-messages-toast.component.scss'
+  templateUrl: './game-messages-toast.component.html',
+  styleUrl: './game-messages-toast.component.scss'
 })
-export class ErrorMessagesToastComponent implements ApplicationMessageListener {
+export class GameMessagesToastComponent {
   messages$: BehaviorSubject<string[]> = new BehaviorSubject([] as string[])
 
   constructor(private readonly errorMessagesAdapter: MessagesAdapterService) {
-    this.errorMessagesAdapter.register(this, 'APPLICATION-ERROR')
+    this.errorMessagesAdapter.register(this, 'GAME-INFO')
   }
 
   subscribe(message: ApplicationMessage): void {
@@ -25,6 +24,7 @@ export class ErrorMessagesToastComponent implements ApplicationMessageListener {
       this.messages$.next([...msgs, message.message])
     })
 
+    //TODO proper cleanup
     setTimeout(() => {
       this.messages$.pipe(first()).subscribe((msgs: string[]) => {
         if (msgs) {
@@ -33,7 +33,6 @@ export class ErrorMessagesToastComponent implements ApplicationMessageListener {
           this.messages$.next(msgs)
         }
       })
-    }, 5000)
+    }, 10000)
   }
-
 }

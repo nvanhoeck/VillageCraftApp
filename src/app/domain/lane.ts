@@ -10,8 +10,8 @@ export class Lane {
   }
 
 
-  addCard(card: GameCard) {
-    this.lane.push(card)
+  addCard(card: GameCard, index: number) {
+    this.lane.splice(index, 0, card)
   }
 
   findCardsInLane() {

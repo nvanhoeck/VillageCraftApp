@@ -53,21 +53,21 @@ export class Player {
           break
         // Farm
         case "2":
-          this._buildingLane.addCard(card)
+          this._buildingLane.addCard(card, 0)
           this._deck.push({...card, id: uuidv4()})
           this._deck.push({...card, id: uuidv4()})
           break
         //Lumbermill
         case "3":
-          this._buildingLane.addCard(card)
+          this._buildingLane.addCard(card, 1)
           this._deck.push({...card, id: uuidv4()})
           this._deck.push({...card, id: uuidv4()})
           break
         //Regular Citizen
         case "4":
-          this._citizenLane.addCard(card);
-          this._citizenLane.addCard({...card, id: uuidv4()});
-          this._citizenLane.addCard({...card, id: uuidv4()});
+          this._citizenLane.addCard(card, 0);
+          this._citizenLane.addCard({...card, id: uuidv4()}, 1);
+          this._citizenLane.addCard({...card, id: uuidv4()}, 2);
           this._deck.push({...card, id: uuidv4()})
           break
         default:
@@ -137,6 +137,36 @@ export class Player {
       throw new Error('Archive already has card')
     }
     this._archive = foundCard
+    this._hand.splice(this._hand.indexOf(foundCard), 1)
+  }
+
+  removeCardFromHand(cardId: string) {
+    const gameCard = this._hand.find((card) => card.id === cardId);
+    if (gameCard) {
+      this._hand.splice(this._hand.indexOf(gameCard), 1);
+    }
+    throw new Error(`Card ${cardId} not found`)
+  }
+
+  playCardFromHandToCitizenLaneAtSlot(cardId: string, index: number | undefined) {
+    debugger
+    if (index === undefined) return;
+    const foundCard = this._hand.find((card) => card.id === cardId);
+    if (!foundCard) {
+      throw new Error('Card not found in hand')
+    }
+    this._citizenLane.addCard(foundCard, index)
+    this._hand.splice(this._hand.indexOf(foundCard), 1)
+  }
+
+  playCardFromHandToBuildingLaneAtSlot(cardId: string, index: number | undefined) {
+    debugger
+    if (index == undefined) return;
+    const foundCard = this._hand.find((card) => card.id === cardId);
+    if (!foundCard) {
+      throw new Error('Card not found in hand')
+    }
+    this._buildingLane.addCard(foundCard, index)
     this._hand.splice(this._hand.indexOf(foundCard), 1)
   }
 }

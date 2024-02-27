@@ -5,7 +5,7 @@ import {isSetupPlayerCommand} from "../model/setup-player-command";
 import {CommandBusService} from "../command-bus.service";
 import {GameStoreService} from "../../store/game-store.service";
 import {EventBusService} from "../../events/event-bus.service";
-import {ErrorMessagesAdapterService} from "../../adapters/events/error-messages-adapter.service";
+import {MessagesAdapterService} from "../../adapters/events/messages-adapter.service";
 import {Player} from "../../domain/player";
 import {PlayerCreatedEvent} from "../../events/model/PlayerCreatedEvent";
 
@@ -18,7 +18,7 @@ export class SetupPlayerCommandHandlerService implements CommandHandler {
     private commandBus: CommandBusService,
     private gameStore: GameStoreService,
     private eventBus: EventBusService,
-    private errorMessageService: ErrorMessagesAdapterService
+    private errorMessageService: MessagesAdapterService
   ) {
     commandBus.registerHandler('SetupPlayer', this)
   }

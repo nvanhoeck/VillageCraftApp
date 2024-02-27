@@ -5,12 +5,15 @@ import {GameEvent} from "../../events/model/gameEvent";
 import {GameCreatedEvent} from "../../events";
 import {PlayerBaseDecksLoadedEvent} from "../../events/model/PlayerBaseDecksLoadedEvent";
 import {PlayerCreatedEvent} from "../../events/model/PlayerCreatedEvent";
-import {ErrorMessagesAdapterService} from "../../adapters/events/error-messages-adapter.service";
+import {MessagesAdapterService} from "../../adapters/events/messages-adapter.service";
 import {Game} from "../model/game";
 import {Player} from "../model/player";
 import {BehaviorSubject, EMPTY, map, take} from "rxjs";
 import {CardPlayerFromHandEvent} from "../../events/model/CardPlayedFromHandEvent";
 import {CardPlayedToArchiveEvent} from "../../events/model/CardPlayedToArchiveEvent";
+import {DisplayCitizenLanePlaySlotsEvent} from "../../events/model/DisplayCitizenLanePlaySlotsEvent";
+import {CardPlayedToBuildingLaneEvent} from "../../events/model/CardPlayedToBuildingLaneEvent";
+import {CardPlayedToCitizenLaneEvent} from "../../events/model/CardPlayedToCitizenLaneEvent";
 
 @Injectable({
   providedIn: 'root'
@@ -21,7 +24,7 @@ export class GameProjectionService implements EventHandler {
   private players: { [key: string]: BehaviorSubject<Player> }
 
   constructor(private readonly eventBus: EventBusService,
-              private readonly errorMessageService: ErrorMessagesAdapterService) {
+              private readonly errorMessageService: MessagesAdapterService) {
     this.games = {}
     this.players = {}
     this.eventBus.registerHandler('GameCreated', this)
@@ -29,6 +32,10 @@ export class GameProjectionService implements EventHandler {
     this.eventBus.registerHandler('PlayerBaseDecksLoaded', this)
     this.eventBus.registerHandler('CardPlayedToArchiveEvent', this)
     this.eventBus.registerHandler('CardPlayerFromHand', this)
+    this.eventBus.registerHandler('DisplayCitizenLanePlaySlots', this)
+    this.eventBus.registerHandler('DisplayBuildingLanePlaySlots', this)
+    this.eventBus.registerHandler('CardPlayedToBuildingLane', this)
+    this.eventBus.registerHandler('CardPlayedToCitizenLane', this)
   }
 
   execute(event: GameEvent): void {
@@ -47,6 +54,18 @@ export class GameProjectionService implements EventHandler {
         break;
       case 'CardPlayerFromHand':
         this.handleCardPlayedFromHandEvent(event);
+        break;
+      case 'DisplayCitizenLanePlaySlots':
+        this.handleDisplayCitizenLanePlaySlots(event);
+        break;
+      case 'DisplayBuildingLanePlaySlots':
+        this.handleDisplayBuildingLanePlaySlots(event);
+        break;
+      case 'CardPlayedToBuildingLane':
+        this.handleCardPlayedToBuildingLane(event);
+        break;
+      case 'CardPlayedToCitizenLane':
+        this.handleCardPlayedToCitizenLane(event);
         break;
       default:
         this.errorMessageService.publish({
@@ -136,6 +155,34 @@ export class GameProjectionService implements EventHandler {
   private handleCardPlayerToArchive(event: CardPlayedToArchiveEvent) {
     this.players[event.payload.playerId].pipe(take(1)).subscribe((player) => {
       player.updateArchive(event.payload.archive)
+      this.players[event.payload.playerId].next(player)
+    })
+  }
+
+  private handleDisplayCitizenLanePlaySlots(event: DisplayCitizenLanePlaySlotsEvent) {
+    this.games[event.payload.gameId].pipe(take(1)).subscribe((game) => {
+      game.players.find((player) => player.id === event.payload.playerId)?.showCitizenSlot()
+      this.games[event.payload.gameId].next(game)
+    })
+  }
+
+  private handleDisplayBuildingLanePlaySlots(event: GameEvent) {
+    this.games[event.payload.gameId].pipe(take(1)).subscribe((game) => {
+      game.players.find((player) => player.id === event.payload.playerId)?.showBuildingSlot()
+      this.games[event.payload.gameId].next(game)
+    })
+  }
+
+  private handleCardPlayedToBuildingLane(event: CardPlayedToBuildingLaneEvent) {
+    this.players[event.payload.playerId].pipe(take(1)).subscribe((player) => {
+      player.updateBuildingLane(event.payload.buildingLane)
+      this.players[event.payload.playerId].next(player)
+    })
+  }
+
+  private handleCardPlayedToCitizenLane(event: CardPlayedToCitizenLaneEvent) {
+    this.players[event.payload.playerId].pipe(take(1)).subscribe((player) => {
+      player.updateCitizenLane(event.payload.citizenLane)
       this.players[event.payload.playerId].next(player)
     })
   }

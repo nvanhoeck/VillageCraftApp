@@ -1,5 +1,5 @@
 <div class="building-lane">
-  <ng-container *ngFor="let building of (buildingLane$ | async)">
+  <ng-container *ngFor="let building of (buildingLane$ | async); index as i">
     <ng-container *ngIf="building">
       <div (mouseenter)="handleHoverCard(building.id)" (mouseleave)="handleMouseLeaveCard()"
            class="card-and-action-wrapper">
@@ -11,7 +11,7 @@
       </div>
     </ng-container>
     <ng-container *ngIf="showSlots$ | async">
-      <app-game-card backText="+" cardSide="BACK" cardStyle="PLACEHOLDER"/>
+      <app-card-slot (indexEventEmitter)="handleClickOnSlot($event)" [index]="i + 1" text="+"/>
     </ng-container>
   </ng-container>
   <p>Building Lane</p>

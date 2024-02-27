@@ -7,7 +7,7 @@ import {CommandBusService} from "../command-bus.service";
 import {GameStoreService} from "../../store/game-store.service";
 import {EventBusService} from "../../events/event-bus.service";
 import {GameCreatedEvent} from "../../events";
-import {ErrorMessagesAdapterService} from "../../adapters/events/error-messages-adapter.service";
+import {MessagesAdapterService} from "../../adapters/events/messages-adapter.service";
 
 @Injectable({
   providedIn: 'root'
@@ -18,7 +18,7 @@ export class SetupGameCommandHandlerService implements CommandHandler {
     private commandBus: CommandBusService,
     private gameStore: GameStoreService,
     private eventBus: EventBusService,
-    private errorMessageService: ErrorMessagesAdapterService
+    private errorMessageService: MessagesAdapterService
   ) {
     commandBus.registerHandler('SetupGame', this)
   }

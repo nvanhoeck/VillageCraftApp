@@ -1,13 +1,13 @@
-import { TestBed } from '@angular/core/testing';
+import {TestBed} from '@angular/core/testing';
 
-import { ErrorMessagesAdapterService } from './error-messages-adapter.service';
+import {MessagesAdapterService} from './messages-adapter.service';
 
 describe('ErrorMessagesAdapterService', () => {
-  let service: ErrorMessagesAdapterService;
+  let service: MessagesAdapterService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(ErrorMessagesAdapterService);
+    service = TestBed.inject(MessagesAdapterService);
   });
 
   it('should be created', () => {

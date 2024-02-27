@@ -22,4 +22,21 @@ export class PlayerInfo {
     return this.showBuildingSlots
   }
 
+  showCitizenSlot() {
+    this.showCitizenSlots = true
+  }
+
+  showBuildingSlot() {
+    this.showBuildingSlots = true
+  }
+
+
+  hideCitizenSlot() {
+    this.showCitizenSlots = false
+  }
+
+  hideBuildingSlot() {
+    this.showBuildingSlots = false
+  }
+
 }

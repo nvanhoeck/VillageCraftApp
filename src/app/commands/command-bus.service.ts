@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {Command} from './model/command'
 import {CommandHandler} from "./handlers/command-handler";
 import {BehaviorSubject, take} from "rxjs";
-import {ErrorMessagesAdapterService} from "../adapters/events/error-messages-adapter.service";
+import {MessagesAdapterService} from "../adapters/events/messages-adapter.service";
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +10,7 @@ import {ErrorMessagesAdapterService} from "../adapters/events/error-messages-ada
 export class CommandBusService {
   private handlers$: BehaviorSubject<{ [key: string]: CommandHandler[] }> = new BehaviorSubject({});
 
-  constructor(private readonly errorMessagesAdapter: ErrorMessagesAdapterService) {
+  constructor(private readonly errorMessagesAdapter: MessagesAdapterService) {
   }
 
   registerHandler(command: string, cmdHandler: CommandHandler) {

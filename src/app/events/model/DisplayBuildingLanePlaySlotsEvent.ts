@@ -1,7 +1,6 @@
 import {GameEvent} from './gameEvent'
 
 type DisplayBuildingLanePlaySlotsEventPayload = {
-  cardId: string
   playerId: string
   gameId: string
 }

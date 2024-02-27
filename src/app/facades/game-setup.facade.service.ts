@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {StartGameUseCaseService} from "../use-case/start-game-use-case.service";
 import {GetGameUseCaseService} from "../use-case/get-game-use-case.service";
 import {v4 as uuidv4} from "uuid";
-import {ErrorMessagesAdapterService} from "../adapters/events/error-messages-adapter.service";
+import {MessagesAdapterService} from "../adapters/events/messages-adapter.service";
 import {EMPTY, isEmpty, map} from "rxjs";
 import {GetPlayerUseCaseService} from "../use-case/get-player-use-case.service";
 
@@ -14,7 +14,7 @@ export class GameSetupFacadeService {
   private playerId = 'niko'
 
   constructor(private startGameUseCase: StartGameUseCaseService, private getGameUseCase: GetGameUseCaseService,
-              private errorMessageService: ErrorMessagesAdapterService, private getPlayerUseCase: GetPlayerUseCaseService) {
+              private errorMessageService: MessagesAdapterService, private getPlayerUseCase: GetPlayerUseCaseService) {
   }
 
   public setupPlayerVsPcGame() {

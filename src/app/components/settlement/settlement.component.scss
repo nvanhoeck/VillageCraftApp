@@ -1,7 +1,16 @@
+@import "1-settings";
+
 .card-and-action-wrapper {
   transition: scale 0.5s ease;
 
   &:hover {
     transform: scale(1.1);
   }
+}
+
+.settlement {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: $gutter;
 }

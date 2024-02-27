@@ -4,11 +4,12 @@ import {NavbarComponent} from "./components/shared/navbar";
 import {CommandHandlersRegistryService} from "./commands/command-handlers-registry.service";
 import {ErrorMessagesToastComponent} from "./components/error-messages-toast/error-messages-toast.component";
 import {EventHandlersRegistryService} from "./events/event-handlers-registry.service";
+import {GameMessagesToastComponent} from "./components/game-messages-toast/game-messages-toast.component";
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, NavbarComponent, ErrorMessagesToastComponent],
+  imports: [RouterOutlet, NavbarComponent, ErrorMessagesToastComponent, GameMessagesToastComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
   providers: [CommandHandlersRegistryService, EventHandlersRegistryService]

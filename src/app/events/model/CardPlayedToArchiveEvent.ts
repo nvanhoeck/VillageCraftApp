@@ -10,7 +10,7 @@ type CardPlayedToArchivePayload = {
 export class CardPlayedToArchiveEvent extends GameEvent {
 
   public constructor(payload: CardPlayedToArchivePayload) {
-    super('CardPlayedToArchiveEvent', payload)
+    super('CardPlayedToArchive', payload)
   }
 
   public override get payload(): CardPlayedToArchivePayload {

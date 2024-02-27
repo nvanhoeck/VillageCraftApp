@@ -3,14 +3,14 @@ import {CommandBusService} from "../commands/command-bus.service";
 import {PlayCardFromToCommand} from "../commands/model/play-card-from-to-command";
 import {GameSpace} from "../domain/game-space";
 import {PlayCardSagaService} from "../sagas/play-card-saga.service";
-import {ErrorMessagesAdapterService} from "../adapters/events/error-messages-adapter.service";
+import {MessagesAdapterService} from "../adapters/events/messages-adapter.service";
 
 @Injectable({
   providedIn: 'root'
 })
 export class PlayCardFromToUseCaseService {
 
-  constructor(private commandBus: CommandBusService, private playCardSaga: PlayCardSagaService, private errorMessageService: ErrorMessagesAdapterService) {
+  constructor(private commandBus: CommandBusService, private playCardSaga: PlayCardSagaService, private errorMessageService: MessagesAdapterService) {
   }
 
   playCardFromTo(from: GameSpace, to: GameSpace, cardId: string, playerId: string, gameId: string) {
