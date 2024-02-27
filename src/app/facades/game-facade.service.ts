@@ -10,6 +10,8 @@ import {GetPlayerGraveyardUseCaseService} from "../use-case/get-player-graveyard
 import {GetPlayerBanishmentUseCaseService} from "../use-case/get-player-banishment-use-case.service";
 import {PlayCardFromToUseCaseService} from "../use-case/play-card-from-to-use-case.service";
 import {GameSetupFacadeService} from "./game-setup.facade.service";
+import {GameSpace} from "../domain/game-space";
+import {ShouldShowSlotsForPlayerUseCaseService} from "../use-case/should-show-slots-for-player-use-case.service";
 
 @Injectable({
   providedIn: 'root'
@@ -28,6 +30,7 @@ export class GameFacadeService {
               private getPlayerDiscardPileUseCaseService: GetPlayerDiscardPileUseCaseService,
               private getPlayerGraveyardUseCaseService: GetPlayerGraveyardUseCaseService,
               private getPlayerBanishmentUseCaseService: GetPlayerBanishmentUseCaseService,
+              private shouldShowSlotsForPlayerUseCaseService: ShouldShowSlotsForPlayerUseCaseService,
               private playerCardFromUseCaseService: PlayCardFromToUseCaseService,
   ) {
   }
@@ -71,7 +74,15 @@ export class GameFacadeService {
 
   }
 
-  playCardFromTo(from: 'HAND', to: 'ARCHIVE', cardId: string) {
-    this.playerCardFromUseCaseService.playCardFromTo(from, to, cardId, this.playerId, this.gameId)
+  playCardFromTo(from: GameSpace, to: GameSpace, cardId: string) {
+    this.playerCardFromUseCaseService.playCardFromTo(from, to, cardId, this.playerId, this.gameId!)
+  }
+
+  showSlots$(slotType: 'citizen' | 'building') {
+    if (slotType === 'citizen') {
+      return this.shouldShowSlotsForPlayerUseCaseService.shouldShowCitizenSlotsForPlayer$(this.playerId, this.gameId!)
+    } else {
+      return this.shouldShowSlotsForPlayerUseCaseService.shouldShowBuildingSlotsForPlayer$(this.playerId, this.gameId!)
+    }
   }
 }

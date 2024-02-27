@@ -13,4 +13,8 @@ export class Lane {
   addCard(card: GameCard) {
     this.lane.push(card)
   }
+
+  findCardsInLane() {
+    return this.lane
+  }
 }

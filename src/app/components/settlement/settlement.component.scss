@@ -1,0 +1,7 @@
+.card-and-action-wrapper {
+  transition: scale 0.5s ease;
+
+  &:hover {
+    transform: scale(1.1);
+  }
+}

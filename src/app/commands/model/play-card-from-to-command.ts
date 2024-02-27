@@ -1,9 +1,10 @@
 import {Command} from "./command";
+import {GameSpace} from "../../domain/game-space";
 
 
 type PlayCardFromToCommandPayload = {
-  from: 'HAND',
-  to: 'ARCHIVE',
+  from: GameSpace,
+  to: GameSpace,
   cardId: string,
   playerId: string,
   gameId: string

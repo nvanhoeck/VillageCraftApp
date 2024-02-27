@@ -19,16 +19,19 @@ export class PlayerHandComponent {
   hand$ = this.gameFacade.getPlayerHand$()
 
   actions = [{
+    origin: 'HAND',
     actionType: 'PLAY',
     icon: 'arrow_right',
     hide$: of(false),
   },
     {
+      origin: 'HAND',
       actionType: 'ARCHIVE',
       icon: 'archive',
       hide$: this.gameFacade.getPlayerArchive$().pipe(map((gc) => !!gc))
     },
     {
+      origin: 'HAND',
       actionType: 'INFO',
       icon: 'info',
       hide$: of(false)

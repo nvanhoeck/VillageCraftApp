@@ -88,6 +88,14 @@ export class GameProjectionService implements EventHandler {
     return this.games[gameId].asObservable()
   }
 
+  shouldShowCitizenSlotFor$(playerId: string, gameId: string) {
+    return this.games[gameId].pipe(map((game) => game.players.find((playerInfo) => playerInfo?.id === playerId)?.shouldShowCitizenSlot() ?? false))
+  }
+
+  shouldShowBuildingSlotFor$(playerId: string, gameId: string) {
+    return this.games[gameId].pipe(map((game) => game.players.find((playerInfo) => playerInfo?.id === playerId)?.shouldShowBuildingSlot() ?? false))
+  }
+
   private handleGameCreatedEvent(event: GameCreatedEvent) {
     this.games[event.payload.id] = new BehaviorSubject<Game>(new Game(event.payload.id, event.payload.type))
   }

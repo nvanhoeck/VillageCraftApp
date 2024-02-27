@@ -66,6 +66,8 @@ export class Player {
         //Regular Citizen
         case "4":
           this._citizenLane.addCard(card);
+          this._citizenLane.addCard({...card, id: uuidv4()});
+          this._citizenLane.addCard({...card, id: uuidv4()});
           this._deck.push({...card, id: uuidv4()})
           break
         default:

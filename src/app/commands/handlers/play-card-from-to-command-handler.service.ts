@@ -5,9 +5,10 @@ import {CommandBusService} from "../command-bus.service";
 import {GameStoreService} from "../../store/game-store.service";
 import {EventBusService} from "../../events/event-bus.service";
 import {ErrorMessagesAdapterService} from "../../adapters/events/error-messages-adapter.service";
-import {isPlayCardFromToCommand} from "../model/play-card-from-to-command";
+import {isPlayCardFromToCommand, PlayCardFromToCommand} from "../model/play-card-from-to-command";
 import {CardPlayedToArchiveEvent} from "../../events/model/CardPlayedToArchiveEvent";
 import {CardPlayerFromHandEvent} from "../../events/model/CardPlayedFromHandEvent";
+import {Game} from "../../domain/game";
 
 @Injectable({
   providedIn: 'root'
@@ -27,19 +28,7 @@ export class PlayCardFromToCommandHandlerService implements CommandHandler {
     if (isPlayCardFromToCommand(cmd)) {
       const game = this.gameStore.get(cmd.payload.gameId);
       if (cmd.payload.from === 'HAND' && cmd.payload.to === 'ARCHIVE') {
-        game.playCardFromHandToArchive(cmd.payload.playerId, cmd.payload.cardId)
-        const hand = game.players.find((player) => player.id === cmd.payload.playerId)?.findHand()
-        const archive = game.players.find((player) => player.id === cmd.payload.playerId)?.findArchive()
-        this.eventBus.on(new CardPlayerFromHandEvent({
-          playerHand: hand!,
-          playerId: cmd.payload.playerId,
-          gameId: cmd.payload.gameId
-        }))
-        this.eventBus.on(new CardPlayedToArchiveEvent({
-          archive: archive!,
-          playerId: cmd.payload.playerId,
-          gameId: cmd.payload.gameId
-        }))
+        this.handlePlayCardFromHandToArchive(game, cmd);
       } else {
         this.errorMessageService.publish({
           level: 'ERROR',
@@ -53,5 +42,21 @@ export class PlayCardFromToCommandHandlerService implements CommandHandler {
         topic: "APPLICATION-ERROR"
       })
     }
+  }
+
+  private handlePlayCardFromHandToArchive(game: Game, cmd: PlayCardFromToCommand) {
+    game.playCardFromHandToArchive(cmd.payload.playerId, cmd.payload.cardId)
+    const hand = game.players.find((player) => player.id === cmd.payload.playerId)?.findHand()
+    const archive = game.players.find((player) => player.id === cmd.payload.playerId)?.findArchive()
+    this.eventBus.on(new CardPlayerFromHandEvent({
+      playerHand: hand!,
+      playerId: cmd.payload.playerId,
+      gameId: cmd.payload.gameId
+    }))
+    this.eventBus.on(new CardPlayedToArchiveEvent({
+      archive: archive!,
+      playerId: cmd.payload.playerId,
+      gameId: cmd.payload.gameId
+    }))
   }
 }

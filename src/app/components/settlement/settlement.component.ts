@@ -20,6 +20,7 @@ export class SettlementComponent {
 
   defaultCard = DefaultGameCard
   actions = [{
+    origin: 'SETTLEMENT',
     actionType: 'INFO',
     icon: 'info',
     hide$: of(false)

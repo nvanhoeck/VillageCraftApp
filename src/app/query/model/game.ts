@@ -1,4 +1,5 @@
 import {GameType} from "./game-type";
+import {PlayerInfo} from "./player-info";
 
 type GameStatus = 'ADDING_PLAYERS'
 
@@ -28,14 +29,14 @@ export class Game {
     return this._gameType
   }
 
-  private _players: string[]
+  private _players: PlayerInfo[]
 
   public get players() {
     return this._players
   }
 
   public handlePlayerAdded(playerId: string) {
-    this._players.push(playerId)
+    this._players.push(new PlayerInfo(playerId))
   }
 
 

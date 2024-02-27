@@ -6,15 +6,17 @@
     <!--    </div>-->
     <!--    <div class="player_banish">banish</div>-->
     <!--    <div class="player_graveyard">graveyard</div>-->
-    <div *ngIf="playerIds.length > 1" class="player_settlement">
-      <app-settlement></app-settlement>
+    <div class="player_lanes">
+      <div class="player_units">
+        <app-citizen-lane></app-citizen-lane>
+      </div>
+      <div class="player_buildings">
+        <div *ngIf="playerIds.length > 1" class="player_settlement">
+          <app-settlement></app-settlement>
+        </div>
+        <app-building-lane></app-building-lane>
+      </div>
     </div>
-    <!--    <div class="player_building">-->
-    <!--      <app-building-lane></app-building-lane>-->
-    <!--    </div>-->
-    <!--    <div class="player_units">-->
-    <!--      <app-citizen-lane></app-citizen-lane>-->
-    <!--    </div>-->
     <div class="player_zone">
       <div class="player_deck">
         <app-player-deck></app-player-deck>
