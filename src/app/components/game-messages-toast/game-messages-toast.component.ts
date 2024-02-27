@@ -33,6 +33,6 @@ export class GameMessagesToastComponent {
           this.messages$.next(msgs)
         }
       })
-    }, 10000)
+    }, 4000)
   }
 }

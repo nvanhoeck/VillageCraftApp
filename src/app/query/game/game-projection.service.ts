@@ -14,6 +14,8 @@ import {CardPlayedToArchiveEvent} from "../../events/model/CardPlayedToArchiveEv
 import {DisplayCitizenLanePlaySlotsEvent} from "../../events/model/DisplayCitizenLanePlaySlotsEvent";
 import {CardPlayedToBuildingLaneEvent} from "../../events/model/CardPlayedToBuildingLaneEvent";
 import {CardPlayedToCitizenLaneEvent} from "../../events/model/CardPlayedToCitizenLaneEvent";
+import {HideBuildingLanePlaySlotsEvent} from "../../events/model/HideBuildingLanePlaySlotsEvent";
+import {HideCitizenLanePlaySlotsEvent} from "../../events/model/HideCitizenLanePlaySlotsEvent";
 
 @Injectable({
   providedIn: 'root'
@@ -33,7 +35,9 @@ export class GameProjectionService implements EventHandler {
     this.eventBus.registerHandler('CardPlayedToArchiveEvent', this)
     this.eventBus.registerHandler('CardPlayerFromHand', this)
     this.eventBus.registerHandler('DisplayCitizenLanePlaySlots', this)
+    this.eventBus.registerHandler('HideCitizenLanePlaySlots', this)
     this.eventBus.registerHandler('DisplayBuildingLanePlaySlots', this)
+    this.eventBus.registerHandler('HideBuildingLanePlaySlots', this)
     this.eventBus.registerHandler('CardPlayedToBuildingLane', this)
     this.eventBus.registerHandler('CardPlayedToCitizenLane', this)
   }
@@ -60,6 +64,12 @@ export class GameProjectionService implements EventHandler {
         break;
       case 'DisplayBuildingLanePlaySlots':
         this.handleDisplayBuildingLanePlaySlots(event);
+        break;
+      case 'HideCitizenLanePlaySlots':
+        this.handleHideCitizenLanePlaySlots(event);
+        break;
+      case 'HideBuildingLanePlaySlots':
+        this.handleHideBuildingLanePlaySlots(event);
         break;
       case 'CardPlayedToBuildingLane':
         this.handleCardPlayedToBuildingLane(event);
@@ -184,6 +194,20 @@ export class GameProjectionService implements EventHandler {
     this.players[event.payload.playerId].pipe(take(1)).subscribe((player) => {
       player.updateCitizenLane(event.payload.citizenLane)
       this.players[event.payload.playerId].next(player)
+    })
+  }
+
+  private handleHideBuildingLanePlaySlots(event: HideBuildingLanePlaySlotsEvent) {
+    this.games[event.payload.gameId].pipe(take(1)).subscribe((game) => {
+      game.players.find((player) => player.id === event.payload.playerId)?.hideBuildingSlot()
+      this.games[event.payload.gameId].next(game)
+    })
+  }
+
+  private handleHideCitizenLanePlaySlots(event: HideCitizenLanePlaySlotsEvent) {
+    this.games[event.payload.gameId].pipe(take(1)).subscribe((game) => {
+      game.players.find((player) => player.id === event.payload.playerId)?.hideCitizenSlot()
+      this.games[event.payload.gameId].next(game)
     })
   }
 }
