@@ -1,3 +1,10 @@
 <ng-container *ngIf="(settlement$ | async) as settlement">
-  <app-game-card [cardStyle]="'SMALL'" [card]="settlement"></app-game-card>
+  <div (mouseenter)="isHovered = true" (mouseleave)="isHovered=false" *ngIf="settlement?.id"
+       class="card-and-action-wrapper">
+    <app-card-actions-wrapper>
+      <app-game-card [cardStyle]="'SMALL'" [card]="settlement"></app-game-card>
+      <app-card-actions *ngIf="isHovered" [actions]="actions" [cardId]="settlement.id"
+                        cardButtons/>
+    </app-card-actions-wrapper>
+  </div>
 </ng-container>

@@ -4,7 +4,7 @@ import {GameCardComponent} from "../game-card/game-card.component";
 import {CommonModule} from "@angular/common";
 import {CardActionsWrapperComponent} from "../card-actions-wrapper/card-actions-wrapper.component";
 import {CardActionsComponent, CardBtnAction} from "../card-actions/card-actions.component";
-import {map} from "rxjs";
+import {map, of} from "rxjs";
 
 @Component({
   selector: 'app-player-hand',
@@ -21,7 +21,7 @@ export class PlayerHandComponent {
   actions = [{
     actionType: 'PLAY',
     icon: 'arrow_right',
-    hide$: false,
+    hide$: of(false),
   },
     {
       actionType: 'ARCHIVE',
@@ -31,7 +31,7 @@ export class PlayerHandComponent {
     {
       actionType: 'INFO',
       icon: 'info',
-      hide$: false
+      hide$: of(false)
     }] as CardBtnAction[]
 
   constructor(private readonly gameFacade: GameFacadeService) {

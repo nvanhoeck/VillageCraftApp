@@ -1,8 +1,13 @@
-<p *ngIf="(archive$ | async) as archive; else noArchive" class="player_deck">
-  <ng-container *ngIf="archive?.id">
-    <app-game-card [card]="archive" cardSide="FRONT" cardStyle="SMALL"/>
-  </ng-container>
-</p>
+<ng-container *ngIf="(archive$ | async) as archive; else noArchive" class="player_deck">
+  <div (mouseenter)="isHovered = true" (mouseleave)="isHovered=false" *ngIf="archive?.id"
+       class="card-and-action-wrapper">
+    <app-card-actions-wrapper>
+      <app-game-card [card]="archive" cardSide="FRONT" cardStyle="SMALL"/>
+      <app-card-actions *ngIf="isHovered" [actions]="actions" [cardId]="archive.id"
+                        cardButtons/>
+    </app-card-actions-wrapper>
+  </div>
+</ng-container>
 <ng-template #noArchive>
   <app-game-card [placeholderLabel]="'Archive'" cardStyle="PLACEHOLDER"/>
 </ng-template>
