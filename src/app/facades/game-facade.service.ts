@@ -13,6 +13,8 @@ import {GameSetupFacadeService} from "./game-setup.facade.service";
 import {GameSpace} from "../domain/game-space";
 import {ShouldShowSlotsForPlayerUseCaseService} from "../use-case/should-show-slots-for-player-use-case.service";
 import {PlayerSelectSlotsForCardUseCaseService} from "../use-case/player-select-slots-for-card-use-case.service";
+import {GetPlayerResourceUseCaseService} from "../use-case/get-player-resource-use-case.service";
+import {map} from "rxjs";
 
 @Injectable({
   providedIn: 'root'
@@ -34,6 +36,7 @@ export class GameFacadeService {
               private shouldShowSlotsForPlayerUseCaseService: ShouldShowSlotsForPlayerUseCaseService,
               private playerSelectSlotsForCardUseCaseService: PlayerSelectSlotsForCardUseCaseService,
               private playerCardFromUseCaseService: PlayCardFromToUseCaseService,
+              private getPlayerResourceUseCaseService: GetPlayerResourceUseCaseService
   ) {
   }
 
@@ -94,5 +97,13 @@ export class GameFacadeService {
 
   buildingSlotSelected(index: number) {
     this.playerSelectSlotsForCardUseCaseService.selectBuilingLaneSlot(index, this.gameId!, this.playerId)
+  }
+
+  getWood$() {
+    return this.getPlayerResourceUseCaseService.getPlayerResources$(this.gameId!, this.playerId).pipe(map((resources) => resources.wood))
+  }
+
+  getGrain$() {
+    return this.getPlayerResourceUseCaseService.getPlayerResources$(this.gameId!, this.playerId).pipe(map((resources) => resources.grain))
   }
 }

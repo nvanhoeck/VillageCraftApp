@@ -14,13 +14,14 @@ import {GraveyardComponent} from "../graveyard/graveyard.component";
 import {GamePhaseFacadeService} from "../../facades/game-phase-facade.service";
 import {map, switchMap} from "rxjs";
 import {ButtonComponent} from "../shared/button";
+import {PlayerInterfaceComponent} from "../player-interface/player-interface.component";
 
 @Component({
   selector: 'app-game',
   standalone: true,
   imports: [CommonModule, SettlementComponent, PlayerHandComponent, PlayerDeckComponent, ArchiveComponent,
     CitizenLaneComponent, BuildingLaneComponent, DragScrollComponent, DragScrollItemDirective, DiscardPileComponent,
-    BanishmentComponent, GraveyardComponent, ButtonComponent
+    BanishmentComponent, GraveyardComponent, ButtonComponent, PlayerInterfaceComponent
   ],
   templateUrl: './game.component.html',
   styleUrl: './game.component.scss'

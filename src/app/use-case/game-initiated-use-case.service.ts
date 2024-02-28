@@ -11,7 +11,6 @@ export class GameInitiatedUseCaseService {
   }
 
   initiateGame(gameId: string) {
-    debugger
     this.commandBus.on(new InitiateGameCommand({gameId}))
   }
 }

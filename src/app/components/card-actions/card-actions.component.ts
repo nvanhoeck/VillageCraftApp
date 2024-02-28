@@ -34,7 +34,6 @@ export class CardActionsComponent {
   }
 
   handleClick(origin: GameSpace, actionType: CardActionTypes) {
-    debugger
     switch (actionType) {
       case "ARCHIVE":
         this.gameFacade.playCardFromTo(origin, 'ARCHIVE', this.card!.id);

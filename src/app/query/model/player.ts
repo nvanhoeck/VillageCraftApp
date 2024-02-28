@@ -23,6 +23,8 @@ export class Player {
   private _playerType: PlayerType
   private _graveyard: GameCardVO[]
   private _banishment: GameCardVO[]
+  private _wood: number
+  private _grain: number
 
   constructor(id: string, playerType: PlayerType) {
     this._id = id
@@ -36,7 +38,10 @@ export class Player {
     this._graveyard = []
     this._banishment = []
     this._playerType = playerType
+    this._wood = 0
+    this._grain = 0
   }
+
 
   updateSettlement(settlement: GameBuildingCard) {
     this._settlement = this.mapDomainCardToVO(settlement)
@@ -108,6 +113,13 @@ export class Player {
 
   findBanishment() {
     return this._banishment
+  }
+
+  getResources() {
+    return {
+      wood: this._wood,
+      grain: this._grain
+    };
   }
 
   private mapDomainCardToVO(card: GameCitizenCard | GameBuildingCard | GameEventCard) {

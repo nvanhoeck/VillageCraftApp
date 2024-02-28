@@ -144,6 +144,10 @@ export class GameProjectionService implements EventHandler {
     return this.games[gameId].pipe(map((game) => game.gameStatus))
   }
 
+  getPlayerResources$(gameId: string, playerId: string) {
+    return this.players[playerId].pipe(map((player) => player.getResources()))
+  }
+
   private handleGameCreatedEvent(event: GameCreatedEvent) {
     this.games[event.payload.id] = new BehaviorSubject<Game>(new Game(event.payload.id, event.payload.type))
   }
