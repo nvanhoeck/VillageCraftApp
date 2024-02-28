@@ -5,11 +5,12 @@ import {CommandHandlersRegistryService} from "./commands/command-handlers-regist
 import {ErrorMessagesToastComponent} from "./components/error-messages-toast/error-messages-toast.component";
 import {EventHandlersRegistryService} from "./events/event-handlers-registry.service";
 import {GameMessagesToastComponent} from "./components/game-messages-toast/game-messages-toast.component";
+import {MessageOverlayComponent} from "./components/shared/message-overlay/message-overlay.component";
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, NavbarComponent, ErrorMessagesToastComponent, GameMessagesToastComponent],
+  imports: [RouterOutlet, NavbarComponent, ErrorMessagesToastComponent, GameMessagesToastComponent, MessageOverlayComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
   providers: [CommandHandlersRegistryService, EventHandlersRegistryService]

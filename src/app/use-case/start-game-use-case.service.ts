@@ -4,6 +4,7 @@ import {SetupGameCommand} from "../commands/model/setup-game-command";
 import {SetupPlayerCommand} from "../commands/model/setup-player-command";
 import {LoadPlayerBaseDecksCommand} from "../commands/model/load-player-base-decks-command";
 import {v4 as uuidv4} from "uuid";
+import {MulliganPhaseCommand} from "../commands/model/mulligan-phase-command";
 
 @Injectable({
   providedIn: 'root'
@@ -25,7 +26,9 @@ export class StartGameUseCaseService {
     //Load deck for players
     this.commandBus.on(new LoadPlayerBaseDecksCommand({gameId, playerIds: [playerIdPc, playerIdHuman]}))
     //Draw starting cards pc
+    // TODO
     //Draw starting cards player
+    this.commandBus.on(new MulliganPhaseCommand({gameId}))
     //Done
   }
 }

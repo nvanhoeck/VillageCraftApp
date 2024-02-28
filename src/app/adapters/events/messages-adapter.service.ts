@@ -8,9 +8,7 @@ import {ApplicationMessageListener} from "./application-message-listener";
 export class MessagesAdapterService {
   private applicationMessageHandlers: { [key: string]: ApplicationMessageListener[] } = {}
 
-  constructor() {
-  }
-
+  
   public publish(applicationMessage: ApplicationMessage) {
     if (this.applicationMessageHandlers[applicationMessage.topic]) {
       this.applicationMessageHandlers[applicationMessage.topic].forEach((listener) => {

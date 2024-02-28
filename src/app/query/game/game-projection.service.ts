@@ -16,6 +16,7 @@ import {CardPlayedToBuildingLaneEvent} from "../../events/model/CardPlayedToBuil
 import {CardPlayedToCitizenLaneEvent} from "../../events/model/CardPlayedToCitizenLaneEvent";
 import {HideBuildingLanePlaySlotsEvent} from "../../events/model/HideBuildingLanePlaySlotsEvent";
 import {HideCitizenLanePlaySlotsEvent} from "../../events/model/HideCitizenLanePlaySlotsEvent";
+import {MulliganPhaseStartedEvent} from "../../events/model/MulliganPhaseStartedEvent";
 
 @Injectable({
   providedIn: 'root'
@@ -76,6 +77,9 @@ export class GameProjectionService implements EventHandler {
         break;
       case 'CardPlayedToCitizenLane':
         this.handleCardPlayedToCitizenLane(event);
+        break;
+      case 'MulliganPhaseStarted':
+        this.handleMulliganPhaseStarted(event);
         break;
       default:
         this.errorMessageService.publish({
@@ -207,6 +211,13 @@ export class GameProjectionService implements EventHandler {
   private handleHideCitizenLanePlaySlots(event: HideCitizenLanePlaySlotsEvent) {
     this.games[event.payload.gameId].pipe(take(1)).subscribe((game) => {
       game.players.find((player) => player.id === event.payload.playerId)?.hideCitizenSlot()
+      this.games[event.payload.gameId].next(game)
+    })
+  }
+
+  private handleMulliganPhaseStarted(event: MulliganPhaseStartedEvent) {
+    this.games[event.payload.gameId].pipe(take(1)).subscribe((game) => {
+      game.startMulliganPhase()
       this.games[event.payload.gameId].next(game)
     })
   }

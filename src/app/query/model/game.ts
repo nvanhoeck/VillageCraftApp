@@ -1,14 +1,14 @@
 import {GameType} from "./game-type";
 import {PlayerInfo} from "./player-info";
 
-type GameStatus = 'ADDING_PLAYERS'
+type GameStatus = 'SETUP' | 'MULLIGAN'
 
 export class Game {
   constructor(id: string, gameType: GameType) {
     this._id = id
     this._gameType = gameType
     this._players = []
-    this._gameStatus = 'ADDING_PLAYERS'
+    this._gameStatus = 'SETUP'
   }
 
   private _gameStatus: GameStatus
@@ -40,4 +40,7 @@ export class Game {
   }
 
 
+  startMulliganPhase() {
+    this._gameStatus = 'MULLIGAN'
+  }
 }
