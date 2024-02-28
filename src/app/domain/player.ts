@@ -1,24 +1,23 @@
 import {PlayerType} from "./player-type";
-import {DefaultGameCard, GameCard} from "./game-card";
-import {Settlement} from "./settlement";
+import {DefaultBuildingCardCard, GameBuildingCard, GameCardDto, GameCitizenCard, GameEventCard} from "./game-card";
 import {shuffleArray} from "../utils/shuffle";
 import {Lane} from "./lane";
 import {v4 as uuidv4} from "uuid";
 
 export class Player {
-  private _deck: GameCard[]
-  private _discardPile: GameCard[]
-  private _graveyard: GameCard[]
-  private _banishment: GameCard[]
-  private _settlement: Settlement
+  private _deck: (GameBuildingCard | GameCitizenCard | GameEventCard)[]
+  private _discardPile: (GameBuildingCard | GameCitizenCard | GameEventCard)[]
+  private _graveyard: (GameBuildingCard | GameCitizenCard | GameEventCard)[]
+  private _banishment: (GameBuildingCard | GameCitizenCard | GameEventCard)[]
+  private _settlement: GameBuildingCard
   private _buildingLane: Lane
   private _citizenLane: Lane
-  private _archive: GameCard | undefined
-  private _hand: GameCard[]
+  private _archive: (GameBuildingCard | GameCitizenCard | GameEventCard) | undefined
+  private _hand: (GameBuildingCard | GameCitizenCard | GameEventCard)[]
 
   constructor(id: string) {
     this._id = id
-    this._settlement = new Settlement(DefaultGameCard)
+    this._settlement = DefaultBuildingCardCard
     this._playerType = 'PC'
     this._buildingLane = new Lane('building')
     this._citizenLane = new Lane('citizen')
@@ -42,37 +41,46 @@ export class Player {
     return this._playerType
   }
 
-  public loadBaseDeck(cards: GameCard[]) {
+  public loadBaseDeck(cards: GameCardDto[]) {
     // Logic for card duplication ?
     cards.forEach((card) => {
-      card.id = uuidv4()
       switch (card.cardId) {
         // Settlement
         case "1":
-          this._settlement = new Settlement(card);
+          this._settlement = new GameBuildingCard(uuidv4(), card.cardId, card.title, card.description, card.cardAffiliation, card.deckLimit, card.actions, card.health!);
           break
         // Farm
         case "2":
-          this._buildingLane.addCard(card, 0)
-          this._deck.push({...card, id: uuidv4()})
-          this._deck.push({...card, id: uuidv4()})
+          this._buildingLane.addCard(new GameBuildingCard(uuidv4(), card.cardId, card.title, card.description, card.cardAffiliation, card.deckLimit, card.actions, card.health!), 0)
+          this._deck.push(new GameBuildingCard(uuidv4(), card.cardId, card.title, card.description, card.cardAffiliation, card.deckLimit, card.actions, card.health!))
+          this._deck.push(new GameBuildingCard(uuidv4(), card.cardId, card.title, card.description, card.cardAffiliation, card.deckLimit, card.actions, card.health!))
           break
         //Lumbermill
         case "3":
-          this._buildingLane.addCard(card, 1)
-          this._deck.push({...card, id: uuidv4()})
-          this._deck.push({...card, id: uuidv4()})
+          this._buildingLane.addCard(new GameBuildingCard(uuidv4(), card.cardId, card.title, card.description, card.cardAffiliation, card.deckLimit, card.actions, card.health!), 1)
+          this._deck.push(new GameBuildingCard(uuidv4(), card.cardId, card.title, card.description, card.cardAffiliation, card.deckLimit, card.actions, card.health!))
+          this._deck.push(new GameBuildingCard(uuidv4(), card.cardId, card.title, card.description, card.cardAffiliation, card.deckLimit, card.actions, card.health!))
           break
         //Regular Citizen
         case "4":
-          this._citizenLane.addCard(card, 0);
-          this._citizenLane.addCard({...card, id: uuidv4()}, 1);
-          this._citizenLane.addCard({...card, id: uuidv4()}, 2);
-          this._deck.push({...card, id: uuidv4()})
+          this._citizenLane.addCard(new GameCitizenCard(uuidv4(), card.cardId, card.title, card.description, card.cardAffiliation, card.deckLimit, card.actions, card.attack!, card.defence!, card.health!), 0);
+          this._citizenLane.addCard(new GameCitizenCard(uuidv4(), card.cardId, card.title, card.description, card.cardAffiliation, card.deckLimit, card.actions, card.attack!, card.defence!, card.health!), 1);
+          this._citizenLane.addCard(new GameCitizenCard(uuidv4(), card.cardId, card.title, card.description, card.cardAffiliation, card.deckLimit, card.actions, card.attack!, card.defence!, card.health!), 2);
+          this._deck.push(new GameCitizenCard(uuidv4(), card.cardId, card.title, card.description, card.cardAffiliation, card.deckLimit, card.actions, card.attack!, card.defence!, card.health!))
           break
         default:
-          this._deck.push(card)
-          this._deck.push({...card, id: uuidv4()})
+          if (card.cardType === 'citizen') {
+            this._deck.push(new GameCitizenCard(uuidv4(), card.cardId, card.title, card.description, card.cardAffiliation, card.deckLimit, card.actions, card.attack!, card.defence!, card.health!),)
+            this._deck.push(new GameCitizenCard(uuidv4(), card.cardId, card.title, card.description, card.cardAffiliation, card.deckLimit, card.actions, card.attack!, card.defence!, card.health!),)
+          }
+          if (card.cardType === 'building') {
+            this._deck.push(new GameBuildingCard(uuidv4(), card.cardId, card.title, card.description, card.cardAffiliation, card.deckLimit, card.actions, card.health!))
+            this._deck.push(new GameBuildingCard(uuidv4(), card.cardId, card.title, card.description, card.cardAffiliation, card.deckLimit, card.actions, card.health!))
+          }
+          if (card.cardType === 'event') {
+            this._deck.push(new GameEventCard(uuidv4(), card.cardId, card.title, card.description, card.cardAffiliation, card.deckLimit, card.actions))
+            this._deck.push(new GameEventCard(uuidv4(), card.cardId, card.title, card.description, card.cardAffiliation, card.deckLimit, card.actions))
+          }
       }
     })
 
@@ -133,7 +141,7 @@ export class Player {
     if (!foundCard) {
       throw new Error('Card not found in hand')
     }
-    if (!!this._archive) {
+    if (this._archive) {
       throw new Error('Archive already has card')
     }
     this._archive = foundCard
@@ -149,24 +157,22 @@ export class Player {
   }
 
   playCardFromHandToCitizenLaneAtSlot(cardId: string, index: number | undefined) {
-    debugger
     if (index === undefined) return;
     const foundCard = this._hand.find((card) => card.id === cardId);
-    if (!foundCard) {
+    if (!foundCard || foundCard.cardType !== 'citizen') {
       throw new Error('Card not found in hand')
     }
-    this._citizenLane.addCard(foundCard, index)
+    this._citizenLane.addCard(foundCard as GameCitizenCard, index)
     this._hand.splice(this._hand.indexOf(foundCard), 1)
   }
 
   playCardFromHandToBuildingLaneAtSlot(cardId: string, index: number | undefined) {
-    debugger
     if (index == undefined) return;
     const foundCard = this._hand.find((card) => card.id === cardId);
-    if (!foundCard) {
+    if (!foundCard || foundCard.cardType !== 'building') {
       throw new Error('Card not found in hand')
     }
-    this._buildingLane.addCard(foundCard, index)
+    this._buildingLane.addCard(foundCard as GameBuildingCard, index)
     this._hand.splice(this._hand.indexOf(foundCard), 1)
   }
 }

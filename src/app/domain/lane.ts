@@ -1,7 +1,7 @@
-import {GameCard} from "./game-card";
+import {GameBuildingCard, GameCitizenCard} from "./game-card";
 
 export class Lane {
-  private lane: GameCard[]
+  private lane: (GameCitizenCard | GameBuildingCard)[]
   private allowedTypes: 'building' | 'citizen'
 
   constructor(allowedTypes: 'building' | 'citizen') {
@@ -10,7 +10,7 @@ export class Lane {
   }
 
 
-  addCard(card: GameCard, index: number) {
+  addCard(card: GameCitizenCard | GameBuildingCard, index: number) {
     this.lane.splice(index, 0, card)
   }
 

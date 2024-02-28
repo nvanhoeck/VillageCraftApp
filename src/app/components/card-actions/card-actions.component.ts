@@ -4,8 +4,8 @@ import {BUTTON_TYPE_CARD_ACTION_SMALL, ButtonComponent} from "../shared/button";
 import {Observable} from "rxjs";
 import {GameFacadeService} from "../../facades/game-facade.service";
 import {GameSpace} from "../../domain/game-space";
-import {GameCard} from "../../domain/game-card";
 import {MessagesAdapterService} from "../../adapters/events/messages-adapter.service";
+import {GameCardVO} from "../../query/model/game-card-vo";
 
 export type CardActionTypes = 'PLAY' | 'ARCHIVE' | 'INFO'
 
@@ -27,7 +27,7 @@ export class CardActionsComponent {
   @Input()
   actions: CardBtnAction[] = []
   @Input()
-  card: GameCard | undefined = undefined
+  card: GameCardVO | undefined = undefined
   cardActionBtnsStyles = BUTTON_TYPE_CARD_ACTION_SMALL
 
   constructor(private gameFacade: GameFacadeService, private errorMessageService: MessagesAdapterService) {

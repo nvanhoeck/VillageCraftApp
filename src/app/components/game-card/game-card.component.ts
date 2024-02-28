@@ -1,6 +1,6 @@
 import {Component, Input} from '@angular/core';
-import {GameCard} from "../../domain/game-card";
 import {CommonModule} from "@angular/common";
+import {GameCardVO} from "../../query/model/game-card-vo";
 
 type CardStyle = 'NORMAL' | 'SMALL' | 'PLACEHOLDER'
 type CardSide = 'FRONT' | 'BACK'
@@ -14,7 +14,7 @@ type CardSide = 'FRONT' | 'BACK'
 })
 export class GameCardComponent {
   @Input()
-  card?: GameCard = undefined;
+  card?: GameCardVO = undefined;
   @Input()
   cardStyle: CardStyle = 'NORMAL'
   @Input()
@@ -24,12 +24,10 @@ export class GameCardComponent {
   @Input()
   backText: string = ''
   @Input()
-  handleHoverHandler?: (cardDetails: GameCard) => void
+  handleHoverHandler?: (cardDetails: GameCardVO) => void
   @Input()
-  handleHoverLeaveHandler?: (cardDetails: GameCard) => void
+  handleHoverLeaveHandler?: (cardDetails: GameCardVO) => void
 
-  constructor() {
-  }
 
   handleHover: ($event: MouseEvent) => void = (event) => {
     if (this.handleHoverHandler && this.card) {
