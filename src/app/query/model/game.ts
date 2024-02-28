@@ -1,7 +1,7 @@
 import {GameType} from "./game-type";
 import {PlayerInfo} from "./player-info";
 
-type GameStatus = 'SETUP' | 'MULLIGAN'
+type GameStatus = 'SETUP' | 'MULLIGAN' | 'PRODUCTION'
 
 export class Game {
   constructor(id: string, gameType: GameType) {
@@ -42,5 +42,9 @@ export class Game {
 
   startMulliganPhase() {
     this._gameStatus = 'MULLIGAN'
+  }
+
+  startProductionPhase() {
+    this._gameStatus = 'PRODUCTION'
   }
 }

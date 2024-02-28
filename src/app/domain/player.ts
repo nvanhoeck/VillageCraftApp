@@ -175,4 +175,16 @@ export class Player {
     this._buildingLane.addCard(foundCard as GameBuildingCard, index)
     this._hand.splice(this._hand.indexOf(foundCard), 1)
   }
+
+  mulligan(cardIds: string[]) {
+    cardIds.forEach((cardId) => {
+      const card = this._hand.find((c) => c.id === cardId)
+      this._deck.push(card!)
+      this._hand.splice(this._hand.indexOf(card!), 1)
+    })
+    this._deck = shuffleArray(this._deck)
+    cardIds.forEach(() => {
+      this._hand.push(this._deck.pop()!)
+    })
+  }
 }

@@ -43,4 +43,8 @@ export class Game {
   startMulliganPhase() {
     this._phase = 'MULLIGAN'
   }
+
+  initiate() {
+    this._phase = 'PRODUCTION'
+  }
 }

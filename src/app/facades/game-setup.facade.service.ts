@@ -5,6 +5,8 @@ import {v4 as uuidv4} from "uuid";
 import {MessagesAdapterService} from "../adapters/events/messages-adapter.service";
 import {EMPTY, isEmpty, map} from "rxjs";
 import {GetPlayerUseCaseService} from "../use-case/get-player-use-case.service";
+import {PlayerMulligansUseCase} from "../use-case/player-mulligans-use-case.service";
+import {GameInitiatedUseCaseService} from "../use-case/game-initiated-use-case.service";
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +16,8 @@ export class GameSetupFacadeService {
   private playerId = 'niko'
 
   constructor(private startGameUseCase: StartGameUseCaseService, private getGameUseCase: GetGameUseCaseService,
-              private errorMessageService: MessagesAdapterService, private getPlayerUseCase: GetPlayerUseCaseService) {
+              private errorMessageService: MessagesAdapterService, private getPlayerUseCase: GetPlayerUseCaseService,
+              private playerMulligansUseCase: PlayerMulligansUseCase, private gameInitiatedUseCase: GameInitiatedUseCaseService) {
   }
 
   public setupPlayerVsPcGame() {
@@ -44,5 +47,10 @@ export class GameSetupFacadeService {
 
   getPlayerIds$() {
     return this.getPlayerUseCase.getPlayerIds$(this.gameId!)
+  }
+
+  selectCardsForPlayer(mulliganCardsSelected: string[]) {
+    this.playerMulligansUseCase.playerMulligans(this.playerId, this.gameId!, mulliganCardsSelected)
+    this.gameInitiatedUseCase.initiateGame(this.gameId!)
   }
 }

@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {GameFacadeService} from "../../facades/game-facade.service";
 import {GameCardComponent} from "../game-card/game-card.component";
 import {CommonModule} from "@angular/common";
@@ -14,6 +14,14 @@ import {map, of} from "rxjs";
   styleUrl: './player-hand.component.scss'
 })
 export class PlayerHandComponent {
+  @Input()
+  hideActions = false
+  @Input()
+  cardSelection: string[] = []
+
+  @Output()
+  cardClickedEvent = new EventEmitter<string>()
+
   hoveredCard = ''
 
   hand$ = this.gameFacade.getPlayerHand$()
@@ -40,6 +48,12 @@ export class PlayerHandComponent {
   constructor(private readonly gameFacade: GameFacadeService) {
   }
 
+  handleCardClicked(cardId: string) {
+    if (this.cardClickedEvent) {
+      this.cardClickedEvent.emit(cardId)
+    }
+  }
+
   handleCardHover(cardId: string) {
     this.hoveredCard = cardId
   }
@@ -50,5 +64,9 @@ export class PlayerHandComponent {
 
   isHovered(id: string) {
     return this.hoveredCard === id
+  }
+
+  cardSelected(id: string) {
+    return !!this.cardSelection.find((cardId) => cardId === id);
   }
 }

@@ -17,6 +17,8 @@ import {CardPlayedToCitizenLaneEvent} from "../../events/model/CardPlayedToCitiz
 import {HideBuildingLanePlaySlotsEvent} from "../../events/model/HideBuildingLanePlaySlotsEvent";
 import {HideCitizenLanePlaySlotsEvent} from "../../events/model/HideCitizenLanePlaySlotsEvent";
 import {MulliganPhaseStartedEvent} from "../../events/model/MulliganPhaseStartedEvent";
+import {PlayerMulliganedEvent} from "../../events/model/PlayerMulliganed";
+import {GameInitiatedEvent} from "../../events/model/GameInitiatedEvent";
 
 @Injectable({
   providedIn: 'root'
@@ -41,6 +43,9 @@ export class GameProjectionService implements EventHandler {
     this.eventBus.registerHandler('HideBuildingLanePlaySlots', this)
     this.eventBus.registerHandler('CardPlayedToBuildingLane', this)
     this.eventBus.registerHandler('CardPlayedToCitizenLane', this)
+    this.eventBus.registerHandler('MulliganPhaseStarted', this)
+    this.eventBus.registerHandler('PlayerMulliganed', this)
+    this.eventBus.registerHandler('GameInitiated', this)
   }
 
   execute(event: GameEvent): void {
@@ -80,6 +85,12 @@ export class GameProjectionService implements EventHandler {
         break;
       case 'MulliganPhaseStarted':
         this.handleMulliganPhaseStarted(event);
+        break;
+      case 'PlayerMulliganed':
+        this.playerMulliganed(event)
+        break;
+      case 'GameInitiated':
+        this.handleGameInitiated(event)
         break;
       default:
         this.errorMessageService.publish({
@@ -127,6 +138,10 @@ export class GameProjectionService implements EventHandler {
 
   shouldShowBuildingSlotFor$(playerId: string, gameId: string) {
     return this.games[gameId].pipe(map((game) => game.players.find((playerInfo) => playerInfo?.id === playerId)?.shouldShowBuildingSlot() ?? false))
+  }
+
+  getGamePhase$(gameId: string) {
+    return this.games[gameId].pipe(map((game) => game.gameStatus))
   }
 
   private handleGameCreatedEvent(event: GameCreatedEvent) {
@@ -218,6 +233,21 @@ export class GameProjectionService implements EventHandler {
   private handleMulliganPhaseStarted(event: MulliganPhaseStartedEvent) {
     this.games[event.payload.gameId].pipe(take(1)).subscribe((game) => {
       game.startMulliganPhase()
+      this.games[event.payload.gameId].next(game)
+    })
+  }
+
+  private playerMulliganed(event: PlayerMulliganedEvent) {
+    this.players[event.payload.player.id].pipe(take(1)).subscribe((player) => {
+      player.updateHand(event.payload.player.findHand())
+      player.updateDeck(event.payload.player.findDeck())
+      this.players[event.payload.player.id].next(player)
+    })
+  }
+
+  private handleGameInitiated(event: GameInitiatedEvent) {
+    this.games[event.payload.gameId].pipe(take(1)).subscribe((game) => {
+      game.startProductionPhase()
       this.games[event.payload.gameId].next(game)
     })
   }
