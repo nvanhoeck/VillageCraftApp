@@ -45,4 +45,8 @@ export class GamePhaseFacadeService implements EventHandler {
   getGamePhase$(gameId: string) {
     return this.gameProjectionService.getGamePhase$(gameId);
   }
+
+  getGamePhase(gameId: string) {
+    return this.gameProjectionService.getGamePhase(gameId);
+  }
 }

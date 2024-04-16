@@ -3,7 +3,7 @@
        class="card-and-action-wrapper">
     <app-card-actions-wrapper>
       <app-game-card [card]="archive" cardSide="FRONT" cardStyle="SMALL"/>
-      <app-card-actions *ngIf="isHovered" [actions]="actions" [card]="archive"
+      <app-card-actions *ngIf="isHovered" [defaultActions]="actions" [card]="archive" [origin]="'ARCHIVE'"
                         cardButtons/>
     </app-card-actions-wrapper>
   </div>

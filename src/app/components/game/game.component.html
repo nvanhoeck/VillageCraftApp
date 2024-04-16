@@ -1,8 +1,8 @@
-<section *ngIf="(gamePhase$|async) === 'MULLIGAN'; else game">
+<section *ngIf="(gamePhase$|async) === 'mulligan'; else game">
   <section class="mulligan-overview">
     <div class="player-hand-mulligan">
       <app-player-hand (cardClickedEvent)="handleMulliganCardClicked($event)" [cardSelection]="mulliganCardsSelected"
-                       [hideActions]="(gamePhase$|async) === 'MULLIGAN'"></app-player-hand>
+                       [hideActions]="(gamePhase$|async) === 'mulligan'"></app-player-hand>
       <app-button (click)="mulliganCardsSelect()" text="Replace selected cards"></app-button>
     </div>
   </section>

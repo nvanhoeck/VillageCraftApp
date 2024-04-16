@@ -1,15 +1,28 @@
+import {GameSpace} from "./game-space";
+
 type CardType = 'unit' | 'building' | 'settlement' | 'event' | 'citizen'
 type CardAffilitation = 'base' | 'diplomacy' | 'military' | 'treasury' | 'learning' | 'visionary'
-type GamePhase = 'draw' | 'production' | 'action' | 'combat' | 'refresh' | 'consumption' | 'end_turn'
+export type GamePhase = 'setup' | 'mulligan' | 'draw' | 'production' | 'action' | 'combat' | 'refresh' | 'consumption' | 'end_turn'
 type Trigger = 'exhaust' | 'deploy' | 'condition' | 'banish' | 'claim' | 'foodGain' | 'build'
 type GameCommand = {} // TODO
 
 type CardAction = {
-  triggers: Trigger[],
+  trigger: Trigger,
   commands: GameCommand[]
   phases: GamePhase[]
   args: any[]
 }
+
+type TriggerRecord = Record<Trigger, GameSpace[]>
+export const TRIGGER_FROM_GAME_SPACE: TriggerRecord = {
+  "exhaust": ['BUILDING_LANE', 'CITIZEN_LANE'],
+  "deploy": ['HAND'],
+  "condition": ['HAND', 'CITIZEN_LANE', 'BUILDING_LANE', 'ARCHIVE', 'SETTLEMENT'],
+  "banish": ['HAND', 'CITIZEN_LANE', 'BUILDING_LANE', 'ARCHIVE', 'SETTLEMENT'],
+  "claim": ['HAND', 'CITIZEN_LANE', 'BUILDING_LANE', 'ARCHIVE', 'SETTLEMENT'],
+  "foodGain": ['CITIZEN_LANE', 'BUILDING_LANE'],
+  "build": ['CITIZEN_LANE', 'BUILDING_LANE']
+};
 
 export const isCitizenCard = (card: GameCard): card is GameCitizenCard => {
   return card.cardType === 'citizen'

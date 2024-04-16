@@ -7,7 +7,7 @@
       <app-card-actions-wrapper>
         <app-game-card [cardSide]="'FRONT'" [card]="card"
                        cardStyle="NORMAL"/>
-        <app-card-actions *ngIf="isHovered(card.id) && !hideActions" [actions]="actions" [card]="card"
+        <app-card-actions *ngIf="isHovered(card.id) && !hideActions" [defaultActions]="actions" [card]="card" [origin]="'HAND'"
                           cardButtons/>
       </app-card-actions-wrapper>
     </div>

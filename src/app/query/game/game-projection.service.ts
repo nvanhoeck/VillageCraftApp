@@ -255,4 +255,8 @@ export class GameProjectionService implements EventHandler {
       this.games[event.payload.gameId].next(game)
     })
   }
+
+  getGamePhase(gameId: string) {
+    return this.games[gameId].value.gameStatus
+  }
 }

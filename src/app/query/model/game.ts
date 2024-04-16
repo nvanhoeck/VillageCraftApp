@@ -1,17 +1,17 @@
 import {GameType} from "./game-type";
 import {PlayerInfo} from "./player-info";
+import {GamePhase} from "./game-card-vo";
 
-type GameStatus = 'SETUP' | 'MULLIGAN' | 'PRODUCTION'
 
 export class Game {
   constructor(id: string, gameType: GameType) {
     this._id = id
     this._gameType = gameType
     this._players = []
-    this._gameStatus = 'SETUP'
+    this._gameStatus = 'setup'
   }
 
-  private _gameStatus: GameStatus
+  private _gameStatus: GamePhase
 
   public get gameStatus() {
     return this._gameStatus
@@ -41,10 +41,10 @@ export class Game {
 
 
   startMulliganPhase() {
-    this._gameStatus = 'MULLIGAN'
+    this._gameStatus = 'mulligan'
   }
 
   startProductionPhase() {
-    this._gameStatus = 'PRODUCTION'
+    this._gameStatus = 'production'
   }
 }

@@ -17,8 +17,8 @@ import {CardSlotComponent} from "../card-slot/card-slot.component";
 export class CitizenLaneComponent {
   citizenLane$ = this.gameFacade.getPlayerCitizenLane$().pipe(map((lane) => lane.findCardsInLane()))
   hoveredCard: string | undefined = undefined
-  actions: CardBtnAction[] = [{
-    origin: 'ARCHIVE',
+  defaultActions: CardBtnAction[] = [{
+    origin: 'CITIZEN_LANE',
     actionType: 'INFO',
     icon: 'info',
     hide$: of(false)

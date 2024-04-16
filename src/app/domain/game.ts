@@ -1,14 +1,14 @@
 import {GameType} from "./game-type";
 import {Player} from "./player";
+import {GamePhase} from "./game-card";
 
-type GamePhases = 'SETUP' | 'MULLIGAN' | 'PRODUCTION'
 
 export class Game {
   constructor(id: string, gameType: GameType) {
     this._id = id
     this._gameType = gameType
     this._players = []
-    this._phase = 'SETUP'
+    this._phase = 'setup'
   }
 
   private _id: string
@@ -17,10 +17,10 @@ export class Game {
     return this._id
   }
 
-  private _phase: GamePhases
+  private _phase: GamePhase
 
 
-  get phase(): GamePhases {
+  get phase(): GamePhase {
     return this._phase;
   }
 
@@ -41,10 +41,10 @@ export class Game {
   }
 
   startMulliganPhase() {
-    this._phase = 'MULLIGAN'
+    this._phase = 'mulligan'
   }
 
   initiate() {
-    this._phase = 'PRODUCTION'
+    this._phase = 'production'
   }
 }

@@ -10,11 +10,13 @@ import {GetPlayerGraveyardUseCaseService} from "../use-case/get-player-graveyard
 import {GetPlayerBanishmentUseCaseService} from "../use-case/get-player-banishment-use-case.service";
 import {PlayCardFromToUseCaseService} from "../use-case/play-card-from-to-use-case.service";
 import {GameSetupFacadeService} from "./game-setup.facade.service";
-import {GameSpace} from "../domain/game-space";
 import {ShouldShowSlotsForPlayerUseCaseService} from "../use-case/should-show-slots-for-player-use-case.service";
 import {PlayerSelectSlotsForCardUseCaseService} from "../use-case/player-select-slots-for-card-use-case.service";
 import {GetPlayerResourceUseCaseService} from "../use-case/get-player-resource-use-case.service";
 import {map} from "rxjs";
+import {CardAction, GamePhase, Trigger, TRIGGER_FROM_GAME_SPACE} from "../query/model/game-card-vo";
+import {GamePhaseFacadeService} from "./game-phase-facade.service";
+import {GameSpace} from "../query/model/game-space";
 
 @Injectable({
   providedIn: 'root'
@@ -24,6 +26,7 @@ export class GameFacadeService {
   private gameId = this.gameSetupFacade.getGameId();
 
   constructor(private gameSetupFacade: GameSetupFacadeService,
+              private gamePhaseFacade: GamePhaseFacadeService,
               private getSettlementUseCase: GetSettlementUseCaseService,
               private getPlayerHandUseCase: GetPlayerHandUseCaseService,
               private getPlayerDeckUseCase: GetPlayerDeckUseCaseService,
@@ -105,5 +108,17 @@ export class GameFacadeService {
 
   getGrain$() {
     return this.getPlayerResourceUseCaseService.getPlayerResources$(this.gameId!, this.playerId).pipe(map((resources) => resources.grain))
+  }
+
+  actionIsAllowed(cardAction: CardAction, gameSpace: GameSpace) {
+    return cardAction.phases.includes(this.gamePhaseFacade.getGamePhase(this.gameId!)) && this.triggerAreAllowedFromGameSpace(cardAction.trigger, gameSpace);
+  }
+
+  getCurrentPhase$() {
+    return this.gamePhaseFacade.getGamePhase$(this.gameId!);
+  }
+
+  private triggerAreAllowedFromGameSpace(trigger: Trigger, gameSpace: GameSpace) {
+    return TRIGGER_FROM_GAME_SPACE[trigger].includes(gameSpace)
   }
 }

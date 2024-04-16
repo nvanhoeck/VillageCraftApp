@@ -1,10 +1,12 @@
-import {Component, EventEmitter, Input, Output} from '@angular/core';
+import {Component, DestroyRef, EventEmitter, Input, Output, inject} from '@angular/core';
 import {GameFacadeService} from "../../facades/game-facade.service";
 import {GameCardComponent} from "../game-card/game-card.component";
 import {CommonModule} from "@angular/common";
 import {CardActionsWrapperComponent} from "../card-actions-wrapper/card-actions-wrapper.component";
 import {CardActionsComponent, CardBtnAction} from "../card-actions/card-actions.component";
-import {map, of} from "rxjs";
+import {combineLatest, forkJoin, map, of, tap} from "rxjs";
+import {GamePhase} from "../../query/model/game-card-vo";
+import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
 
 @Component({
   selector: 'app-player-hand',
@@ -14,6 +16,8 @@ import {map, of} from "rxjs";
   styleUrl: './player-hand.component.scss'
 })
 export class PlayerHandComponent {
+  private destroyRef = inject(DestroyRef);
+
   @Input()
   hideActions = false
   @Input()
@@ -24,19 +28,25 @@ export class PlayerHandComponent {
 
   hoveredCard = ''
 
-  hand$ = this.gameFacade.getPlayerHand$()
+  hand$ = this.gameFacade.getPlayerHand$().pipe(takeUntilDestroyed(this.destroyRef))
 
   actions = [{
     origin: 'HAND',
     actionType: 'PLAY',
     icon: 'arrow_right',
-    hide$: of(false),
+    hide$: this.gameFacade.getCurrentPhase$().pipe(takeUntilDestroyed(this.destroyRef),map(this.isActionPhase), map((isActionPhase => !isActionPhase)))
   },
     {
       origin: 'HAND',
       actionType: 'ARCHIVE',
       icon: 'archive',
-      hide$: this.gameFacade.getPlayerArchive$().pipe(map((gc) => !!gc))
+      hide$: combineLatest([
+        this.gameFacade.getPlayerArchive$().pipe(takeUntilDestroyed(this.destroyRef)),
+        this.gameFacade.getCurrentPhase$().pipe(takeUntilDestroyed(this.destroyRef)),
+      ]).pipe(map(([archiveAlreadyHasCard, gamePhase]) => {
+        console.log(archiveAlreadyHasCard, !this.isActionPhase(gamePhase))
+        return archiveAlreadyHasCard || !this.isActionPhase(gamePhase)
+      }))
     },
     {
       origin: 'HAND',
@@ -69,4 +79,6 @@ export class PlayerHandComponent {
   cardSelected(id: string) {
     return !!this.cardSelection.find((cardId) => cardId === id);
   }
+
+  private isActionPhase (phase: GamePhase) { return phase === 'action'}
 }
