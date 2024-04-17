@@ -7,7 +7,7 @@ import {MessagesAdapterService} from "../../adapters/events/messages-adapter.ser
 import {CardAction, GameCardVO} from "../../query/model/game-card-vo";
 import {GameSpace} from "../../query/model/game-space";
 
-export type CardActionTypes = 'PLAY' | 'ARCHIVE' | 'INFO' | 'EXHAUST'
+export type CardActionTypes = 'PLAY' | 'ARCHIVE' | 'INFO' | 'EXHAUST' | 'GAIN_FOOD' | 'GAIN_WOOD' | 'GAIN_FOOD_AND_WOOD'
 
 export type CardBtnAction = {
   gameSpace: GameSpace,
@@ -49,6 +49,15 @@ export class CardActionsComponent implements OnInit{
 
   handleClick(actionType: CardActionTypes) {
     switch (actionType) {
+      case "GAIN_FOOD_AND_WOOD":
+        this.gameFacade.exhaustCard(this.gameSpace!, this.card!.id);
+        break;
+      case "GAIN_WOOD":
+        this.gameFacade.exhaustCard(this.gameSpace!, this.card!.id);
+        break;
+      case "GAIN_FOOD":
+        this.gameFacade.gainFood(this.gameSpace!, this.card!.id);
+        break;
       case "EXHAUST":
         this.gameFacade.exhaustCard(this.gameSpace!, this.card!.id)
         break
@@ -95,8 +104,9 @@ export class CardActionsComponent implements OnInit{
     return {
       gameSpace: this.gameSpace!,
       //TODO trigger(s)???
-      actionType: 'EXHAUST',
-      icon: 'switch_access_shortcut',
+      actionType: 'GAIN_FOOD',
+      //icon: 'switch_access_shortcut',
+      icon: 'eco',
       hide$:of(false)
     } as CardBtnAction
   }

@@ -5,6 +5,7 @@ import {MessagesAdapterService} from "../adapters/events/messages-adapter.servic
 import {GameSpace} from "../query/model/game-space";
 import {GamePhase} from "../query/model/game-card-vo";
 import {ExhaustCardCommand} from "../commands/model/exhaust-card-command";
+import {GainFoodCardActionCardCommand} from "../commands/model/gain-food-card-action-command";
 
 @Injectable({
   providedIn: 'root'
@@ -15,6 +16,12 @@ export class CardActionSagaService {
 
   exhaustCard(gameSpace: GameSpace, cardId: string, gamePhase: GamePhase, gameId: string, playerId: string) {
     this.commandBus.on(new ExhaustCardCommand({
+      gameSpace, cardId, gamePhase, gameId, playerId
+    }))
+  }
+
+  gainFood(gameSpace: GameSpace, cardId: string, gamePhase: GamePhase, gameId: string, playerId: string) {
+    this.commandBus.on(new GainFoodCardActionCardCommand({
       gameSpace, cardId, gamePhase, gameId, playerId
     }))
   }

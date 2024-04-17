@@ -11,11 +11,13 @@ import {MessagesAdapterService} from "../../adapters/events/messages-adapter.ser
 import {isExhaustCardCommand} from "../model/exhaust-card-command";
 import {PlayerMulliganedEvent} from "../../events/model/PlayerMulliganed";
 import {CardExhaustedEvent} from "../../events/model/CardExhaustedEvent";
+import {isGainFoodCardActionCardCommand} from "../model/gain-food-card-action-command";
+import {PlayerGainedFoodEvent} from "../../events/model/PlayerGainedFoodEvent";
 
 @Injectable({
   providedIn: 'root'
 })
-export class ExhaustCardCommandHandlerService implements CommandHandler {
+export class GainFoodCardActionCommandHandlerService implements CommandHandler {
 
   constructor(
     private commandBus: CommandBusService,
@@ -23,26 +25,33 @@ export class ExhaustCardCommandHandlerService implements CommandHandler {
     private eventBus: EventBusService,
     private errorMessageService: MessagesAdapterService
   ) {
-    this.commandBus.registerHandler('ExhaustCard', this)
+    this.commandBus.registerHandler('GainFoodCardActionCard', this)
   }
 
   execute(cmd: Command): void {
-    if (isExhaustCardCommand(cmd)) {
+    if (isGainFoodCardActionCardCommand(cmd)) {
       const game = this.gameStore.get(cmd.payload.gameId);
       const player = game.players.find((player) => player.id === cmd.payload.playerId)
       if (!player) {
         this.errorMessageService.publish({
-          level: 'ERROR', message: `Player not found in ExhaustCardCommandHandlerService for ${cmd.payload.playerId}`,
+          level: 'ERROR', message: `Player not found in GainFoodCardActionCommandHandlerService for ${cmd.payload.playerId}`,
           topic: "APPLICATION-ERROR"
         })
       } else {
-        player.exhaustCard(cmd.payload.cardId, cmd.payload.gamePhase, cmd.payload.gameSpace);
+        let amount = player.gainFoodFromCard(cmd.payload.cardId, cmd.payload.gamePhase, cmd.payload.gameSpace);
         this.eventBus.on(new CardExhaustedEvent({
           cardId: cmd.payload.cardId,
           gameId: cmd.payload.gameId,
           playerId: cmd.payload.playerId,
           gamePhase: cmd.payload.gamePhase,
           gameSpace: cmd.payload.gameSpace
+        }))
+
+        this.eventBus.on(new PlayerGainedFoodEvent({
+          cardId: cmd.payload.cardId,
+          gameId: cmd.payload.gameId,
+          playerId: cmd.payload.playerId,
+          amount
         }))
       }
     } else {

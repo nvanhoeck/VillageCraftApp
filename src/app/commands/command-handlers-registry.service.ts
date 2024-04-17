@@ -7,6 +7,7 @@ import {MulliganPhaseCommandHandlerService} from "./handlers/mulligan-phase-comm
 import {MulliganCommandHandlerService} from "./handlers/mulligan-command-handler.service";
 import {InitiateGameCommandHandlerService} from "./handlers/initiate-game-command-handler.service";
 import {ExhaustCardCommandHandlerService} from "./handlers/exhaust-card-command-handler.service";
+import {GainFoodCardActionCommandHandlerService} from "./handlers/gain-food-card-action-command-handler.service";
 
 @Injectable({
   providedIn: 'root'
@@ -22,6 +23,7 @@ export class CommandHandlersRegistryService {
     private readonly mulliganCommandHandlerService: MulliganCommandHandlerService,
     private readonly initiateGameCommandHandlerService: InitiateGameCommandHandlerService,
     private readonly exhaustCardCommandHandlerService: ExhaustCardCommandHandlerService,
+    private readonly gainFoodCardActionCommandHandlerService: GainFoodCardActionCommandHandlerService,
   ) {
   }
 }

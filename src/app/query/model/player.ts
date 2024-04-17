@@ -26,7 +26,7 @@ export class Player {
   private _graveyard: GameCardVO[]
   private _banishment: GameCardVO[]
   private _wood: number
-  private _grain: number
+  private _food: number
 
   constructor(id: string, playerType: PlayerType) {
     this._id = id
@@ -41,7 +41,7 @@ export class Player {
     this._banishment = []
     this._playerType = playerType
     this._wood = 0
-    this._grain = 0
+    this._food = 0
   }
 
 
@@ -124,7 +124,7 @@ export class Player {
   getResources() {
     return {
       wood: this._wood,
-      grain: this._grain
+      food: this._food
     };
   }
 
@@ -154,5 +154,13 @@ export class Player {
     if(gameSpace === "BUILDING_LANE") {
       this._buildingLane.exhaustCard(cardId)
     }
+  }
+
+  addFood(amount: number) {
+    this._food = this._food + amount
+  }
+
+  addWood(amount: number) {
+    this._wood = this._wood + amount
   }
 }

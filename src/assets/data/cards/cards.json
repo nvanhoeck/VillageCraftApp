@@ -19,7 +19,7 @@
           "phases": [
             "action"
           ],
-          "args": []
+          "args": {}
         }
       ]
     },
@@ -36,18 +36,17 @@
       "deckLimit": 4,
       "actions": [
         {
-          "trigger":"exhaust",
+          "trigger":"gainFood",
           "commands": [
             "GainFood"
           ],
           "phases": [
             "production"
           ],
-          "args": [
+          "args":
             {
               "amount": 3
             }
-          ]
         }
       ]
     },
@@ -64,18 +63,17 @@
       "deckLimit": 4,
       "actions": [
         {
-          "trigger":"exhaust",
+          "trigger":"gainWood",
           "commands": [
             "GainWood"
           ],
           "phases": [
             "production"
           ],
-          "args": [
+          "args":
             {
               "amount": 1
             }
-          ]
         }
       ]
     },
@@ -98,7 +96,7 @@
           "phases": [
             "action"
           ],
-          "args": []
+          "args": {}
         }
       ]
     },
@@ -112,19 +110,18 @@
       "deckLimit": 3,
       "actions": [
         {
-          "trigger":"exhaust",
+          "trigger":"gainFoodAndWood",
           "commands": [
             "GainFoodAndWood"
           ],
           "phases": [
             "production"
           ],
-          "args": [
+          "args":
             {
               "amountFood": 1,
               "amountWood": 1
             }
-          ]
         }
       ]
     },
@@ -145,12 +142,11 @@
           "phases": [
             "action"
           ],
-          "args": [
+          "args":
             {
               "amountWood": 1,
               "amountMarketplaceCredits": 1
             }
-          ]
         }
       ]
     },
@@ -172,7 +168,7 @@
           "phases": [
             "action"
           ],
-          "args": [
+          "args":
             {
               "duration": {
                 "turns": 1
@@ -185,7 +181,6 @@
                 }
               ]
             }
-          ]
         }
       ]
     },
@@ -207,11 +202,10 @@
           "phases": [
             "action"
           ],
-          "args": [
+          "args":
             {
               "cardType": "citizen"
             }
-          ]
         }
       ]
     },
@@ -233,8 +227,7 @@
           "phases": [
             "action"
           ],
-          "args": [
-          ]
+          "args": {}
         }
       ]
     },
@@ -256,11 +249,10 @@
           "phases": [
             "action"
           ],
-          "args": [
+          "args":
             {
               "target": "hostilePlayer"
             }
-          ]
         }
       ]
     },
@@ -282,11 +274,10 @@
           "phases": [
             "action"
           ],
-          "args": [
+          "args":
             {
               "target": "hostile"
             }
-          ]
         }
       ]
     },
@@ -300,7 +291,7 @@
       "actions": [
         {
           "trigger":
-            "deploy"
+            "gainFood"
           ,
           "commands": [
             "GainFood"
@@ -308,11 +299,10 @@
           "phases": [
             "economics"
           ],
-          "args": [
+          "args":
             {
               "amount": 2
             }
-          ]
         }
       ]
     },
@@ -336,11 +326,10 @@
             "refresh",
             "combat"
           ],
-          "args": [
+          "args":
             {
               "amount": 1
             }
-          ]
         }
       ]
     },
@@ -364,8 +353,7 @@
             "refresh",
             "combat"
           ],
-          "args": [
-          ]
+          "args": {}
         },
         {
           "trigger":
@@ -376,7 +364,7 @@
           ],
           "phases": [
           ],
-          "args": []
+          "args": {}
         },
         {
           "trigger":
@@ -387,11 +375,10 @@
           ],
           "phases": [
           ],
-          "args": [
+          "args":
             {
               "amount": "totalHealth"
             }
-          ]
         }
       ]
     },
@@ -415,7 +402,7 @@
           ],
           "phases": [
           ],
-          "args": []
+          "args": {}
         }
       ]
     },
@@ -438,12 +425,11 @@
           "phases": [
             "action"
           ],
-          "args": [
+          "args":
             {
               "min": 0,
               "max": 0
             }
-          ]
         },
         {
           "trigger":
@@ -455,12 +441,12 @@
           "phases": [
             "action"
           ],
-          "args": [
+          "args":
             {
               "min": 0,
               "max": 4
             }
-          ]
+
         }
       ]
     },
@@ -484,7 +470,7 @@
           ],
           "phases": [
           ],
-          "args": []
+          "args": {}
         },
         {
           "trigger":
@@ -496,11 +482,10 @@
           "phases": [
             "action"
           ],
-          "args": [
+          "args":
             {
               "amount": 2
             }
-          ]
         },
         {
           "trigger":
@@ -512,11 +497,10 @@
           "phases": [
             "action"
           ],
-          "args": [
+          "args":
             {
               "amount": 1
             }
-          ]
         }
       ]
     },
@@ -533,7 +517,7 @@
       "actions": [
         {
           "trigger":
-            "foodGain"
+            "gainFood"
           ,
           "commands": [
             "GainFood"
@@ -541,11 +525,10 @@
           "phases": [
             "action"
           ],
-          "args": [
+          "args":
             {
               "amount": 1
             }
-          ]
         },
         {
           "trigger":
@@ -557,11 +540,10 @@
           "phases": [
             "action"
           ],
-          "args": [
+          "args":
             {
               "amount": 2
             }
-          ]
         }
       ]
     },
@@ -586,11 +568,10 @@
           "phases": [
             "action"
           ],
-          "args": [
+          "args":
             {
               "amount": 2
             }
-          ]
         },
         {
           "trigger":
@@ -602,7 +583,7 @@
           "phases": [
             "action"
           ],
-          "args": []
+          "args": {}
         }
       ]
     },
@@ -619,7 +600,7 @@
       "actions": [
         {
           "trigger":
-            "woodGain"
+            "gainWood"
           ,
           "commands": [
             "GainWood"
@@ -627,11 +608,10 @@
           "phases": [
             "action"
           ],
-          "args": [
+          "args":
             {
               "amount": 1
             }
-          ]
         }
       ]
     }

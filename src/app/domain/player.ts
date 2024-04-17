@@ -22,6 +22,8 @@ export class Player {
   private _citizenLane: Lane
   private _archive: (GameBuildingCard | GameCitizenCard | GameEventCard) | undefined
   private _hand: (GameBuildingCard | GameCitizenCard | GameEventCard)[]
+  private _food: number
+  private _wood: number
 
   constructor(id: string) {
     this._id = id
@@ -35,6 +37,8 @@ export class Player {
     this._graveyard = []
     this._banishment = []
     this._archive = undefined
+    this._wood = 0
+    this._food = 0
   }
 
   private _id: string
@@ -106,6 +110,14 @@ export class Player {
   public addPlayer(id: string, playerType: PlayerType) {
     this._id = id
     this._playerType = playerType
+  }
+
+  findFoodAmount() {
+    return this._food
+  }
+
+  findWoodAmount() {
+    return this._wood
   }
 
   public findSettlement() {
@@ -200,5 +212,22 @@ export class Player {
     if(gamePhase === 'production' && gameSpace === 'BUILDING_LANE') {
       this._buildingLane.exhaustCard(cardId);
     }
+  }
+
+  gainFoodFromCard(cardId: string, gamePhase: GamePhase, gameSpace: GameSpace) {
+    if(gameSpace === 'BUILDING_LANE') {
+      this._buildingLane.exhaustCard(cardId);
+      const card = this._buildingLane.findCardInLane(cardId)
+      // TODO find might become filter
+      let amount = card?.actions.find((action) => action.trigger === 'gainFood')!.args.amount as number;
+      this.addFoodResource(amount)
+      return amount
+    } else {
+      return 0
+    }
+  }
+
+  private addFoodResource(amount: number) {
+    this._food = this._food + amount
   }
 }

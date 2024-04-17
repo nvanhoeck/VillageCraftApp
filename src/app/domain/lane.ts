@@ -20,7 +20,11 @@ export class Lane {
   }
 
   exhaustCard(cardId: string) {
-    let card = this.lane.find((card) => card.id === cardId)!;
+    let card = this.findCardInLane(cardId)!
     card.exhaust()
+  }
+
+  findCardInLane(cardId: string) {
+    return this.lane.find((card) => card.id === cardId);
   }
 }

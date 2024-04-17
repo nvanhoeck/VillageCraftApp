@@ -12,7 +12,7 @@ import {MatIconModule} from "@angular/material/icon";
 })
 export class PlayerInterfaceComponent {
   wood$ = this.gameFacade.getWood$()
-  grain$ = this.gameFacade.getGrain$()
+  food$ = this.gameFacade.getFood$()
 
 
   constructor(private gameFacade: GameFacadeService) {

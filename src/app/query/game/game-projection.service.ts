@@ -20,6 +20,7 @@ import {MulliganPhaseStartedEvent} from "../../events/model/MulliganPhaseStarted
 import {PlayerMulliganedEvent} from "../../events/model/PlayerMulliganed";
 import {GameInitiatedEvent} from "../../events/model/GameInitiatedEvent";
 import {CardExhaustedEvent} from "../../events/model/CardExhaustedEvent";
+import {PlayerGainedFoodEvent} from "../../events/model/PlayerGainedFoodEvent";
 
 @Injectable({
   providedIn: 'root'
@@ -48,6 +49,7 @@ export class GameProjectionService implements EventHandler {
     this.eventBus.registerHandler('PlayerMulliganed', this)
     this.eventBus.registerHandler('GameInitiated', this)
     this.eventBus.registerHandler('CardExhausted', this)
+    this.eventBus.registerHandler('PlayerGainedFood', this)
   }
 
   execute(event: GameEvent): void {
@@ -94,8 +96,11 @@ export class GameProjectionService implements EventHandler {
       case 'GameInitiated':
         this.handleGameInitiated(event)
         break;
-        case 'CardExhausted':
+       case 'CardExhausted':
         this.handleCardExhausted(event)
+        break;
+      case 'PlayerGainedFood':
+        this.handlePlayerGainedFood(event)
         break;
       default:
         this.errorMessageService.publish({
@@ -268,6 +273,13 @@ export class GameProjectionService implements EventHandler {
   private handleCardExhausted(event: CardExhaustedEvent) {
     this.players[event.payload.playerId].pipe(take(1)).subscribe((player) => {
       player.exhaustCard(event.payload.cardId, event.payload.gameSpace)
+      this.players[event.payload.playerId].next(player)
+    })
+  }
+
+  private handlePlayerGainedFood(event: PlayerGainedFoodEvent) {
+    this.players[event.payload.playerId].pipe(take(1)).subscribe((player) => {
+      player.addFood(event.payload.amount)
       this.players[event.payload.playerId].next(player)
     })
   }

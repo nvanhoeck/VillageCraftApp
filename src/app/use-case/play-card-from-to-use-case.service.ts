@@ -38,8 +38,4 @@ export class PlayCardFromToUseCaseService {
         })
     }
   }
-
-  exhaustCard(gameSpace: GameSpace, cardId: string, gamePhase: GamePhase, gameId: string, playerId: string) {
-    this.cardActionSagaService.exhaustCard(gameSpace, cardId, gamePhase, gameId, playerId)
-  }
 }

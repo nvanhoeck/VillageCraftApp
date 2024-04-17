@@ -17,6 +17,7 @@ import {filter, map} from "rxjs";
 import {CardAction, GameCardVO, GamePhase, Trigger, TRIGGER_FROM_GAME_SPACE} from "../query/model/game-card-vo";
 import {GamePhaseFacadeService} from "./game-phase-facade.service";
 import {GameSpace} from "../query/model/game-space";
+import {TriggerCardEffectUseCaseService} from "../use-case/trigger-card-effect-use-case.service";
 
 @Injectable({
   providedIn: 'root'
@@ -38,7 +39,8 @@ export class GameFacadeService {
               private getPlayerBanishmentUseCaseService: GetPlayerBanishmentUseCaseService,
               private shouldShowSlotsForPlayerUseCaseService: ShouldShowSlotsForPlayerUseCaseService,
               private playerSelectSlotsForCardUseCaseService: PlayerSelectSlotsForCardUseCaseService,
-              private playerCardFromUseCaseService: PlayCardFromToUseCaseService,
+              private playCardFromUseCaseService: PlayCardFromToUseCaseService,
+              private triggerCardEffectUseCaseService: TriggerCardEffectUseCaseService,
               private getPlayerResourceUseCaseService: GetPlayerResourceUseCaseService
   ) {
   }
@@ -83,7 +85,7 @@ export class GameFacadeService {
   }
 
   playCardFromTo(from: GameSpace, to: GameSpace, cardId: string) {
-    this.playerCardFromUseCaseService.playCardFromTo(from, to, cardId, this.playerId, this.gameId!)
+    this.playCardFromUseCaseService.playCardFromTo(from, to, cardId, this.playerId, this.gameId!)
   }
 
   showSlots$(slotType: 'citizen' | 'building') {
@@ -106,8 +108,8 @@ export class GameFacadeService {
     return this.getPlayerResourceUseCaseService.getPlayerResources$(this.gameId!, this.playerId).pipe(map((resources) => resources.wood))
   }
 
-  getGrain$() {
-    return this.getPlayerResourceUseCaseService.getPlayerResources$(this.gameId!, this.playerId).pipe(map((resources) => resources.grain))
+  getFood$() {
+    return this.getPlayerResourceUseCaseService.getPlayerResources$(this.gameId!, this.playerId).pipe(map((resources) => resources.food))
   }
 
   actionIsAllowed(cardAction: CardAction, gameSpace: GameSpace, gameCard: GameCardVO) {
@@ -118,18 +120,8 @@ export class GameFacadeService {
     return this.gamePhaseFacade.getGamePhase$(this.gameId!);
   }
 
-  private triggerAreAllowedFromGameSpace(trigger: Trigger, gameSpace: GameSpace) {
-    return TRIGGER_FROM_GAME_SPACE[trigger].includes(gameSpace)
-  }
-
   exhaustCard(gameSpace: GameSpace, cardId: string) {
-    debugger
-    this.playerCardFromUseCaseService.exhaustCard(gameSpace, cardId, this.gamePhaseFacade.getGamePhase(this.gameId!), this.gameId!, this.playerId)
-  }
-
-  private cardIsExhausted(cardAction: CardAction, gameCard: GameCardVO) {
-    console.log(cardAction.trigger, cardAction.trigger === 'exhaust')
-    return cardAction.trigger === 'exhaust' && gameCard.exhausted;
+    this.triggerCardEffectUseCaseService.exhaustCard(gameSpace, cardId, this.gamePhaseFacade.getGamePhase(this.gameId!), this.gameId!, this.playerId)
   }
 
   getCard$(id: string, gameSpace?: GameSpace) {
@@ -142,5 +134,18 @@ export class GameFacadeService {
       case undefined: return this.getPlayerHand$().pipe((map(hand => hand.find((card) => card.id === id))));
       default: throw new Error(`case ${gameSpace} not defined to fetch card, built code for it`)
     }
+  }
+
+  gainFood(gameSpace: GameSpace, cardId: string) {
+    this.triggerCardEffectUseCaseService.gainFood(gameSpace, cardId, this.gamePhaseFacade.getGamePhase(this.gameId!), this.gameId!, this.playerId)
+  }
+
+  private triggerAreAllowedFromGameSpace(trigger: Trigger, gameSpace: GameSpace) {
+    return TRIGGER_FROM_GAME_SPACE[trigger].includes(gameSpace)
+  }
+
+  private cardIsExhausted(cardAction: CardAction, gameCard: GameCardVO) {
+    //TODO enum
+    return ['exhaust', 'gainFood', 'gainWood', 'gainFoodAndWood'].includes(cardAction.trigger) && gameCard.exhausted;
   }
 }
