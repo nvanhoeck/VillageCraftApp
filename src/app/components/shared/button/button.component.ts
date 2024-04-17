@@ -1,4 +1,4 @@
-import {Component, Input} from '@angular/core';
+import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {NO_TEXT} from "../../../constants/labels";
 import {COLOR_TYPES} from "../../../constants/styling";
 import {CommonModule} from "@angular/common";
@@ -42,9 +42,12 @@ export class ButtonComponent {
   styleProps: StyleProps = BUTTON_TYPE_PRIMARY_DEFAULT
   @Input()
   icon: string | undefined = undefined
+  @Output()
+  onClickHandler: EventEmitter<Event> =  new EventEmitter<Event>
 
-  @Input()
-  onClickHandler: (clickEvent: Event) => void | Promise<void> = (clickEvent: Event) => console.warn('no click event initialized for this component')
+  handleClick (clickEvent: Event) {
+    this.onClickHandler.emit(clickEvent)
+  }
 
   public getClassNames() {
     const classNames = ['btn']

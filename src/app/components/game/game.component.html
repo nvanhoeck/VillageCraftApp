@@ -3,7 +3,7 @@
     <div class="player-hand-mulligan">
       <app-player-hand (cardClickedEvent)="handleMulliganCardClicked($event)" [cardSelection]="mulliganCardsSelected"
                        [hideActions]="(gamePhase$|async) === 'mulligan'"></app-player-hand>
-      <app-button (click)="mulliganCardsSelect()" text="Replace selected cards"></app-button>
+      <app-button (onClickHandler)="mulliganCardsSelect()" text="Replace selected cards"></app-button>
     </div>
   </section>
 </section>

@@ -10,9 +10,9 @@
       "deckLimit": 1,
       "actions": [
         {
-          "triggers": [
+          "trigger":
             "exhaust"
-          ],
+          ,
           "commands": [
             "CardFromHandToArchive"
           ],
@@ -36,9 +36,7 @@
       "deckLimit": 4,
       "actions": [
         {
-          "trigger": [
-            "exhaust"
-          ],
+          "trigger":"exhaust",
           "commands": [
             "GainFood"
           ],
@@ -66,9 +64,7 @@
       "deckLimit": 4,
       "actions": [
         {
-          "trigger": [
-            "exhaust"
-          ],
+          "trigger":"exhaust",
           "commands": [
             "GainWood"
           ],
@@ -95,9 +91,7 @@
       "deckLimit": 5,
       "actions": [
         {
-          "trigger": [
-            "exhaust"
-          ],
+          "trigger":"exhaust",
           "commands": [
             "GenericAction"
           ],
@@ -118,9 +112,7 @@
       "deckLimit": 3,
       "actions": [
         {
-          "trigger": [
-            "exhaust"
-          ],
+          "trigger":"exhaust",
           "commands": [
             "GainFoodAndWood"
           ],
@@ -146,9 +138,7 @@
       "deckLimit": 3,
       "actions": [
         {
-          "trigger": [
-            "exhaust"
-          ],
+          "trigger":"exhaust",
           "commands": [
             "ConvertWoodIntoMarketplaceCredits"
           ],
@@ -173,9 +163,9 @@
       "deckLimit": 3,
       "actions": [
         {
-          "trigger": [
+          "trigger":
             "deploy"
-          ],
+          ,
           "commands": [
             "AddAmbushKeyWord"
           ],
@@ -208,9 +198,9 @@
       "deckLimit": 3,
       "actions": [
         {
-          "trigger": [
+          "trigger":
             "deploy"
-          ],
+          ,
           "commands": [
             "ReturnTypeFromBanishment"
           ],
@@ -234,9 +224,9 @@
       "deckLimit": 3,
       "actions": [
         {
-          "trigger": [
+          "trigger":
             "deploy"
-          ],
+          ,
           "commands": [
             "AddClaimToLocation"
           ],
@@ -257,9 +247,9 @@
       "deckLimit": 3,
       "actions": [
         {
-          "trigger": [
+          "trigger":
             "deploy"
-          ],
+          ,
           "commands": [
             "DealDamageToAll"
           ],
@@ -283,9 +273,9 @@
       "deckLimit": 3,
       "actions": [
         {
-          "trigger": [
+          "trigger":
             "deploy"
-          ],
+          ,
           "commands": [
             "ExhaustUnit"
           ],
@@ -309,9 +299,9 @@
       "deckLimit": 3,
       "actions": [
         {
-          "trigger": [
+          "trigger":
             "deploy"
-          ],
+          ,
           "commands": [
             "GainFood"
           ],
@@ -335,9 +325,9 @@
       "deckLimit": 3,
       "actions": [
         {
-          "trigger": [
+          "trigger":
             "deploy"
-          ],
+          ,
           "commands": [
             "GainFood"
           ],
@@ -363,9 +353,9 @@
       "deckLimit": 3,
       "actions": [
         {
-          "trigger": [
+          "trigger":
             "deploy"
-          ],
+          ,
           "commands": [
             "DealAllDamageWithoutKilling"
           ],
@@ -378,9 +368,9 @@
           ]
         },
         {
-          "trigger": [
+          "trigger":
             "previousAction"
-          ],
+          ,
           "commands": [
             "CompleteBuilding"
           ],
@@ -389,9 +379,9 @@
           "args": []
         },
         {
-          "trigger": [
+          "trigger":
             "previousAction"
-          ],
+          ,
           "commands": [
             "HealBuilding"
           ],
@@ -417,9 +407,9 @@
       "deckLimit": 3,
       "actions": [
         {
-          "trigger": [
+          "trigger":
             "condition"
-          ],
+          ,
           "commands": [
             "Guard"
           ],
@@ -441,9 +431,7 @@
       "deckLimit": 3,
       "actions": [
         {
-          "trigger": [
-            "exhaust"
-          ],
+          "trigger":"exhaust",
           "commands": [
             "CardFromMarketplaceToTopOfDeck"
           ],
@@ -458,9 +446,9 @@
           ]
         },
         {
-          "trigger": [
+          "trigger":
             "banish"
-          ],
+          ,
           "commands": [
             "CardFromMarketplaceToDiscardPile"
           ],
@@ -488,9 +476,9 @@
       "deckLimit": 3,
       "actions": [
         {
-          "trigger": [
+          "trigger":
             "condition"
-          ],
+          ,
           "commands": [
             "Rush"
           ],
@@ -499,9 +487,9 @@
           "args": []
         },
         {
-          "trigger": [
+          "trigger":
             "claim"
-          ],
+          ,
           "commands": [
             "AddClaimToLocation"
           ],
@@ -515,9 +503,9 @@
           ]
         },
         {
-          "trigger": [
+          "trigger":
             "banish"
-          ],
+          ,
           "commands": [
             "LookAtTopOfHostileDeck"
           ],
@@ -544,9 +532,9 @@
       "deckLimit": 3,
       "actions": [
         {
-          "trigger": [
+          "trigger":
             "foodGain"
-          ],
+          ,
           "commands": [
             "GainFood"
           ],
@@ -560,9 +548,9 @@
           ]
         },
         {
-          "trigger": [
+          "trigger":
             "banish"
-          ],
+          ,
           "commands": [
             "RemoveHungerTokens"
           ],
@@ -589,9 +577,9 @@
       "deckLimit": 3,
       "actions": [
         {
-          "trigger": [
+          "trigger":
             "build"
-          ],
+          ,
           "commands": [
             "AddBuildCredits"
           ],
@@ -605,9 +593,9 @@
           ]
         },
         {
-          "trigger": [
+          "trigger":
             "banish"
-          ],
+          ,
           "commands": [
             "CompleteBuilding"
           ],
@@ -630,9 +618,9 @@
       "deckLimit": 3,
       "actions": [
         {
-          "trigger": [
+          "trigger":
             "woodGain"
-          ],
+          ,
           "commands": [
             "GainWood"
           ],

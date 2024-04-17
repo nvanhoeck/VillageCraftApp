@@ -134,5 +134,9 @@
     word-wrap: break-word;
     overflow-wrap: break-word;
   }
+  &--exhausted{
+    transform: rotate(15deg);
+    margin: 0 2rem;
+  }
 }
 

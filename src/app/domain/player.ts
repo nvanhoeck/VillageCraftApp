@@ -1,8 +1,16 @@
 import {PlayerType} from "./player-type";
-import {DefaultBuildingCardCard, GameBuildingCard, GameCardDto, GameCitizenCard, GameEventCard} from "./game-card";
+import {
+  DefaultBuildingCardCard,
+  GameBuildingCard,
+  GameCardDto,
+  GameCitizenCard,
+  GameEventCard,
+  GamePhase
+} from "./game-card";
 import {shuffleArray} from "../utils/shuffle";
 import {Lane} from "./lane";
 import {v4 as uuidv4} from "uuid";
+import {GameSpace} from "./game-space";
 
 export class Player {
   private _deck: (GameBuildingCard | GameCitizenCard | GameEventCard)[]
@@ -186,5 +194,11 @@ export class Player {
     cardIds.forEach(() => {
       this._hand.push(this._deck.pop()!)
     })
+  }
+
+  exhaustCard(cardId: string, gamePhase: GamePhase, gameSpace: GameSpace): void {
+    if(gamePhase === 'production' && gameSpace === 'BUILDING_LANE') {
+      this._buildingLane.exhaustCard(cardId);
+    }
   }
 }

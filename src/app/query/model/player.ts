@@ -1,5 +1,4 @@
 import {PlayerType} from "./player-type";
-import {Lane} from "../../domain/lane";
 import {
   DefaultBuildingCardCard,
   GameBuildingCard,
@@ -9,6 +8,9 @@ import {
   isCitizenCard
 } from "../../domain/game-card";
 import {GameCardVO} from "./game-card-vo";
+import {GameSpace} from "./game-space";
+import {Lane} from "./lane";
+import {Lane as DomainLane} from '../../domain/lane'
 
 export class Player {
   private _deck: GameCardVO[]
@@ -47,8 +49,8 @@ export class Player {
     this._settlement = this.mapDomainCardToVO(settlement)
   }
 
-  updateCitizenLane(lane: Lane) {
-    this._citizenLane = lane
+  updateCitizenLane(lane: DomainLane) {
+    lane.findCardsInLane().map(this.mapDomainCardToVO).forEach((c) => this._citizenLane.addCard(c))
   }
 
   updateDeck(gameCards: (GameCitizenCard | GameBuildingCard | GameEventCard)[]) {
@@ -75,8 +77,12 @@ export class Player {
     this._archive = archive ? this.mapDomainCardToVO(archive) : undefined
   }
 
-  updateBuildingLane(lane: Lane) {
-    this._buildingLane = lane
+  updateBuildingLane(lane: DomainLane) {
+    if(this._buildingLane) {
+      lane.findCardsInLane().map(this.mapDomainCardToVO).forEach((c) => this._buildingLane.addCard(c))
+    } else {
+      throw new Error('No Building lane')
+    }
   }
 
   public findSettlement() {
@@ -132,6 +138,7 @@ export class Player {
       cardAffiliation: card.cardAffiliation,
       deckLimit: card.deckLimit,
       actions: card.actions,
+      exhausted: card.exhausted
     }
     if (isCitizenCard(card)) {
       return {...gameCard, attack: card.attack, defence: card.defence, health: card.health}
@@ -140,6 +147,12 @@ export class Player {
       return {...gameCard, health: card.health}
     } else {
       return gameCard
+    }
+  }
+
+  exhaustCard(cardId: string, gameSpace: GameSpace) {
+    if(gameSpace === "BUILDING_LANE") {
+      this._buildingLane.exhaustCard(cardId)
     }
   }
 }

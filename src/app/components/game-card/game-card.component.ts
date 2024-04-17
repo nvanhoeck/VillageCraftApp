@@ -1,4 +1,4 @@
-import {Component, Input} from '@angular/core';
+import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {CommonModule} from "@angular/common";
 import {GameCardVO} from "../../query/model/game-card-vo";
 
@@ -23,21 +23,21 @@ export class GameCardComponent {
   placeholderLabel: string = ''
   @Input()
   backText: string = ''
-  @Input()
-  handleHoverHandler?: (cardDetails: GameCardVO) => void
-  @Input()
-  handleHoverLeaveHandler?: (cardDetails: GameCardVO) => void
+  @Output()
+  handleHoverHandle = new EventEmitter<GameCardVO>()
+  @Output()
+  handleHoverLeaveHandler= new EventEmitter<GameCardVO>()
 
 
   handleHover: ($event: MouseEvent) => void = (event) => {
-    if (this.handleHoverHandler && this.card) {
-      this.handleHoverHandler(this.card)
+    if (this.card) {
+      this.handleHoverHandle.emit(this.card)
     }
   }
 
   handleHoverLeave: ($event: MouseEvent) => void = (event) => {
-    if (this.handleHoverLeaveHandler && this.card) {
-      this.handleHoverLeaveHandler(this.card)
+    if (this.card) {
+      this.handleHoverLeaveHandler.emit(this.card)
     }
   }
 }

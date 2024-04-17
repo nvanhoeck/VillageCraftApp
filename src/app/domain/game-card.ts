@@ -50,10 +50,11 @@ export type GameCardDto = {
   cardAffiliation: CardAffilitation
   deckLimit: number
   actions: CardAction[]
+  exhausted: boolean
 }
 
 export class GameCard {
-  constructor(id: string, cardId: string, title: string, description: string, cardAffiliation: CardAffilitation, deckLimit: number, actions: CardAction[], cardType: CardType) {
+  constructor(id: string, cardId: string, title: string, description: string, cardAffiliation: CardAffilitation, deckLimit: number, actions: CardAction[], cardType: CardType, exhausted :boolean) {
     this._id = id;
     this._cardId = cardId;
     this._title = title;
@@ -62,6 +63,7 @@ export class GameCard {
     this._deckLimit = deckLimit;
     this._actions = actions;
     this._cardType = cardType
+    this._exhausted = exhausted
   }
 
   private _id: string
@@ -112,14 +114,25 @@ export class GameCard {
     return this._cardType;
   }
 
+  private _exhausted: boolean;
+
+
+  get exhausted(): boolean {
+    return this._exhausted
+  }
+
   applyId(id: string) {
     this._id = id
+  }
+
+  exhaust() {
+    this._exhausted = true
   }
 }
 
 export class GameUnitCard extends GameCard {
   constructor(id: string, cardId: string, title: string, description: string, cardAffiliation: CardAffilitation, deckLimit: number, actions: CardAction[], attack: number, defence: number, health: number) {
-    super(id, cardId, title, description, cardAffiliation, deckLimit, actions, 'unit');
+    super(id, cardId, title, description, cardAffiliation, deckLimit, actions, 'unit', false);
     this._attack = attack;
     this._defence = defence;
     this._health = health;
@@ -146,7 +159,7 @@ export class GameUnitCard extends GameCard {
 
 export class GameCitizenCard extends GameCard {
   constructor(id: string, cardId: string, title: string, description: string, cardAffiliation: CardAffilitation, deckLimit: number, actions: CardAction[], attack: number, defence: number, health: number) {
-    super(id, cardId, title, description, cardAffiliation, deckLimit, actions, 'citizen');
+    super(id, cardId, title, description, cardAffiliation, deckLimit, actions, 'citizen', false);
     this._attack = attack;
     this._defence = defence;
     this._health = health;
@@ -173,7 +186,7 @@ export class GameCitizenCard extends GameCard {
 
 export class GameBuildingCard extends GameCard {
   constructor(id: string, cardId: string, title: string, description: string, cardAffiliation: CardAffilitation, deckLimit: number, actions: CardAction[], health: number) {
-    super(id, cardId, title, description, cardAffiliation, deckLimit, actions, 'building');
+    super(id, cardId, title, description, cardAffiliation, deckLimit, actions, 'building', false);
     this._health = health;
   }
 
@@ -186,10 +199,10 @@ export class GameBuildingCard extends GameCard {
 
 export class GameEventCard extends GameCard {
   constructor(id: string, cardId: string, title: string, description: string, cardAffiliation: CardAffilitation, deckLimit: number, actions: CardAction[]) {
-    super(id, cardId, title, description, cardAffiliation, deckLimit, actions, 'event');
+    super(id, cardId, title, description, cardAffiliation, deckLimit, actions, 'event', false);
   }
 }
 
 
-export const DefaultGameCard = new GameCard("", "", "", "", "base", 0, [], 'settlement')
+export const DefaultGameCard = new GameCard("", "", "", "", "base", 0, [], 'settlement', false)
 export const DefaultBuildingCardCard = new GameBuildingCard("", "", "", "", "base", 0, [], 0)

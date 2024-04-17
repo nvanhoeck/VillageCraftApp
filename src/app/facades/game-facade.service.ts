@@ -13,8 +13,8 @@ import {GameSetupFacadeService} from "./game-setup.facade.service";
 import {ShouldShowSlotsForPlayerUseCaseService} from "../use-case/should-show-slots-for-player-use-case.service";
 import {PlayerSelectSlotsForCardUseCaseService} from "../use-case/player-select-slots-for-card-use-case.service";
 import {GetPlayerResourceUseCaseService} from "../use-case/get-player-resource-use-case.service";
-import {map} from "rxjs";
-import {CardAction, GamePhase, Trigger, TRIGGER_FROM_GAME_SPACE} from "../query/model/game-card-vo";
+import {filter, map} from "rxjs";
+import {CardAction, GameCardVO, GamePhase, Trigger, TRIGGER_FROM_GAME_SPACE} from "../query/model/game-card-vo";
 import {GamePhaseFacadeService} from "./game-phase-facade.service";
 import {GameSpace} from "../query/model/game-space";
 
@@ -110,8 +110,8 @@ export class GameFacadeService {
     return this.getPlayerResourceUseCaseService.getPlayerResources$(this.gameId!, this.playerId).pipe(map((resources) => resources.grain))
   }
 
-  actionIsAllowed(cardAction: CardAction, gameSpace: GameSpace) {
-    return cardAction.phases.includes(this.gamePhaseFacade.getGamePhase(this.gameId!)) && this.triggerAreAllowedFromGameSpace(cardAction.trigger, gameSpace);
+  actionIsAllowed(cardAction: CardAction, gameSpace: GameSpace, gameCard: GameCardVO) {
+    return cardAction.phases.includes(this.gamePhaseFacade.getGamePhase(this.gameId!)) && this.triggerAreAllowedFromGameSpace(cardAction.trigger, gameSpace) && !this.cardIsExhausted(cardAction, gameCard);
   }
 
   getCurrentPhase$() {
@@ -120,5 +120,27 @@ export class GameFacadeService {
 
   private triggerAreAllowedFromGameSpace(trigger: Trigger, gameSpace: GameSpace) {
     return TRIGGER_FROM_GAME_SPACE[trigger].includes(gameSpace)
+  }
+
+  exhaustCard(gameSpace: GameSpace, cardId: string) {
+    debugger
+    this.playerCardFromUseCaseService.exhaustCard(gameSpace, cardId, this.gamePhaseFacade.getGamePhase(this.gameId!), this.gameId!, this.playerId)
+  }
+
+  private cardIsExhausted(cardAction: CardAction, gameCard: GameCardVO) {
+    console.log(cardAction.trigger, cardAction.trigger === 'exhaust')
+    return cardAction.trigger === 'exhaust' && gameCard.exhausted;
+  }
+
+  getCard$(id: string, gameSpace?: GameSpace) {
+    switch (gameSpace) {
+      case 'BUILDING_LANE': return this.getPlayerBuildingLane$().pipe(map(lane => lane.findCardInLane(id)));
+      case 'CITIZEN_LANE': return this.getPlayerCitizenLane$().pipe(map(lane => lane.findCardInLane(id)));
+      case 'SETTLEMENT': return this.getSettlement$();
+      case 'HAND': return this.getPlayerHand$().pipe((map(hand => hand.find((card) => card.id === id))));
+      //TODO improve
+      case undefined: return this.getPlayerHand$().pipe((map(hand => hand.find((card) => card.id === id))));
+      default: throw new Error(`case ${gameSpace} not defined to fetch card, built code for it`)
+    }
   }
 }

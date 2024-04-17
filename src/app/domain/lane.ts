@@ -1,4 +1,5 @@
-import {GameBuildingCard, GameCitizenCard} from "./game-card";
+import {GameBuildingCard, GameCitizenCard, GamePhase} from "./game-card";
+import {GameSpace} from "./game-space";
 
 export class Lane {
   private lane: (GameCitizenCard | GameBuildingCard)[]
@@ -16,5 +17,10 @@ export class Lane {
 
   findCardsInLane() {
     return this.lane
+  }
+
+  exhaustCard(cardId: string) {
+    let card = this.lane.find((card) => card.id === cardId)!;
+    card.exhaust()
   }
 }

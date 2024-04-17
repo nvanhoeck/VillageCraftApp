@@ -19,6 +19,7 @@ import {HideCitizenLanePlaySlotsEvent} from "../../events/model/HideCitizenLaneP
 import {MulliganPhaseStartedEvent} from "../../events/model/MulliganPhaseStartedEvent";
 import {PlayerMulliganedEvent} from "../../events/model/PlayerMulliganed";
 import {GameInitiatedEvent} from "../../events/model/GameInitiatedEvent";
+import {CardExhaustedEvent} from "../../events/model/CardExhaustedEvent";
 
 @Injectable({
   providedIn: 'root'
@@ -46,6 +47,7 @@ export class GameProjectionService implements EventHandler {
     this.eventBus.registerHandler('MulliganPhaseStarted', this)
     this.eventBus.registerHandler('PlayerMulliganed', this)
     this.eventBus.registerHandler('GameInitiated', this)
+    this.eventBus.registerHandler('CardExhausted', this)
   }
 
   execute(event: GameEvent): void {
@@ -91,6 +93,9 @@ export class GameProjectionService implements EventHandler {
         break;
       case 'GameInitiated':
         this.handleGameInitiated(event)
+        break;
+        case 'CardExhausted':
+        this.handleCardExhausted(event)
         break;
       default:
         this.errorMessageService.publish({
@@ -258,5 +263,12 @@ export class GameProjectionService implements EventHandler {
 
   getGamePhase(gameId: string) {
     return this.games[gameId].value.gameStatus
+  }
+
+  private handleCardExhausted(event: CardExhaustedEvent) {
+    this.players[event.payload.playerId].pipe(take(1)).subscribe((player) => {
+      player.exhaustCard(event.payload.cardId, event.payload.gameSpace)
+      this.players[event.payload.playerId].next(player)
+    })
   }
 }

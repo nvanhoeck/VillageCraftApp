@@ -4,7 +4,7 @@
          class="card-and-action-wrapper">
       <app-card-actions-wrapper>
         <app-game-card [cardStyle]="'SMALL'" [card]="settlement"></app-game-card>
-        <app-card-actions *ngIf="isHovered" [defaultActions]="actions" [card]="settlement" [origin]="'SETTLEMENT'"
+        <app-card-actions *ngIf="isHovered" [defaultActions]="actions" [card]="settlement" [gameSpace]="'SETTLEMENT'"
                           cardButtons/>
       </app-card-actions-wrapper>
     </div>

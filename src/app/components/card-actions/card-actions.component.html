@@ -1,5 +1,7 @@
-<div *ngFor="let action of defineEligibleActions(origin!)" class="card-actions-container">
-  <app-button (click)="handleClick(action.actionType)" *ngIf="!(action.hide$ | async)"
-              [icon]="action.icon"
-              [styleProps]="cardActionBtnsStyles" class="card-actions-button"/>
-</div>
+<ng-container *ngIf="!!card && !!gameSpace">
+  <div *ngFor="let action of eligibleActions$ | async" class="card-actions-container">
+    <app-button (onClickHandler)="handleClick(action.actionType)" *ngIf="!(action.hide$ | async)"
+                [icon]="action.icon"
+                [styleProps]="cardActionBtnsStyles" class="card-actions-button"/>
+  </div>
+</ng-container>

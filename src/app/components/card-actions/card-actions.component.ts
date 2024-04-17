@@ -1,16 +1,16 @@
-import {Component, Input} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {CommonModule} from "@angular/common";
 import {BUTTON_TYPE_CARD_ACTION_SMALL, ButtonComponent} from "../shared/button";
-import {Observable, of} from "rxjs";
+import {EMPTY, map, Observable, of} from "rxjs";
 import {GameFacadeService} from "../../facades/game-facade.service";
-import {GameSpace} from "../../domain/game-space";
 import {MessagesAdapterService} from "../../adapters/events/messages-adapter.service";
 import {CardAction, GameCardVO} from "../../query/model/game-card-vo";
+import {GameSpace} from "../../query/model/game-space";
 
 export type CardActionTypes = 'PLAY' | 'ARCHIVE' | 'INFO' | 'EXHAUST'
 
 export type CardBtnAction = {
-  origin: GameSpace,
+  gameSpace: GameSpace,
   actionType: CardActionTypes
   icon: string
   hide$: Observable<boolean>
@@ -23,40 +23,50 @@ export type CardBtnAction = {
   templateUrl: './card-actions.component.html',
   styleUrl: './card-actions.component.scss'
 })
-export class CardActionsComponent {
+export class CardActionsComponent implements OnInit{
   @Input()
   defaultActions: CardBtnAction[] = []
   @Input()
   card: GameCardVO | undefined = undefined
   @Input()
-  origin: GameSpace | undefined = undefined
+  gameSpace: GameSpace | undefined = undefined
   cardActionBtnsStyles = BUTTON_TYPE_CARD_ACTION_SMALL
+
+  eligibleActions$: Observable<CardBtnAction[]> = EMPTY
+
 
   constructor(private gameFacade: GameFacadeService, private errorMessageService: MessagesAdapterService) {
   }
 
-  defineEligibleActions(gameSpace: GameSpace)  {
-    const allowedActions = this.card!.actions.filter((cardAction) => this.gameFacade.actionIsAllowed(cardAction, gameSpace))
-    return [...this.defaultActions, ...allowedActions.map((action) => this.mapCardActionToButtonAction(action))]
+  ngOnInit() {
+    this.eligibleActions$ = this.gameFacade.getCard$(this.card!.id!, this.gameSpace).pipe(map((card) => this.defineEligibleActions(this.gameSpace!, card!)))
+  }
+
+  defineEligibleActions(gameSpace: GameSpace, gameCard: GameCardVO)  {
+      const allowedActions = gameCard!.actions.filter((cardAction) => this.gameFacade.actionIsAllowed(cardAction, gameSpace, this.card!))
+      return [...this.defaultActions, ...allowedActions.map((action) => this.mapCardActionToButtonAction(action))]
   }
 
   handleClick(actionType: CardActionTypes) {
     switch (actionType) {
+      case "EXHAUST":
+        this.gameFacade.exhaustCard(this.gameSpace!, this.card!.id)
+        break
       case "ARCHIVE":
-        this.gameFacade.playCardFromTo(this.origin!, 'ARCHIVE', this.card!.id);
+        this.gameFacade.playCardFromTo(this.gameSpace!, 'ARCHIVE', this.card!.id);
         break;
       case "PLAY":
         if (this.card)
           switch (this.card.cardType) {
             case 'building':
-              this.gameFacade.playCardFromTo(this.origin!, 'BUILDING_LANE', this.card!.id);
+              this.gameFacade.playCardFromTo(this.gameSpace!, 'BUILDING_LANE', this.card!.id);
               break;
             case 'event':
               // TODO Play event
-              this.gameFacade.playCardFromTo(this.origin!, 'ARCHIVE', this.card!.id);
+              this.gameFacade.playCardFromTo(this.gameSpace!, 'ARCHIVE', this.card!.id);
               break;
             case 'citizen':
-              this.gameFacade.playCardFromTo(this.origin!, 'CITIZEN_LANE', this.card!.id);
+              this.gameFacade.playCardFromTo(this.gameSpace!, 'CITIZEN_LANE', this.card!.id);
               break;
             default:
               this.errorMessageService.publish({
@@ -83,11 +93,13 @@ export class CardActionsComponent {
 
   private mapCardActionToButtonAction(cardAction: CardAction) {
     return {
-      origin: this.origin!,
+      gameSpace: this.gameSpace!,
       //TODO trigger(s)???
       actionType: 'EXHAUST',
       icon: 'switch_access_shortcut',
       hide$:of(false)
     } as CardBtnAction
   }
+
+  protected readonly origin = origin;
 }

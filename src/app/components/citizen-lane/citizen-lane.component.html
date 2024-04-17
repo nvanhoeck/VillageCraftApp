@@ -1,11 +1,10 @@
 <div class="citizen-lane">
   <ng-container *ngFor="let citizen of (citizenLane$ | async); index as i">
     <ng-container *ngIf="citizen">
-      <div (mouseenter)="handleHoverCard(citizen.id)" (mouseleave)="handleMouseLeaveCard()"
-           class="card-and-action-wrapper">
+      <div class="card-and-action-wrapper">
         <app-card-actions-wrapper>
-          <app-game-card [card]="citizen" cardSide="FRONT" cardStyle="SMALL"/>
-          <app-card-actions *ngIf="isHovered(citizen.id)" [defaultActions]="defaultActions" [card]="citizen" [origin]="'CITIZEN_LANE'"
+          <app-game-card (handleHoverHandle)="handleHoverCard($event.id)" (handleHoverLeaveHandler)="handleMouseLeaveCard()" [card]="citizen" cardSide="FRONT" cardStyle="SMALL"/>
+          <app-card-actions [defaultActions]="defaultActions" [card]="citizen" [gameSpace]="'CITIZEN_LANE'"
                             cardButtons/>
         </app-card-actions-wrapper>
       </div>

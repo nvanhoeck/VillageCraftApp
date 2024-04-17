@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {GameProjectionService} from "../query/game/game-projection.service";
 import {map, Observable} from "rxjs";
-import {Lane} from "../domain/lane";
+import {Lane} from "../query/model/lane";
 
 @Injectable({
   providedIn: 'root'

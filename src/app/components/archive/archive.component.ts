@@ -20,13 +20,13 @@ export class ArchiveComponent {
 
   defaultCard = DefaultGameCard
   actions = [{
-    origin: 'ARCHIVE',
+    gameSpace: 'ARCHIVE',
     actionType: 'PLAY',
     icon: 'arrow_right',
     hide$: of(false),
   },
     {
-      origin: 'ARCHIVE',
+      gameSpace: 'ARCHIVE',
       actionType: 'INFO',
       icon: 'info',
       hide$: of(false)

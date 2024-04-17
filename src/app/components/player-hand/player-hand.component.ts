@@ -31,25 +31,24 @@ export class PlayerHandComponent {
   hand$ = this.gameFacade.getPlayerHand$().pipe(takeUntilDestroyed(this.destroyRef))
 
   actions = [{
-    origin: 'HAND',
+    gameSpace: 'HAND',
     actionType: 'PLAY',
     icon: 'arrow_right',
     hide$: this.gameFacade.getCurrentPhase$().pipe(takeUntilDestroyed(this.destroyRef),map(this.isActionPhase), map((isActionPhase => !isActionPhase)))
   },
     {
-      origin: 'HAND',
+      gameSpace: 'HAND',
       actionType: 'ARCHIVE',
       icon: 'archive',
       hide$: combineLatest([
         this.gameFacade.getPlayerArchive$().pipe(takeUntilDestroyed(this.destroyRef)),
         this.gameFacade.getCurrentPhase$().pipe(takeUntilDestroyed(this.destroyRef)),
       ]).pipe(map(([archiveAlreadyHasCard, gamePhase]) => {
-        console.log(archiveAlreadyHasCard, !this.isActionPhase(gamePhase))
         return archiveAlreadyHasCard || !this.isActionPhase(gamePhase)
       }))
     },
     {
-      origin: 'HAND',
+      gameSpace: 'HAND',
       actionType: 'INFO',
       icon: 'info',
       hide$: of(false)

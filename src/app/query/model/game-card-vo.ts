@@ -36,4 +36,5 @@ export type GameCardVO = {
   readonly cardAffiliation: CardAffilitation
   readonly deckLimit: number
   readonly actions: CardAction[]
+  readonly exhausted: boolean
 }

@@ -14,10 +14,10 @@ export class HomeComponent {
   constructor(protected readonly router: Router) {
   }
 
-  redirectToCardsOverview = async (evnt: Event) => {
+  redirectToCardsOverview = async () => {
     await this.router.navigate(['/overview'])
   };
-  redirectToPlayerVsPCOverview = async (evnt: Event) => {
+  redirectToPlayerVsPCOverview = async () => {
     await this.router.navigate(['/1-vs-pc'])
   };
 

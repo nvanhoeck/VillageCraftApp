@@ -1,13 +1,12 @@
 <div *ngIf="(hand$ | async) as hand" class="player_hand">
   <ng-container *ngFor="let card of hand">
-    <div (click)="handleCardClicked(card.id)" (mouseenter)="handleCardHover(card.id)"
-         (mouseleave)="handleCardHoverLeave()"
+    <div (click)="handleCardClicked(card.id)"
          [class]="'card-and-action-wrapper' + hideActions && !cardSelected(card.id) ? 'card-and-action-wrapper--hover-normal' : !cardSelection ? 'card-and-action-wrapper--hover-high': '' +
          cardSelected(card.id) ? 'card-and-action-wrapper--selected' : ''">
       <app-card-actions-wrapper>
         <app-game-card [cardSide]="'FRONT'" [card]="card"
-                       cardStyle="NORMAL"/>
-        <app-card-actions *ngIf="isHovered(card.id) && !hideActions" [defaultActions]="actions" [card]="card" [origin]="'HAND'"
+                       cardStyle="NORMAL" (handleHoverHandle)="handleCardHover($event.id)" (handleHoverLeaveHandler)="handleCardHoverLeave()"/>
+        <app-card-actions *ngIf="!hideActions" [defaultActions]="actions" [card]="card" [gameSpace]="'HAND'"
                           cardButtons/>
       </app-card-actions-wrapper>
     </div>

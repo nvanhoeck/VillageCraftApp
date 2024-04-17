@@ -1,11 +1,10 @@
 <div class="building-lane">
   <ng-container *ngFor="let building of (buildingLane$ | async); index as i">
     <ng-container *ngIf="building">
-      <div (mouseenter)="handleHoverCard(building.id)" (mouseleave)="handleMouseLeaveCard()"
-           class="card-and-action-wrapper">
+      <div class="card-and-action-wrapper">
         <app-card-actions-wrapper>
-          <app-game-card [card]="building" cardSide="FRONT" cardStyle="SMALL"/>
-          <app-card-actions *ngIf="isHovered(building.id)" [defaultActions]="defaultActions" [card]="building" [origin]="'BUILDING_LANE'"
+          <app-game-card (handleHoverHandle)="handleHoverCard($event.id)" (handleHoverLeaveHandler)="handleMouseLeaveCard()" [card]="building" cardSide="FRONT" cardStyle="SMALL"/>
+          <app-card-actions [defaultActions]="defaultActions" [card]="building" [gameSpace]="'BUILDING_LANE'"
                             cardButtons/>
         </app-card-actions-wrapper>
       </div>
