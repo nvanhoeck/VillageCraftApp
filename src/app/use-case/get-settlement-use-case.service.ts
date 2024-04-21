@@ -13,7 +13,6 @@ export class GetSettlementUseCaseService {
   public getSettlement$(playerId: string) {
     return this.projectionService.getPlayer$(playerId).pipe(map((player) => {
       const settlement = player.findSettlement();
-      console.log('hello', settlement)
       return settlement
     }))
   }

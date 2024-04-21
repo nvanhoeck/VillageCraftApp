@@ -3,7 +3,7 @@ import {GameSpace} from "./game-space";
 type CardType = 'unit' | 'building' | 'settlement' | 'event' | 'citizen'
 type CardAffilitation = 'base' | 'diplomacy' | 'military' | 'treasury' | 'learning' | 'visionary'
 export type GamePhase = 'setup' | 'mulligan' | 'draw' | 'production' | 'action' | 'combat' | 'refresh' | 'consumption' | 'end_turn'
-export type Trigger = 'exhaust' | 'deploy' | 'condition' | 'banish' | 'claim' |  'gainFood' | 'build' |'gainWood' | 'gainFoodAndWood'
+export type Trigger = 'exhaust' | 'deploy' | 'condition' | 'banish' | 'claim' |  'gainFood' | 'build' |'gainWood' | 'gainFoodAndWood' | 'archive' | 'info'
 type GameCommand = {} // TODO
 
 type TriggerRecord = Record<Trigger, GameSpace[]>
@@ -16,7 +16,9 @@ export const TRIGGER_FROM_GAME_SPACE: TriggerRecord = {
   "gainFood": ['CITIZEN_LANE', 'BUILDING_LANE'],
   "gainWood": ['CITIZEN_LANE', 'BUILDING_LANE'],
   "gainFoodAndWood": ['CITIZEN_LANE', 'BUILDING_LANE'],
-  "build": ['CITIZEN_LANE', 'BUILDING_LANE']
+  "build": ['CITIZEN_LANE', 'BUILDING_LANE'],
+  "archive": ['HAND'],
+  "info": ['HAND', 'CITIZEN_LANE', 'BUILDING_LANE', 'ARCHIVE', 'SETTLEMENT'],
 };
 
 export type CardAction = {
@@ -24,6 +26,7 @@ export type CardAction = {
   commands: GameCommand[]
   phases: GamePhase[]
   args: any
+  icon: string
 }
 
 export type GameCardVO = {

@@ -25,6 +25,7 @@ import {TriggerCardEffectUseCaseService} from "../use-case/trigger-card-effect-u
 export class GameFacadeService {
   private playerId = 'niko';
   private gameId = this.gameSetupFacade.getGameId();
+  private exhaustedImpactedEvent = ['exhaust', 'gainFood', 'gainWood', 'gainFoodAndWood'];
 
   constructor(private gameSetupFacade: GameSetupFacadeService,
               private gamePhaseFacade: GamePhaseFacadeService,
@@ -136,6 +137,10 @@ export class GameFacadeService {
     }
   }
 
+  gainWood(gameSpace: GameSpace, cardId: string) {
+    this.triggerCardEffectUseCaseService.gainWood(gameSpace, cardId, this.gamePhaseFacade.getGamePhase(this.gameId!), this.gameId!, this.playerId)
+  }
+
   gainFood(gameSpace: GameSpace, cardId: string) {
     this.triggerCardEffectUseCaseService.gainFood(gameSpace, cardId, this.gamePhaseFacade.getGamePhase(this.gameId!), this.gameId!, this.playerId)
   }
@@ -145,7 +150,6 @@ export class GameFacadeService {
   }
 
   private cardIsExhausted(cardAction: CardAction, gameCard: GameCardVO) {
-    //TODO enum
-    return ['exhaust', 'gainFood', 'gainWood', 'gainFoodAndWood'].includes(cardAction.trigger) && gameCard.exhausted;
+    return this.exhaustedImpactedEvent.includes(cardAction.trigger) && gameCard.exhausted;
   }
 }

@@ -1,6 +1,5 @@
 import {Injectable} from '@angular/core';
 import {CommandBusService} from "../commands/command-bus.service";
-import {PlayCardFromToCommand} from "../commands/model/play-card-from-to-command";
 import {GameSpace} from "../domain/game-space";
 import {PlayCardSagaService} from "../sagas/play-card-saga.service";
 import {MessagesAdapterService} from "../adapters/events/messages-adapter.service";
@@ -21,5 +20,9 @@ export class TriggerCardEffectUseCaseService {
 
   gainFood(gameSpace: GameSpace, cardId: string, gamePhase: GamePhase, gameId: string, playerId: string) {
     this.cardActionSagaService.gainFood(gameSpace, cardId, gamePhase, gameId, playerId)
+  }
+
+  gainWood(gameSpace: GameSpace, cardId: string, gamePhase: GamePhase, gameId: string, playerId: string) {
+    this.cardActionSagaService.gainWood(gameSpace, cardId, gamePhase, gameId, playerId)
   }
 }

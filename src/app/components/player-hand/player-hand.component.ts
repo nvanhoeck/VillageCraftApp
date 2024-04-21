@@ -32,13 +32,13 @@ export class PlayerHandComponent {
 
   actions = [{
     gameSpace: 'HAND',
-    actionType: 'PLAY',
+    actionType: 'deploy',
     icon: 'arrow_right',
     hide$: this.gameFacade.getCurrentPhase$().pipe(takeUntilDestroyed(this.destroyRef),map(this.isActionPhase), map((isActionPhase => !isActionPhase)))
   },
     {
       gameSpace: 'HAND',
-      actionType: 'ARCHIVE',
+      actionType: 'archive',
       icon: 'archive',
       hide$: combineLatest([
         this.gameFacade.getPlayerArchive$().pipe(takeUntilDestroyed(this.destroyRef)),
@@ -49,7 +49,7 @@ export class PlayerHandComponent {
     },
     {
       gameSpace: 'HAND',
-      actionType: 'INFO',
+      actionType: 'info',
       icon: 'info',
       hide$: of(false)
     }] as CardBtnAction[]

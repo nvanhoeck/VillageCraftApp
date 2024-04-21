@@ -22,7 +22,7 @@ export class SettlementComponent {
   defaultCard = DefaultGameCard
   actions = [{
     gameSpace: 'SETTLEMENT',
-    actionType: 'INFO',
+    actionType: 'archive',
     icon: 'info',
     hide$: of(false)
   }] as CardBtnAction[]

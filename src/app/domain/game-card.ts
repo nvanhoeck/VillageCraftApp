@@ -10,7 +10,8 @@ type CardAction = {
   trigger: Trigger,
   commands: GameCommand[]
   phases: GamePhase[]
-  args: any
+  args: any,
+  icon: string
 }
 
 type TriggerRecord = Record<Trigger, GameSpace[]>

@@ -19,7 +19,7 @@ export class CitizenLaneComponent {
   hoveredCard: string | undefined = undefined
   defaultActions: CardBtnAction[] = [{
     gameSpace: 'CITIZEN_LANE',
-    actionType: 'INFO',
+    actionType: 'info',
     icon: 'info',
     hide$: of(false)
   }]

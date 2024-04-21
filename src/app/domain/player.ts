@@ -227,7 +227,25 @@ export class Player {
     }
   }
 
+
+
+  gainWoodFromCard(cardId: string, gamePhase: GamePhase, gameSpace: GameSpace) {
+    if(gameSpace === 'BUILDING_LANE') {
+      this._buildingLane.exhaustCard(cardId);
+      const card = this._buildingLane.findCardInLane(cardId)
+      // TODO find might become filter
+      let amount = card?.actions.find((action) => action.trigger === 'gainWood')!.args.amount as number;
+      this.addWoodResource(amount)
+      return amount
+    } else {
+      return 0
+    }
+  }
+
   private addFoodResource(amount: number) {
     this._food = this._food + amount
+  }
+  private addWoodResource(amount: number) {
+    this._wood = this._wood + amount
   }
 }

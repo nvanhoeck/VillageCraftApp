@@ -46,7 +46,8 @@
           "args":
             {
               "amount": 3
-            }
+            },
+          "icon": "eco"
         }
       ]
     },
@@ -73,7 +74,8 @@
           "args":
             {
               "amount": 1
-            }
+            },
+          "icon": "forest"
         }
       ]
     },
@@ -121,7 +123,8 @@
             {
               "amountFood": 1,
               "amountWood": 1
-            }
+            },
+          "icon": "forest eco"
         }
       ]
     },
@@ -146,7 +149,8 @@
             {
               "amountWood": 1,
               "amountMarketplaceCredits": 1
-            }
+            },
+          "icon": "forest"
         }
       ]
     },
@@ -180,7 +184,8 @@
                   }
                 }
               ]
-            }
+            },
+          "icon": "forest"
         }
       ]
     },
@@ -205,7 +210,8 @@
           "args":
             {
               "cardType": "citizen"
-            }
+            },
+          "icon": "forest"
         }
       ]
     },
@@ -227,7 +233,8 @@
           "phases": [
             "action"
           ],
-          "args": {}
+          "args": {},
+          "icon": "forest"
         }
       ]
     },
@@ -252,7 +259,8 @@
           "args":
             {
               "target": "hostilePlayer"
-            }
+            },
+          "icon": "forest"
         }
       ]
     },
@@ -277,7 +285,8 @@
           "args":
             {
               "target": "hostile"
-            }
+            },
+          "icon": "forest"
         }
       ]
     },
@@ -302,7 +311,8 @@
           "args":
             {
               "amount": 2
-            }
+            },
+          "icon": "eco"
         }
       ]
     },
@@ -329,7 +339,8 @@
           "args":
             {
               "amount": 1
-            }
+            },
+          "icon": "eco"
         }
       ]
     },
@@ -353,7 +364,8 @@
             "refresh",
             "combat"
           ],
-          "args": {}
+          "args": {},
+          "icon": "forest"
         },
         {
           "trigger":
@@ -378,7 +390,8 @@
           "args":
             {
               "amount": "totalHealth"
-            }
+            },
+          "icon": "forest"
         }
       ]
     },
@@ -445,7 +458,8 @@
             {
               "min": 0,
               "max": 4
-            }
+            },
+          "icon": "forest"
 
         }
       ]
@@ -485,7 +499,8 @@
           "args":
             {
               "amount": 2
-            }
+            },
+          "icon": "flag"
         },
         {
           "trigger":
@@ -500,7 +515,8 @@
           "args":
             {
               "amount": 1
-            }
+            },
+          "icon": "forest"
         }
       ]
     },
@@ -528,7 +544,8 @@
           "args":
             {
               "amount": 1
-            }
+            },
+          "icon": "eco"
         },
         {
           "trigger":
@@ -543,7 +560,8 @@
           "args":
             {
               "amount": 2
-            }
+            },
+          "icon": "forest"
         }
       ]
     },
@@ -571,7 +589,8 @@
           "args":
             {
               "amount": 2
-            }
+            },
+          "icon": "forest"
         },
         {
           "trigger":
@@ -583,7 +602,8 @@
           "phases": [
             "action"
           ],
-          "args": {}
+          "args": {},
+          "icon": "forest"
         }
       ]
     },
@@ -611,7 +631,8 @@
           "args":
             {
               "amount": 1
-            }
+            },
+          "icon": "forest"
         }
       ]
     }

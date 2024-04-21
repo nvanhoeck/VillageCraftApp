@@ -4,14 +4,13 @@ import {BUTTON_TYPE_CARD_ACTION_SMALL, ButtonComponent} from "../shared/button";
 import {EMPTY, map, Observable, of} from "rxjs";
 import {GameFacadeService} from "../../facades/game-facade.service";
 import {MessagesAdapterService} from "../../adapters/events/messages-adapter.service";
-import {CardAction, GameCardVO} from "../../query/model/game-card-vo";
+import {CardAction, GameCardVO, Trigger} from "../../query/model/game-card-vo";
 import {GameSpace} from "../../query/model/game-space";
 
-export type CardActionTypes = 'PLAY' | 'ARCHIVE' | 'INFO' | 'EXHAUST' | 'GAIN_FOOD' | 'GAIN_WOOD' | 'GAIN_FOOD_AND_WOOD'
 
 export type CardBtnAction = {
   gameSpace: GameSpace,
-  actionType: CardActionTypes
+  actionType: Trigger
   icon: string
   hide$: Observable<boolean>
 }
@@ -47,24 +46,24 @@ export class CardActionsComponent implements OnInit{
       return [...this.defaultActions, ...allowedActions.map((action) => this.mapCardActionToButtonAction(action))]
   }
 
-  handleClick(actionType: CardActionTypes) {
+  handleClick(actionType: Trigger) {
     switch (actionType) {
-      case "GAIN_FOOD_AND_WOOD":
+      case "gainFoodAndWood":
         this.gameFacade.exhaustCard(this.gameSpace!, this.card!.id);
         break;
-      case "GAIN_WOOD":
-        this.gameFacade.exhaustCard(this.gameSpace!, this.card!.id);
+      case "gainWood":
+        this.gameFacade.gainWood(this.gameSpace!, this.card!.id);
         break;
-      case "GAIN_FOOD":
+      case "gainFood":
         this.gameFacade.gainFood(this.gameSpace!, this.card!.id);
         break;
-      case "EXHAUST":
+      case "exhaust":
         this.gameFacade.exhaustCard(this.gameSpace!, this.card!.id)
         break
-      case "ARCHIVE":
+      case "archive":
         this.gameFacade.playCardFromTo(this.gameSpace!, 'ARCHIVE', this.card!.id);
         break;
-      case "PLAY":
+      case "deploy":
         if (this.card)
           switch (this.card.cardType) {
             case 'building':
@@ -103,10 +102,9 @@ export class CardActionsComponent implements OnInit{
   private mapCardActionToButtonAction(cardAction: CardAction) {
     return {
       gameSpace: this.gameSpace!,
-      //TODO trigger(s)???
-      actionType: 'GAIN_FOOD',
+      actionType: cardAction.trigger,
       //icon: 'switch_access_shortcut',
-      icon: 'eco',
+      icon: cardAction.icon,
       hide$:of(false)
     } as CardBtnAction
   }

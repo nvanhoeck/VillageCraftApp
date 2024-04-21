@@ -21,13 +21,13 @@ export class ArchiveComponent {
   defaultCard = DefaultGameCard
   actions = [{
     gameSpace: 'ARCHIVE',
-    actionType: 'PLAY',
+    actionType: 'deploy',
     icon: 'arrow_right',
     hide$: of(false),
   },
     {
       gameSpace: 'ARCHIVE',
-      actionType: 'INFO',
+      actionType: 'info',
       icon: 'info',
       hide$: of(false)
     }] as CardBtnAction[]

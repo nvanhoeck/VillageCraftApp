@@ -8,6 +8,7 @@ import {MulliganCommandHandlerService} from "./handlers/mulligan-command-handler
 import {InitiateGameCommandHandlerService} from "./handlers/initiate-game-command-handler.service";
 import {ExhaustCardCommandHandlerService} from "./handlers/exhaust-card-command-handler.service";
 import {GainFoodCardActionCommandHandlerService} from "./handlers/gain-food-card-action-command-handler.service";
+import {GainWoodCardActionCommandHandlerService} from "./handlers/gain-wood-card-action-command-handler.service";
 
 @Injectable({
   providedIn: 'root'
@@ -24,6 +25,7 @@ export class CommandHandlersRegistryService {
     private readonly initiateGameCommandHandlerService: InitiateGameCommandHandlerService,
     private readonly exhaustCardCommandHandlerService: ExhaustCardCommandHandlerService,
     private readonly gainFoodCardActionCommandHandlerService: GainFoodCardActionCommandHandlerService,
+    private readonly gainWoodCardActionCommandHandlerService: GainWoodCardActionCommandHandlerService,
   ) {
   }
 }

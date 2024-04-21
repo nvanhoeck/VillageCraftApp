@@ -19,7 +19,7 @@ export class BuildingLaneComponent {
   hoveredCard: string | undefined = undefined
   defaultActions: CardBtnAction[] = [{
     gameSpace: 'BUILDING_LANE',
-    actionType: 'INFO',
+    actionType: 'info',
     icon: 'info',
     hide$: of(false)
   }]
