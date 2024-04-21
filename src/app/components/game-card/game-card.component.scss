@@ -1,5 +1,12 @@
 @import "1-settings";
 
+$units: 1.5vmax;
+$brick1: #CC0000;
+$brick2: #DD0000;
+$lines: #565656;
+$gp-ln: 50%/calc($units * 2) calc($units );
+$gp-cn: 50%/calc($units) calc($units);
+
 .back-text {
   color: $color-whites;
 }
@@ -137,6 +144,12 @@
   &--exhausted{
     transform: rotate(15deg);
     margin: 0 2rem;
+  }
+  &--under-construction {
+    background:
+    repeating-conic-gradient(from 90deg at 95% 55%, $lines 0% 25%, #fff0 0% 100%) $gp-cn,
+    repeating-linear-gradient(180deg, $lines 0 5%, #fff0 0 50%, $lines 0 55%, $brick2 0 100% ) $gp-ln,
+    repeating-linear-gradient(90deg, $brick1 0 47.5%, $lines 0 50%, $brick1 0 97.5%, $lines 0 100% ) $gp-ln;
   }
 }
 

@@ -144,7 +144,7 @@ export class Player {
       return {...gameCard, attack: card.attack, defence: card.defence, health: card.health}
     }
     if (isBuildingCard(card)) {
-      return {...gameCard, health: card.health}
+      return {...gameCard, health: card.health, underConstruction: card.underConstruction, constructionProgress: card.constructionProgress }
     } else {
       return gameCard
     }

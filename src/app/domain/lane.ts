@@ -27,4 +27,9 @@ export class Lane {
   findCardInLane(cardId: string) {
     return this.lane.find((card) => card.id === cardId);
   }
+
+  addCardForConstruction(card: GameBuildingCard, index: number) {
+    card.startBuilding()
+    this.lane.splice(index, 0, card)
+  }
 }

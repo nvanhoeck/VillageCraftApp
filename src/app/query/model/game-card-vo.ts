@@ -42,4 +42,6 @@ export type GameCardVO = {
   readonly deckLimit: number
   readonly actions: CardAction[]
   readonly exhausted: boolean
+  readonly underConstruction?: boolean
+  readonly constructionProgress?: number
 }

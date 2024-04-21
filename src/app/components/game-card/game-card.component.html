@@ -4,7 +4,7 @@
 <ng-template #trueCard>
   <div (mouseenter)="handleHover($event)" (mouseleave)="handleHoverLeave($event)" *ngIf="card"
        [class.game-card--backside]="cardSide === 'BACK'" [class.game-card--small]="cardStyle === 'SMALL'"
-       [class.game-card--exhausted]="!!card.exhausted"
+       [class.game-card--exhausted]="card.exhausted" [class.game-card--under-construction]="card.underConstruction"
        class="game-card__container" id="{{card.id}}">
     <section class="game-card__header">
       <div class="game-card__title">{{card.title}}</div>

@@ -188,15 +188,49 @@ export class GameCitizenCard extends GameCard {
 }
 
 export class GameBuildingCard extends GameCard {
+
   constructor(id: string, cardId: string, title: string, description: string, cardAffiliation: CardAffilitation, deckLimit: number, actions: CardAction[], health: number) {
     super(id, cardId, title, description, cardAffiliation, deckLimit, actions, 'building', false);
     this._health = health;
+    this._underConstruction = false
+    this._constructionProgress = this._health
   }
 
   private _health: number;
+  private _underConstruction: boolean
+  private _constructionProgress: number
 
   get health(): number {
     return this._health;
+  }
+
+  get underConstruction(): boolean {
+    return this._underConstruction;
+  }
+
+  get constructionProgress(): number {
+    return this._constructionProgress;
+  }
+
+  startBuilding() {
+    this._underConstruction = true
+    this._constructionProgress = 0
+  }
+
+  continueBuild(amount: number) {
+    this._constructionProgress += amount
+    if(this._constructionProgress >= this._health) {
+      this._underConstruction = false
+    }
+  }
+
+  completeBuilding() {
+    this._underConstruction = false
+  }
+
+  finishBuildingAtHealth(amount: number) {
+    this._underConstruction = false
+    this._health = amount
   }
 }
 

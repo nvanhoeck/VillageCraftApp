@@ -198,7 +198,7 @@ export class Player {
     if (!foundCard || foundCard.cardType !== 'building') {
       throw new Error('Card not found in hand')
     }
-    this._buildingLane.addCard(foundCard as GameBuildingCard, index)
+    this._buildingLane.addCardForConstruction(foundCard as GameBuildingCard, index)
     this._hand.splice(this._hand.indexOf(foundCard), 1)
   }
 
