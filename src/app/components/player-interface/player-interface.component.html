@@ -9,4 +9,7 @@
       <p>{{food$ | async}}</p>
     </div>
   </div>
+  <div class="end-turn-btn">
+    <app-button *ngIf="showEndTurn$ | async" text="{{endTurnLabel$ | async}}" (onClickHandler)="handleEndTurnClicked($event)"/>
+  </div>
 </div>

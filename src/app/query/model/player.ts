@@ -52,6 +52,7 @@ export class Player {
   }
 
   updateCitizenLane(lane: DomainLane) {
+    this._citizenLane = new Lane('citizen')
     lane.findCardsInLane().map(this.mapDomainCardToVO).forEach((c) => this._citizenLane.addCard(c))
   }
 
@@ -80,11 +81,8 @@ export class Player {
   }
 
   updateBuildingLane(lane: DomainLane) {
-    if(this._buildingLane) {
-      lane.findCardsInLane().map(this.mapDomainCardToVO).forEach((c) => this._buildingLane.addCard(c))
-    } else {
-      throw new Error('No Building lane')
-    }
+    this._buildingLane = new Lane('citizen')
+    lane.findCardsInLane().map(this.mapDomainCardToVO).forEach((c) => this._buildingLane.addCard(c))
   }
 
   public findSettlement() {
