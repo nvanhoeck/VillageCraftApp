@@ -127,7 +127,7 @@
               "amountFood": 1,
               "amountWood": 1
             },
-          "icon": "forest eco"
+          "icon": "forest"
         }
       ]
     },
@@ -155,8 +155,7 @@
             {
               "amountWood": 1,
               "amountMarketplaceCredits": 1
-            },
-          "icon": "forest"
+            }
         }
       ]
     },
@@ -190,8 +189,7 @@
                   }
                 }
               ]
-            },
-          "icon": "forest"
+            }
         }
       ]
     },
@@ -216,8 +214,7 @@
           "args":
             {
               "cardType": "citizen"
-            },
-          "icon": "forest"
+            }
         }
       ]
     },
@@ -239,8 +236,7 @@
           "phases": [
             "action"
           ],
-          "args": {},
-          "icon": "forest"
+          "args": {}
         }
       ]
     },
@@ -265,8 +261,7 @@
           "args":
             {
               "target": "hostilePlayer"
-            },
-          "icon": "forest"
+            }
         }
       ]
     },
@@ -291,8 +286,7 @@
           "args":
             {
               "target": "hostile"
-            },
-          "icon": "forest"
+            }
         }
       ]
     },
@@ -370,8 +364,7 @@
             "refresh",
             "combat"
           ],
-          "args": {},
-          "icon": "forest"
+          "args": {}
         },
         {
           "trigger":
@@ -396,8 +389,7 @@
           "args":
             {
               "amount": "totalHealth"
-            },
-          "icon": "forest"
+            }
         }
       ]
     },
@@ -464,9 +456,7 @@
             {
               "min": 0,
               "max": 4
-            },
-          "icon": "forest"
-
+            }
         }
       ]
     },
@@ -521,8 +511,7 @@
           "args":
             {
               "amount": 1
-            },
-          "icon": "forest"
+            }
         }
       ]
     },
@@ -566,8 +555,7 @@
           "args":
             {
               "amount": 2
-            },
-          "icon": "forest"
+            }
         }
       ]
     },
@@ -595,8 +583,7 @@
           "args":
             {
               "amount": 2
-            },
-          "icon": "forest"
+            }
         },
         {
           "trigger":
@@ -608,8 +595,7 @@
           "phases": [
             "action"
           ],
-          "args": {},
-          "icon": "forest"
+          "args": {}
         }
       ]
     },
