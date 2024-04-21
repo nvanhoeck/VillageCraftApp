@@ -20,6 +20,17 @@
             "action"
           ],
           "args": {}
+        }, {
+          "trigger":
+          "destruction"
+        ,
+          "commands": [
+            "PlayerLosesGame"
+          ],
+          "phases": [
+            "setup" , "mulligan" , "draw" , "production" , "action" , "combat" , "refresh" , "consumption" , "end_turn"
+          ],
+          "args": {}
         }
       ]
     },
@@ -89,18 +100,7 @@
       "description": "",
       "cardAffiliation": "base",
       "deckLimit": 5,
-      "actions": [
-        {
-          "trigger":"exhaust",
-          "commands": [
-            "GenericAction"
-          ],
-          "phases": [
-            "action"
-          ],
-          "args": {}
-        }
-      ]
+      "actions": []
     },
     {
       "cardId": "5",

@@ -3,7 +3,7 @@ import {GameSpace} from "./game-space";
 type CardType = 'unit' | 'building' | 'settlement' | 'event' | 'citizen'
 type CardAffilitation = 'base' | 'diplomacy' | 'military' | 'treasury' | 'learning' | 'visionary'
 export type GamePhase = 'setup' | 'mulligan' | 'draw' | 'production' | 'action' | 'combat' | 'refresh' | 'consumption' | 'end_turn'
-export type Trigger = 'exhaust' | 'deploy' | 'condition' | 'banish' | 'claim' |  'gainFood' | 'build' |'gainWood' | 'gainFoodAndWood' | 'archive' | 'info'
+export type Trigger = 'destruction' | 'exhaust' | 'deploy' | 'condition' | 'banish' | 'claim' |  'gainFood' | 'build' |'gainWood' | 'gainFoodAndWood' | 'archive' | 'info'
 type GameCommand = {} // TODO
 
 type TriggerRecord = Record<Trigger, GameSpace[]>
@@ -19,6 +19,7 @@ export const TRIGGER_FROM_GAME_SPACE: TriggerRecord = {
   "build": ['CITIZEN_LANE', 'BUILDING_LANE'],
   "archive": ['HAND'],
   "info": ['HAND', 'CITIZEN_LANE', 'BUILDING_LANE', 'ARCHIVE', 'SETTLEMENT'],
+  'destruction': ['HAND', 'CITIZEN_LANE', 'BUILDING_LANE', 'ARCHIVE', 'SETTLEMENT'],
 };
 
 export type CardAction = {

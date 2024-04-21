@@ -100,7 +100,6 @@ export class CardActionsComponent implements OnInit{
     return {
       gameSpace: this.gameSpace!,
       actionType: cardAction.trigger,
-      //icon: 'switch_access_shortcut',
       icon: cardAction.icon,
       hide$:of(false)
     } as CardBtnAction

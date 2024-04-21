@@ -184,7 +184,12 @@ export class GameFacadeService {
   }
 
   private isActionAllowed(action: CardAction, card: GameCardVO, gameSpace: GameSpace, gamePhase: GamePhase, playerResources: {wood: number, food: number}) {
+    if(card.cardId === "20") {
+      debugger
+    }
     switch (action.trigger) {
+      case "destruction":
+        return false;
       case "exhaust":
         return  !card.exhausted && ['BUILDING_LANE', 'CITIZEN_LANE'].includes(gameSpace) && gamePhase === 'action';
       case "deploy":
@@ -202,9 +207,9 @@ export class GameFacadeService {
         return !card.exhausted && ['BUILDING_LANE', 'CITIZEN_LANE'].includes(gameSpace) && gamePhase === 'action';
       case "gainWood":
         debugger
-        return !card.exhausted && ['BUILDING_LANE', 'CITIZEN_LANE', 'HAND'].includes(gameSpace)  && gamePhase === 'production';
+        return !card.exhausted && ['BUILDING_LANE', 'CITIZEN_LANE'].includes(gameSpace)  && gamePhase === 'production';
       case "gainFoodAndWood":
-        return !card.exhausted && ['BUILDING_LANE', 'CITIZEN_LANE', 'HAND'].includes(gameSpace)  && gamePhase === 'production';
+        return !card.exhausted && ['BUILDING_LANE', 'CITIZEN_LANE'].includes(gameSpace)  && gamePhase === 'production';
       case "archive":
         return gameSpace === 'HAND'
       case "info":
