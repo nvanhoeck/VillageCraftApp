@@ -26,7 +26,6 @@ export class BuildingLaneComponent {
   showSlots$ = this.gameFacade.showSlots$('building');
 
   constructor(private readonly gameFacade: GameFacadeService) {
-    this.showSlots$.subscribe((res: boolean) => console.log(res))
   }
 
   handleHoverCard(id: string) {

@@ -8,13 +8,13 @@ export class Game {
     this._id = id
     this._gameType = gameType
     this._players = []
-    this._gameStatus = 'setup'
+    this._gamePhase = 'setup'
   }
 
-  private _gameStatus: GamePhase
+  private _gamePhase: GamePhase
 
-  public get gameStatus() {
-    return this._gameStatus
+  public get gamePhase() {
+    return this._gamePhase
   }
 
   private _id: string
@@ -41,10 +41,14 @@ export class Game {
 
 
   startMulliganPhase() {
-    this._gameStatus = 'mulligan'
+    this._gamePhase = 'mulligan'
   }
 
   startProductionPhase() {
-    this._gameStatus = 'production'
+    this._gamePhase = 'production'
+  }
+
+  changePhase(nextPhase: GamePhase) {
+    this._gamePhase = nextPhase
   }
 }

@@ -10,6 +10,7 @@
 <ng-template #game>
   <section *ngIf="(game$ | async) as game" class="game-area" id="game-area">
     <ng-container *ngIf="(playersIds$ | async) as playerIds; else gameLoading">
+      <app-button *ngIf="showEndTurn$ | async" text="{{endTurnLabel$ | async}}" (onClickHandler)="handleEndTurnClicked($event)"/>
       <app-player-interface></app-player-interface>
       <div class="player_lanes">
         <div class="player_units">

@@ -24,6 +24,7 @@ export class Player {
   private _hand: (GameBuildingCard | GameCitizenCard | GameEventCard)[]
   private _food: number
   private _wood: number
+  private _inPhase: GamePhase
 
   constructor(id: string) {
     this._id = id
@@ -39,6 +40,7 @@ export class Player {
     this._archive = undefined
     this._wood = 0
     this._food = 0
+    this._inPhase = "setup"
   }
 
   private _id: string
@@ -156,6 +158,10 @@ export class Player {
     return this._banishment;
   }
 
+  findInPhase() {
+    return this._inPhase
+  }
+
   playCardFromHandToArchive(cardId: string) {
     const foundCard = this._hand.find((card) => card.id === cardId);
     if (!foundCard) {
@@ -247,5 +253,9 @@ export class Player {
   }
   private addWoodResource(amount: number) {
     this._wood = this._wood + amount
+  }
+
+  setInPhase(gamePhase: GamePhase) {
+    this._inPhase = gamePhase
   }
 }

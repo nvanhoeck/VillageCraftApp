@@ -152,4 +152,12 @@ export class GameFacadeService {
   private cardIsExhausted(cardAction: CardAction, gameCard: GameCardVO) {
     return this.exhaustedImpactedEvent.includes(cardAction.trigger) && gameCard.exhausted;
   }
+
+  getGameId() {
+    return this.gameId!;
+  }
+
+  endTurn() {
+    this.gamePhaseFacade.endPhase(this.gameId!, this.playerId)
+  }
 }

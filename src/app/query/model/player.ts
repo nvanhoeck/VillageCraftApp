@@ -7,7 +7,7 @@ import {
   isBuildingCard,
   isCitizenCard
 } from "../../domain/game-card";
-import {GameCardVO} from "./game-card-vo";
+import {GameCardVO, GamePhase} from "./game-card-vo";
 import {GameSpace} from "./game-space";
 import {Lane} from "./lane";
 import {Lane as DomainLane} from '../../domain/lane'
@@ -27,6 +27,7 @@ export class Player {
   private _banishment: GameCardVO[]
   private _wood: number
   private _food: number
+  private _phase: GamePhase
 
   constructor(id: string, playerType: PlayerType) {
     this._id = id
@@ -42,6 +43,7 @@ export class Player {
     this._playerType = playerType
     this._wood = 0
     this._food = 0
+    this._phase = 'setup'
   }
 
 
@@ -162,5 +164,9 @@ export class Player {
 
   addWood(amount: number) {
     this._wood = this._wood + amount
+  }
+
+  changePhase(nextPhase: GamePhase) {
+    this._phase = nextPhase
   }
 }

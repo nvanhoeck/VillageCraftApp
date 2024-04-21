@@ -22,6 +22,8 @@ import {GameInitiatedEvent} from "../../events/model/GameInitiatedEvent";
 import {CardExhaustedEvent} from "../../events/model/CardExhaustedEvent";
 import {PlayerGainedFoodEvent} from "../../events/model/PlayerGainedFoodEvent";
 import {PlayerGainedWoodEvent} from "../../events/model/PlayerGainedWoodEvent";
+import {PlayerPhaseStartedEvent} from "../../events/model/PlayerPhaseStarted";
+import {GamePhaseStartedEvent} from "../../events/model/GamePhaseStarted";
 
 @Injectable({
   providedIn: 'root'
@@ -52,6 +54,8 @@ export class GameProjectionService implements EventHandler {
     this.eventBus.registerHandler('CardExhausted', this)
     this.eventBus.registerHandler('PlayerGainedFood', this)
     this.eventBus.registerHandler('PlayerGainedWood', this)
+    this.eventBus.registerHandler('GamePhaseStarted', this)
+    this.eventBus.registerHandler('PlayerPhaseStarted', this)
   }
 
   execute(event: GameEvent): void {
@@ -107,6 +111,12 @@ export class GameProjectionService implements EventHandler {
       case 'PlayerGainedWood':
         this.handlePlayerGainedWood(event)
         break;
+        case 'PlayerPhaseStarted':
+        this.handlePlayerPhaseStarted(event)
+        break;
+        case 'GamePhaseStarted':
+        this.handleGamePhaseStarted(event)
+        break;
       default:
         this.errorMessageService.publish({
           topic: "APPLICATION-ERROR",
@@ -156,7 +166,7 @@ export class GameProjectionService implements EventHandler {
   }
 
   getGamePhase$(gameId: string) {
-    return this.games[gameId].pipe(map((game) => game.gameStatus))
+    return this.games[gameId].pipe(map((game) => game.gamePhase))
   }
 
   getPlayerResources$(gameId: string, playerId: string) {
@@ -260,6 +270,7 @@ export class GameProjectionService implements EventHandler {
     this.players[event.payload.player.id].pipe(take(1)).subscribe((player) => {
       player.updateHand(event.payload.player.findHand())
       player.updateDeck(event.payload.player.findDeck())
+      player.changePhase('production')
       this.players[event.payload.player.id].next(player)
     })
   }
@@ -272,7 +283,7 @@ export class GameProjectionService implements EventHandler {
   }
 
   getGamePhase(gameId: string) {
-    return this.games[gameId].value.gameStatus
+    return this.games[gameId].value.gamePhase
   }
 
   private handleCardExhausted(event: CardExhaustedEvent) {
@@ -293,6 +304,20 @@ export class GameProjectionService implements EventHandler {
     this.players[event.payload.playerId].pipe(take(1)).subscribe((player) => {
       player.addWood(event.payload.amount)
       this.players[event.payload.playerId].next(player)
+    })
+  }
+
+  private handlePlayerPhaseStarted(event: PlayerPhaseStartedEvent) {
+    this.players[event.payload.playerId].pipe(take(1)).subscribe((player) => {
+      player.changePhase(event.payload.nextPhase)
+      this.players[event.payload.playerId].next(player)
+    })
+  }
+
+  private handleGamePhaseStarted(event: GamePhaseStartedEvent) {
+    this.games[event.payload.gameId].pipe(take(1)).subscribe((game) => {
+      game.changePhase(event.payload.nextPhase)
+      this.games[event.payload.gameId].next(game)
     })
   }
 }

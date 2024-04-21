@@ -15,6 +15,8 @@ import {GamePhaseFacadeService} from "../../facades/game-phase-facade.service";
 import {map, switchMap} from "rxjs";
 import {ButtonComponent} from "../shared/button";
 import {PlayerInterfaceComponent} from "../player-interface/player-interface.component";
+import {GameFacadeService} from "../../facades/game-facade.service";
+import {GamePhase} from "../../query/model/game-card-vo";
 
 @Component({
   selector: 'app-game',
@@ -34,9 +36,12 @@ export class GameComponent {
     return this.gamePhaseFacade.getGamePhase$(gameId)
   }))
 
+  endTurnLabel$ = this.gamePhaseFacade.getGamePhase$(this.gameFacade.getGameId()).pipe(map((gamePhase) => this.mapEndTurnLabelByGamePhase(gamePhase)));
+  showEndTurn$ = this.gamePhaseFacade.getGamePhase$(this.gameFacade.getGameId()).pipe(map((gamePhase) => this.mapShowEndTurnByPhase(gamePhase)));
+
   mulliganCardsSelected: string[] = []
 
-  constructor(private readonly gameSetupFacade: GameSetupFacadeService, private readonly gamePhaseFacade: GamePhaseFacadeService) {
+  constructor(private readonly gameSetupFacade: GameSetupFacadeService, private gameFacade: GameFacadeService, private readonly gamePhaseFacade: GamePhaseFacadeService) {
 
   }
 
@@ -51,5 +56,46 @@ export class GameComponent {
 
   mulliganCardsSelect() {
     this.gameSetupFacade.selectCardsForPlayer(this.mulliganCardsSelected)
+  }
+
+  handleEndTurnClicked($event: Event) {
+    this.gameFacade.endTurn()
+  }
+
+  private mapShowEndTurnByPhase(gamePhase: GamePhase) {
+    switch (gamePhase) {
+      case "setup":
+      case "mulligan":
+      case "draw":
+        return false
+      case "production":
+      case "action":
+      case "combat":
+      case "refresh":
+      case "consumption":
+      case "end_turn":
+        return true
+    }
+  }
+
+  private mapEndTurnLabelByGamePhase(gamePhase: GamePhase) {
+    switch (gamePhase) {
+      case "setup":
+      case "mulligan":
+      case "draw":
+        return ""
+      case "production":
+        return "End production phase"
+      case "action":
+        return "End action phase"
+      case "combat":
+        return "End combat phase"
+      case "refresh":
+        return "End refresh phase"
+      case "consumption":
+        return "End consumption phase"
+      case "end_turn":
+        return "End turn"
+    }
   }
 }
