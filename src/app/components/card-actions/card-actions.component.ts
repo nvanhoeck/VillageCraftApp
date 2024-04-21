@@ -1,7 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {CommonModule} from "@angular/common";
 import {BUTTON_TYPE_CARD_ACTION_SMALL, ButtonComponent} from "../shared/button";
-import {EMPTY, map, Observable, of} from "rxjs";
+import {combineLatest, EMPTY, map, Observable, of} from "rxjs";
 import {GameFacadeService} from "../../facades/game-facade.service";
 import {MessagesAdapterService} from "../../adapters/events/messages-adapter.service";
 import {CardAction, GameCardVO, Trigger} from "../../query/model/game-card-vo";
@@ -38,12 +38,9 @@ export class CardActionsComponent implements OnInit{
   }
 
   ngOnInit() {
-    this.eligibleActions$ = this.gameFacade.getCard$(this.card!.id!, this.gameSpace).pipe(map((card) => this.defineEligibleActions(this.gameSpace!, card!)))
-  }
-
-  defineEligibleActions(gameSpace: GameSpace, gameCard: GameCardVO)  {
-      const allowedActions = gameCard!.actions.filter((cardAction) => this.gameFacade.actionIsAllowed(cardAction, gameSpace, this.card!))
-      return [...this.defaultActions, ...allowedActions.map((action) => this.mapCardActionToButtonAction(action))]
+    this.eligibleActions$ = this.gameFacade.getAllowedActions$(this.card?.id!, this.gameSpace!).pipe(map((actions) => {
+      return [...this.defaultActions, ...actions.map((action) => this.mapCardActionToButtonAction(action))]
+    }))
   }
 
   handleClick(actionType: Trigger) {

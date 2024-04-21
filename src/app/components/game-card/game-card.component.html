@@ -7,6 +7,14 @@
        [class.game-card--exhausted]="card.exhausted" [class.game-card--under-construction]="card.underConstruction"
        class="game-card__container" id="{{card.id}}">
     <section class="game-card__header">
+      <div *ngIf="card.cardType === 'building' && (gameSpace === 'HAND' || cardStyle === 'NORMAL')" class="game-card__cost">
+        <div *ngIf="card.cost?.wood !== undefined" class="game-card__cost-wood">
+          <mat-icon>forest</mat-icon>{{card.cost?.wood}}
+        </div>
+        <div *ngIf="card.cost?.food !== undefined" class="game-card__cost-food">
+          <mat-icon>eco</mat-icon>{{card.cost?.food}}
+        </div>
+      </div>
       <div class="game-card__title">{{card.title}}</div>
       <div *ngIf="card.health && (card.cardType === 'building' || card.cardType === 'settlement')"
            class="game-card__health-building game-card__stat">

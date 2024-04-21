@@ -28,7 +28,6 @@ export class EndPhaseCommandHandlerService implements CommandHandler {
       const game = this.gameStore.get(cmd.payload.gameId);
       const hasGamePhaseEnded = game.endPhase(cmd.payload.playerId)
       const player = game.players.find((p) => p.id === cmd.payload.playerId)!
-      debugger
       this.eventBus.on(new PlayerPhaseStartedEvent({gameId: game.id, playerId: cmd.payload.playerId, nextPhase: player.findInPhase() }))
       if(hasGamePhaseEnded) {
         this.eventBus.on(new GamePhaseStartedEvent({gameId: game.id, nextPhase: game.phase }))

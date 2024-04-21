@@ -61,19 +61,19 @@ export class Player {
       switch (card.cardId) {
         // Settlement
         case "1":
-          this._settlement = new GameBuildingCard(uuidv4(), card.cardId, card.title, card.description, card.cardAffiliation, card.deckLimit, card.actions, card.health!);
+          this._settlement = new GameBuildingCard(uuidv4(), card.cardId, card.title, card.description, card.cardAffiliation, card.deckLimit, card.actions, card.health!,  card.cost!);
           break
         // Farm
         case "2":
-          this._buildingLane.addCard(new GameBuildingCard(uuidv4(), card.cardId, card.title, card.description, card.cardAffiliation, card.deckLimit, card.actions, card.health!), 0)
-          this._deck.push(new GameBuildingCard(uuidv4(), card.cardId, card.title, card.description, card.cardAffiliation, card.deckLimit, card.actions, card.health!))
-          this._deck.push(new GameBuildingCard(uuidv4(), card.cardId, card.title, card.description, card.cardAffiliation, card.deckLimit, card.actions, card.health!))
+          this._buildingLane.addCard(new GameBuildingCard(uuidv4(), card.cardId, card.title, card.description, card.cardAffiliation, card.deckLimit, card.actions, card.health!,  card.cost!), 0)
+          this._deck.push(new GameBuildingCard(uuidv4(), card.cardId, card.title, card.description, card.cardAffiliation, card.deckLimit, card.actions, card.health!,  card.cost!))
+          this._deck.push(new GameBuildingCard(uuidv4(), card.cardId, card.title, card.description, card.cardAffiliation, card.deckLimit, card.actions, card.health!,  card.cost!))
           break
         //Lumbermill
         case "3":
-          this._buildingLane.addCard(new GameBuildingCard(uuidv4(), card.cardId, card.title, card.description, card.cardAffiliation, card.deckLimit, card.actions, card.health!), 1)
-          this._deck.push(new GameBuildingCard(uuidv4(), card.cardId, card.title, card.description, card.cardAffiliation, card.deckLimit, card.actions, card.health!))
-          this._deck.push(new GameBuildingCard(uuidv4(), card.cardId, card.title, card.description, card.cardAffiliation, card.deckLimit, card.actions, card.health!))
+          this._buildingLane.addCard(new GameBuildingCard(uuidv4(), card.cardId, card.title, card.description, card.cardAffiliation, card.deckLimit, card.actions, card.health!,  card.cost!), 1)
+          this._deck.push(new GameBuildingCard(uuidv4(), card.cardId, card.title, card.description, card.cardAffiliation, card.deckLimit, card.actions, card.health!,  card.cost!))
+          this._deck.push(new GameBuildingCard(uuidv4(), card.cardId, card.title, card.description, card.cardAffiliation, card.deckLimit, card.actions, card.health!,  card.cost!))
           break
         //Regular Citizen
         case "4":
@@ -88,8 +88,8 @@ export class Player {
             this._deck.push(new GameCitizenCard(uuidv4(), card.cardId, card.title, card.description, card.cardAffiliation, card.deckLimit, card.actions, card.attack!, card.defence!, card.health!),)
           }
           if (card.cardType === 'building') {
-            this._deck.push(new GameBuildingCard(uuidv4(), card.cardId, card.title, card.description, card.cardAffiliation, card.deckLimit, card.actions, card.health!))
-            this._deck.push(new GameBuildingCard(uuidv4(), card.cardId, card.title, card.description, card.cardAffiliation, card.deckLimit, card.actions, card.health!))
+            this._deck.push(new GameBuildingCard(uuidv4(), card.cardId, card.title, card.description, card.cardAffiliation, card.deckLimit, card.actions, card.health!, card.cost!))
+            this._deck.push(new GameBuildingCard(uuidv4(), card.cardId, card.title, card.description, card.cardAffiliation, card.deckLimit, card.actions, card.health!,  card.cost!))
           }
           if (card.cardType === 'event') {
             this._deck.push(new GameEventCard(uuidv4(), card.cardId, card.title, card.description, card.cardAffiliation, card.deckLimit, card.actions))

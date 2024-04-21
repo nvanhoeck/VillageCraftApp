@@ -104,6 +104,9 @@
     },
     {
       "cardId": "5",
+      "cost": {
+        "wood": 3
+      },
       "title": "Hunting Lodge",
       "cardType": "building",
       "health": 3,
@@ -130,6 +133,9 @@
     },
     {
       "cardId": "6",
+      "cost": {
+        "wood": 2
+      },
       "title": "Marketplace",
       "cardType": "building",
       "health": 2,

@@ -6,7 +6,7 @@
       <app-card-actions-wrapper>
         <app-game-card [cardSide]="'FRONT'" [card]="card"
                        cardStyle="NORMAL" (handleHoverHandle)="handleCardHover($event.id)" (handleHoverLeaveHandler)="handleCardHoverLeave()"/>
-        <app-card-actions *ngIf="!hideActions" [defaultActions]="actions" [card]="card" [gameSpace]="'HAND'"
+        <app-card-actions *ngIf="!hideActions" [defaultActions]="actions(card.id)" [card]="card" [gameSpace]="'HAND'"
                           cardButtons/>
       </app-card-actions-wrapper>
     </div>

@@ -138,13 +138,13 @@ export class Player {
       cardAffiliation: card.cardAffiliation,
       deckLimit: card.deckLimit,
       actions: card.actions,
-      exhausted: card.exhausted
+      exhausted: card.exhausted,
     }
     if (isCitizenCard(card)) {
       return {...gameCard, attack: card.attack, defence: card.defence, health: card.health}
     }
     if (isBuildingCard(card)) {
-      return {...gameCard, health: card.health, underConstruction: card.underConstruction, constructionProgress: card.constructionProgress }
+      return {...gameCard, health: card.health, underConstruction: card.underConstruction, constructionProgress: card.constructionProgress, cost: card.cost }
     } else {
       return gameCard
     }

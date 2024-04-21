@@ -13,7 +13,7 @@ import {GameSetupFacadeService} from "./game-setup.facade.service";
 import {ShouldShowSlotsForPlayerUseCaseService} from "../use-case/should-show-slots-for-player-use-case.service";
 import {PlayerSelectSlotsForCardUseCaseService} from "../use-case/player-select-slots-for-card-use-case.service";
 import {GetPlayerResourceUseCaseService} from "../use-case/get-player-resource-use-case.service";
-import {filter, map} from "rxjs";
+import {combineLatest, defaultIfEmpty, map, Observable, of} from "rxjs";
 import {CardAction, GameCardVO, GamePhase, Trigger, TRIGGER_FROM_GAME_SPACE} from "../query/model/game-card-vo";
 import {GamePhaseFacadeService} from "./game-phase-facade.service";
 import {GameSpace} from "../query/model/game-space";
@@ -25,7 +25,6 @@ import {TriggerCardEffectUseCaseService} from "../use-case/trigger-card-effect-u
 export class GameFacadeService {
   private playerId = 'niko';
   private gameId = this.gameSetupFacade.getGameId();
-  private exhaustedImpactedEvent = ['exhaust', 'gainFood', 'gainWood', 'gainFoodAndWood'];
 
   constructor(private gameSetupFacade: GameSetupFacadeService,
               private gamePhaseFacade: GamePhaseFacadeService,
@@ -113,10 +112,6 @@ export class GameFacadeService {
     return this.getPlayerResourceUseCaseService.getPlayerResources$(this.gameId!, this.playerId).pipe(map((resources) => resources.food))
   }
 
-  actionIsAllowed(cardAction: CardAction, gameSpace: GameSpace, gameCard: GameCardVO) {
-    return cardAction.phases.includes(this.gamePhaseFacade.getGamePhase(this.gameId!)) && this.triggerAreAllowedFromGameSpace(cardAction.trigger, gameSpace) && !this.cardIsExhausted(cardAction, gameCard);
-  }
-
   getCurrentPhase$() {
     return this.gamePhaseFacade.getGamePhase$(this.gameId!);
   }
@@ -127,13 +122,19 @@ export class GameFacadeService {
 
   getCard$(id: string, gameSpace?: GameSpace) {
     switch (gameSpace) {
-      case 'BUILDING_LANE': return this.getPlayerBuildingLane$().pipe(map(lane => lane.findCardInLane(id)));
-      case 'CITIZEN_LANE': return this.getPlayerCitizenLane$().pipe(map(lane => lane.findCardInLane(id)));
-      case 'SETTLEMENT': return this.getSettlement$();
-      case 'HAND': return this.getPlayerHand$().pipe((map(hand => hand.find((card) => card.id === id))));
+      case 'BUILDING_LANE':
+        return this.getPlayerBuildingLane$().pipe(map(lane => lane.findCardInLane(id)));
+      case 'CITIZEN_LANE':
+        return this.getPlayerCitizenLane$().pipe(map(lane => lane.findCardInLane(id)));
+      case 'SETTLEMENT':
+        return this.getSettlement$();
+      case 'HAND':
+        return this.getPlayerHand$().pipe((map(hand => hand.find((card) => card.id === id))));
       //TODO improve
-      case undefined: return this.getPlayerHand$().pipe((map(hand => hand.find((card) => card.id === id))));
-      default: throw new Error(`case ${gameSpace} not defined to fetch card, built code for it`)
+      case undefined:
+        return this.getPlayerHand$().pipe((map(hand => hand.find((card) => card.id === id))));
+      default:
+        throw new Error(`case ${gameSpace} not defined to fetch card, built code for it`)
     }
   }
 
@@ -149,15 +150,65 @@ export class GameFacadeService {
     return TRIGGER_FROM_GAME_SPACE[trigger].includes(gameSpace)
   }
 
-  private cardIsExhausted(cardAction: CardAction, gameCard: GameCardVO) {
-    return this.exhaustedImpactedEvent.includes(cardAction.trigger) && gameCard.exhausted;
-  }
-
   getGameId() {
     return this.gameId!;
   }
 
   endTurn() {
     this.gamePhaseFacade.endPhase(this.gameId!, this.playerId)
+  }
+
+  playFromHandIsAllowed$(gameCardVO: GameCardVO): Observable<boolean> {
+    if (gameCardVO.cardType === 'building') {
+      return this.getPlayerResourceUseCaseService.getPlayerResources$(this.gameId!, this.playerId).pipe(defaultIfEmpty({
+        wood: 0,
+        food: 0
+      }), map((resources) => {
+        return (resources.wood >= (gameCardVO.cost?.wood ?? 0)) && (resources.food >= (gameCardVO.cost?.food ?? 0))
+      }))
+    } else return of(true)
+  }
+
+  getAllowedActions$(cardID: string, gameSpace: GameSpace ) {
+    return combineLatest([
+      this.getCard$(cardID, gameSpace),
+      this.gamePhaseFacade.getGamePhase$(this.gameId!),
+      this.getPlayerResourceUseCaseService.getPlayerResources$(this.gameId!, this.playerId)
+    ]).pipe(map(([card, gamePhase, playerResources]) => {
+      if(card) {
+        return card.actions.filter((action) => this.isActionAllowed(action, card, gameSpace, gamePhase, playerResources))
+      } else {
+        return []
+      }
+    }))
+  }
+
+  private isActionAllowed(action: CardAction, card: GameCardVO, gameSpace: GameSpace, gamePhase: GamePhase, playerResources: {wood: number, food: number}) {
+    switch (action.trigger) {
+      case "exhaust":
+        return  !card.exhausted && ['BUILDING_LANE', 'CITIZEN_LANE'].includes(gameSpace) && gamePhase === 'action';
+      case "deploy":
+        return gameSpace === 'HAND'  && gamePhase === 'action';
+      case "condition":
+        return true
+      case "banish":
+        return ['BUILDING_LANE', 'CITIZEN_LANE', 'HAND'].includes(gameSpace)  && gamePhase === 'action';
+      case "claim":
+        return !card.exhausted &&  ['BUILDING_LANE', 'CITIZEN_LANE', 'HAND'].includes(gameSpace)  && gamePhase === 'action';
+      case "gainFood":
+        debugger
+        return !card.exhausted && ['BUILDING_LANE', 'CITIZEN_LANE'].includes(gameSpace) && gamePhase === 'production';
+      case "build":
+        return !card.exhausted && ['BUILDING_LANE', 'CITIZEN_LANE'].includes(gameSpace) && gamePhase === 'action';
+      case "gainWood":
+        debugger
+        return !card.exhausted && ['BUILDING_LANE', 'CITIZEN_LANE', 'HAND'].includes(gameSpace)  && gamePhase === 'production';
+      case "gainFoodAndWood":
+        return !card.exhausted && ['BUILDING_LANE', 'CITIZEN_LANE', 'HAND'].includes(gameSpace)  && gamePhase === 'production';
+      case "archive":
+        return gameSpace === 'HAND'
+      case "info":
+        return true
+    }
   }
 }

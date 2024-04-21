@@ -44,4 +44,8 @@ export type GameCardVO = {
   readonly exhausted: boolean
   readonly underConstruction?: boolean
   readonly constructionProgress?: number
+  readonly cost?: {
+    wood: number,
+    food?: number
+  }
 }

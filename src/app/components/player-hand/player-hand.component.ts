@@ -4,8 +4,8 @@ import {GameCardComponent} from "../game-card/game-card.component";
 import {CommonModule} from "@angular/common";
 import {CardActionsWrapperComponent} from "../card-actions-wrapper/card-actions-wrapper.component";
 import {CardActionsComponent, CardBtnAction} from "../card-actions/card-actions.component";
-import {combineLatest, forkJoin, map, of, tap} from "rxjs";
-import {GamePhase} from "../../query/model/game-card-vo";
+import {combineLatest, flatMap, forkJoin, map, mergeMap, of, tap} from "rxjs";
+import {GameCardVO, GamePhase} from "../../query/model/game-card-vo";
 import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
 
 @Component({
@@ -30,11 +30,16 @@ export class PlayerHandComponent {
 
   hand$ = this.gameFacade.getPlayerHand$().pipe(takeUntilDestroyed(this.destroyRef))
 
-  actions = [{
+  actions = (cardId: string) => [{
     gameSpace: 'HAND',
     actionType: 'deploy',
     icon: 'arrow_right',
-    hide$: this.gameFacade.getCurrentPhase$().pipe(takeUntilDestroyed(this.destroyRef),map(this.isActionPhase), map((isActionPhase => !isActionPhase)))
+    hide$: combineLatest([
+      this.gameFacade.getCurrentPhase$().pipe(takeUntilDestroyed(this.destroyRef),map(this.isActionPhase), map((isActionPhase => isActionPhase))),
+      this.gameFacade.getCard$(cardId).pipe(takeUntilDestroyed(this.destroyRef), mergeMap((gameCard) => this.gameFacade.playFromHandIsAllowed$(gameCard!)))
+    ]).pipe(map(([actionPhaseAllowed, playFromHandAllowed]) => {
+      return !actionPhaseAllowed || !playFromHandAllowed
+    }))
   },
     {
       gameSpace: 'HAND',

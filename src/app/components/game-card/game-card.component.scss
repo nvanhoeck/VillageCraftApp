@@ -151,5 +151,11 @@ $gp-cn: 50%/calc($units) calc($units);
     repeating-linear-gradient(180deg, $lines 0 5%, #fff0 0 50%, $lines 0 55%, $brick2 0 100% ) $gp-ln,
     repeating-linear-gradient(90deg, $brick1 0 47.5%, $lines 0 50%, $brick1 0 97.5%, $lines 0 100% ) $gp-ln;
   }
+  &__cost > *{
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+  }
 }
 

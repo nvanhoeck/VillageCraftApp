@@ -1,4 +1,5 @@
 import {GameSpace} from "./game-space";
+import {Cost} from "./cost";
 
 type CardType = 'unit' | 'building' | 'settlement' | 'event' | 'citizen'
 type CardAffilitation = 'base' | 'diplomacy' | 'military' | 'treasury' | 'learning' | 'visionary'
@@ -54,6 +55,7 @@ export type GameCardDto = {
   deckLimit: number
   actions: CardAction[]
   exhausted: boolean
+  cost?: Cost
 }
 
 export class GameCard {
@@ -189,16 +191,19 @@ export class GameCitizenCard extends GameCard {
 
 export class GameBuildingCard extends GameCard {
 
-  constructor(id: string, cardId: string, title: string, description: string, cardAffiliation: CardAffilitation, deckLimit: number, actions: CardAction[], health: number) {
+
+  constructor(id: string, cardId: string, title: string, description: string, cardAffiliation: CardAffilitation, deckLimit: number, actions: CardAction[], health: number, cost: Cost) {
     super(id, cardId, title, description, cardAffiliation, deckLimit, actions, 'building', false);
     this._health = health;
     this._underConstruction = false
     this._constructionProgress = this._health
+    this._cost = cost
   }
 
   private _health: number;
   private _underConstruction: boolean
   private _constructionProgress: number
+  private _cost: Cost
 
   get health(): number {
     return this._health;
@@ -210,6 +215,10 @@ export class GameBuildingCard extends GameCard {
 
   get constructionProgress(): number {
     return this._constructionProgress;
+  }
+
+  get cost(): Cost {
+    return this._cost;
   }
 
   startBuilding() {
@@ -242,4 +251,4 @@ export class GameEventCard extends GameCard {
 
 
 export const DefaultGameCard = new GameCard("", "", "", "", "base", 0, [], 'settlement', false)
-export const DefaultBuildingCardCard = new GameBuildingCard("", "", "", "", "base", 0, [], 0)
+export const DefaultBuildingCardCard = new GameBuildingCard("", "", "", "", "base", 0, [], 0, {wood: 0, food: 0})
