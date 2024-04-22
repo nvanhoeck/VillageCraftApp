@@ -18,6 +18,7 @@ import {CardAction, GameCardVO, GamePhase, Trigger, TRIGGER_FROM_GAME_SPACE} fro
 import {GamePhaseFacadeService} from "./game-phase-facade.service";
 import {GameSpace} from "../query/model/game-space";
 import {TriggerCardEffectUseCaseService} from "../use-case/trigger-card-effect-use-case.service";
+import {GetLocationsByLaneUseCaseService} from "../use-case/get-locations-by-lane-use-case.service";
 
 @Injectable({
   providedIn: 'root'
@@ -41,7 +42,8 @@ export class GameFacadeService {
               private playerSelectSlotsForCardUseCaseService: PlayerSelectSlotsForCardUseCaseService,
               private playCardFromUseCaseService: PlayCardFromToUseCaseService,
               private triggerCardEffectUseCaseService: TriggerCardEffectUseCaseService,
-              private getPlayerResourceUseCaseService: GetPlayerResourceUseCaseService
+              private getPlayerResourceUseCaseService: GetPlayerResourceUseCaseService,
+              private getLocationsByLaneUseCaseService: GetLocationsByLaneUseCaseService
   ) {
   }
 
@@ -184,9 +186,6 @@ export class GameFacadeService {
   }
 
   private isActionAllowed(action: CardAction, card: GameCardVO, gameSpace: GameSpace, gamePhase: GamePhase, playerResources: {wood: number, food: number}) {
-    if(card.cardId === "20") {
-      debugger
-    }
     switch (action.trigger) {
       case "destruction":
         return false;
@@ -201,12 +200,10 @@ export class GameFacadeService {
       case "claim":
         return !card.exhausted &&  ['BUILDING_LANE', 'CITIZEN_LANE', 'HAND'].includes(gameSpace)  && gamePhase === 'action';
       case "gainFood":
-        debugger
         return !card.exhausted && ['BUILDING_LANE', 'CITIZEN_LANE'].includes(gameSpace) && gamePhase === 'production';
       case "build":
         return !card.exhausted && ['BUILDING_LANE', 'CITIZEN_LANE'].includes(gameSpace) && gamePhase === 'action';
       case "gainWood":
-        debugger
         return !card.exhausted && ['BUILDING_LANE', 'CITIZEN_LANE'].includes(gameSpace)  && gamePhase === 'production';
       case "gainFoodAndWood":
         return !card.exhausted && ['BUILDING_LANE', 'CITIZEN_LANE'].includes(gameSpace)  && gamePhase === 'production';
@@ -215,5 +212,9 @@ export class GameFacadeService {
       case "info":
         return true
     }
+  }
+
+  getLocationsByLane$(row: number) {
+    return this.getLocationsByLaneUseCaseService.getLocationsByLane$(this.gameId!, row);
   }
 }

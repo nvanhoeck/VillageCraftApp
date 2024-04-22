@@ -6,6 +6,7 @@ import {GameFacadeService} from "../../facades/game-facade.service";
 import {MessagesAdapterService} from "../../adapters/events/messages-adapter.service";
 import {CardAction, GameCardVO, Trigger} from "../../query/model/game-card-vo";
 import {GameSpace} from "../../query/model/game-space";
+import {LocationCardVO} from "../../query/model/location-card-vo";
 
 
 export type CardBtnAction = {
@@ -26,7 +27,7 @@ export class CardActionsComponent implements OnInit{
   @Input()
   defaultActions: CardBtnAction[] = []
   @Input()
-  card: GameCardVO | undefined = undefined
+  card: GameCardVO | LocationCardVO | undefined = undefined
   @Input()
   gameSpace: GameSpace | undefined = undefined
   cardActionBtnsStyles = BUTTON_TYPE_CARD_ACTION_SMALL
@@ -61,7 +62,7 @@ export class CardActionsComponent implements OnInit{
         this.gameFacade.playCardFromTo(this.gameSpace!, 'ARCHIVE', this.card!.id);
         break;
       case "deploy":
-        if (this.card)
+        if (this.card && 'cardType' in this.card)
           switch (this.card.cardType) {
             case 'building':
               this.gameFacade.playCardFromTo(this.gameSpace!, 'BUILDING_LANE', this.card!.id);

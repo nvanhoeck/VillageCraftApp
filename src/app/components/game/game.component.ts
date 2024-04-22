@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, DestroyRef, inject} from '@angular/core';
 import {CommonModule} from "@angular/common";
 import {GameSetupFacadeService} from "../../facades/game-setup.facade.service";
 import {SettlementComponent} from "../settlement/settlement.component";
@@ -17,22 +17,26 @@ import {ButtonComponent} from "../shared/button";
 import {PlayerInterfaceComponent} from "../player-interface/player-interface.component";
 import {GameFacadeService} from "../../facades/game-facade.service";
 import {GamePhase} from "../../query/model/game-card-vo";
+import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
+import {LocationCardComponent} from "../location-card/location-card.component";
+import {LocationLaneComponent} from "../location-lane/location-lane.component";
 
 @Component({
   selector: 'app-game',
   standalone: true,
   imports: [CommonModule, SettlementComponent, PlayerHandComponent, PlayerDeckComponent, ArchiveComponent,
     CitizenLaneComponent, BuildingLaneComponent, DragScrollComponent, DragScrollItemDirective, DiscardPileComponent,
-    BanishmentComponent, GraveyardComponent, ButtonComponent, PlayerInterfaceComponent
+    BanishmentComponent, GraveyardComponent, ButtonComponent, PlayerInterfaceComponent, LocationCardComponent, LocationLaneComponent
   ],
   templateUrl: './game.component.html',
   styleUrl: './game.component.scss'
 })
 export class GameComponent {
+  private destroyRef = inject(DestroyRef);
 
-  game$ = this.gameSetupFacade.getGame$()
-  playersIds$ = this.gameSetupFacade.getPlayerIds$()
-  gamePhase$ = this.game$.pipe(map((game) => game.id), switchMap((gameId: string) => {
+  game$ = this.gameSetupFacade.getGame$().pipe(takeUntilDestroyed(this.destroyRef))
+  playersIds$ = this.gameSetupFacade.getPlayerIds$().pipe(takeUntilDestroyed(this.destroyRef))
+  gamePhase$ = this.game$.pipe(takeUntilDestroyed(this.destroyRef),map((game) => game.id), switchMap((gameId: string) => {
     return this.gamePhaseFacade.getGamePhase$(gameId)
   }))
 

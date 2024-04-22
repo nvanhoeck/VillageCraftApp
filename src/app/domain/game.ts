@@ -1,6 +1,9 @@
 import {GameType} from "./game-type";
 import {Player} from "./player";
-import {GamePhase} from "./game-card";
+
+import {GamePhase} from "./GamePhase";
+import {LocationCard, LocationLanes} from "./location-card";
+import {LocationLanesVO} from "../query/model/location-card-vo";
 
 
 export class Game {
@@ -10,6 +13,7 @@ export class Game {
     this._players = []
     this._phase = 'setup'
     this._round = 0
+    this._locations = {one: [], two: [], three: []}
   }
 
   private _id: string
@@ -42,6 +46,9 @@ export class Game {
   public getRound() {
     return this._round
   }
+
+  private _locations:LocationLanes
+
 
   public addPlayer(player: Player) {
     this._players.push(player)
@@ -86,6 +93,11 @@ export class Game {
     }
   }
 
+
+  findLocationsInLanes() {
+    return this._locations
+  }
+
   private switchPhaseWhenAllPlayersHaveMovedOn(nextPhase: GamePhase) {
     /*let playersAreStillInPhase = this._players.map((player) => player.findInPhase()).includes(this._phase);
     if(!playersAreStillInPhase) {
@@ -103,5 +115,11 @@ export class Game {
       this._round++
     }
     return true
+  }
+
+  setupLocations(locationCards: LocationCard[]) {
+    this._locations.one.push(...locationCards.filter((location) => location.locationRank === 1).slice(0,3))
+    this._locations.two.push(...locationCards.filter((location) => location.locationRank === 2).slice(0,3))
+    this._locations.three.push(...locationCards.filter((location) => location.locationRank === 1).slice(3,5))
   }
 }

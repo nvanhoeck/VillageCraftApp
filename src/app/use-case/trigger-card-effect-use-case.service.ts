@@ -3,8 +3,8 @@ import {CommandBusService} from "../commands/command-bus.service";
 import {GameSpace} from "../domain/game-space";
 import {PlayCardSagaService} from "../sagas/play-card-saga.service";
 import {MessagesAdapterService} from "../adapters/events/messages-adapter.service";
-import {GamePhase} from "../domain/game-card";
 import {CardActionSagaService} from "../sagas/card-action-saga.service";
+import {GamePhase} from "../domain/GamePhase";
 
 @Injectable({
   providedIn: 'root'

@@ -1,11 +1,11 @@
 import {GameSpace} from "./game-space";
 import {Cost} from "./cost";
+import {GamePhase} from "./GamePhase";
+import {Trigger} from "./Trigger";
 
 type CardType = 'unit' | 'building' | 'settlement' | 'event' | 'citizen'
 type CardAffilitation = 'base' | 'diplomacy' | 'military' | 'treasury' | 'learning' | 'visionary'
-export type GamePhase = 'setup' | 'mulligan' | 'draw' | 'production' | 'action' | 'combat' | 'refresh' | 'consumption' | 'end_turn'
-type Trigger = 'exhaust' | 'deploy' | 'condition' | 'banish' | 'claim' | 'gainFood' | 'build' |'gainWood' | 'gainFoodAndWood'
-type GameCommand = {} // TODO
+type GameCommand = (commandName: string) => void
 
 type CardAction = {
   trigger: Trigger,

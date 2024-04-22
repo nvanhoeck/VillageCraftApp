@@ -1,5 +1,6 @@
-import {GameBuildingCard, GameCitizenCard, GamePhase} from "./game-card";
+import {GameBuildingCard, GameCitizenCard} from "./game-card";
 import {GameSpace} from "./game-space";
+import {GamePhase} from "./GamePhase";
 
 export class Lane {
   private lane: (GameCitizenCard | GameBuildingCard)[]

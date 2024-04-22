@@ -6,8 +6,6 @@ import {GameCreatedEvent} from "../../events";
 import {PlayerBaseDecksLoadedEvent} from "../../events/model/PlayerBaseDecksLoadedEvent";
 import {PlayerCreatedEvent} from "../../events/model/PlayerCreatedEvent";
 import {MessagesAdapterService} from "../../adapters/events/messages-adapter.service";
-import {Game} from "../model/game";
-import {Player} from "../model/player";
 import {BehaviorSubject, EMPTY, map, take} from "rxjs";
 import {CardPlayerFromHandEvent} from "../../events/model/CardPlayedFromHandEvent";
 import {CardPlayedToArchiveEvent} from "../../events/model/CardPlayedToArchiveEvent";
@@ -24,6 +22,9 @@ import {PlayerGainedFoodEvent} from "../../events/model/PlayerGainedFoodEvent";
 import {PlayerGainedWoodEvent} from "../../events/model/PlayerGainedWoodEvent";
 import {PlayerPhaseStartedEvent} from "../../events/model/PlayerPhaseStarted";
 import {GamePhaseStartedEvent} from "../../events/model/GamePhaseStarted";
+import {Game} from "../model/game";
+import {Player} from "../model/player";
+import {LocationsLoadedEvent} from "../../events/model/LocationsLoadedEvent";
 
 @Injectable({
   providedIn: 'root'
@@ -56,6 +57,7 @@ export class GameProjectionService implements EventHandler {
     this.eventBus.registerHandler('PlayerGainedWood', this)
     this.eventBus.registerHandler('GamePhaseStarted', this)
     this.eventBus.registerHandler('PlayerPhaseStarted', this)
+    this.eventBus.registerHandler('LocationsLoaded', this)
   }
 
   execute(event: GameEvent): void {
@@ -117,6 +119,9 @@ export class GameProjectionService implements EventHandler {
         case 'GamePhaseStarted':
         this.handleGamePhaseStarted(event)
         break;
+        case 'LocationsLoaded':
+        this.handleLocationsLoaded(event)
+        break;
       default:
         this.errorMessageService.publish({
           topic: "APPLICATION-ERROR",
@@ -171,6 +176,15 @@ export class GameProjectionService implements EventHandler {
 
   getPlayerResources$(gameId: string, playerId: string) {
     return this.players[playerId].pipe(map((player) => player.getResources()))
+  }
+
+  getGamePhase(gameId: string) {
+    return this.games[gameId].value.gamePhase
+  }
+
+  getLocationByLane$(gameId: string, row: number) {
+    console.log(row)
+    return this.games[gameId].pipe(map((g) => g.findLocationsInLane(row)))
   }
 
   private handleGameCreatedEvent(event: GameCreatedEvent) {
@@ -282,9 +296,6 @@ export class GameProjectionService implements EventHandler {
     })
   }
 
-  getGamePhase(gameId: string) {
-    return this.games[gameId].value.gamePhase
-  }
 
   private handleCardExhausted(event: CardExhaustedEvent) {
     this.players[event.payload.playerId].pipe(take(1)).subscribe((player) => {
@@ -320,4 +331,13 @@ export class GameProjectionService implements EventHandler {
       this.games[event.payload.gameId].next(game)
     })
   }
+
+  private handleLocationsLoaded(event: LocationsLoadedEvent) {
+    this.games[event.payload.game.id].pipe(take(1)).subscribe((game) => {
+      game.updateLocations(event.payload.game.findLocationsInLanes())
+      this.games[event.payload.game.id].next(game)
+    })
+  }
+
+
 }

@@ -11,6 +11,12 @@
   <section *ngIf="(game$ | async) as game" class="game-area" id="game-area">
     <ng-container *ngIf="(playersIds$ | async) as playerIds; else gameLoading">
       <app-player-interface></app-player-interface>
+      <div class="location_lanes">
+        <p>Locations</p>
+        <app-location-lane [locationRow]="1"></app-location-lane>
+        <app-location-lane [locationRow]="2"></app-location-lane>
+        <app-location-lane [locationRow]="3"></app-location-lane>
+      </div>
       <div class="player_lanes">
         <div class="player_units">
           <app-citizen-lane></app-citizen-lane>

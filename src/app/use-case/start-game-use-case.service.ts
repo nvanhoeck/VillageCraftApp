@@ -5,6 +5,7 @@ import {SetupPlayerCommand} from "../commands/model/setup-player-command";
 import {LoadPlayerBaseDecksCommand} from "../commands/model/load-player-base-decks-command";
 import {v4 as uuidv4} from "uuid";
 import {MulliganPhaseCommand} from "../commands/model/mulligan-phase-command";
+import {LoadLocationsCommand} from "../commands/model/load-locations-command";
 
 @Injectable({
   providedIn: 'root'
@@ -19,6 +20,8 @@ export class StartGameUseCaseService {
     const playerIdPc = uuidv4()
     //Setup game
     this.commandBus.on(new SetupGameCommand({id: gameId, gameType: 'PVC'}))
+    //Setup Locations
+    this.commandBus.on(new LoadLocationsCommand({gameId}))
     //Setup player
     this.commandBus.on(new SetupPlayerCommand({gameId, playerId: playerIdHuman, playerType: 'HUMAN'}))
     //Setup pc

@@ -94,6 +94,17 @@
   margin-right: $gutter;
 }
 
+.location_lanes {
+  grid-row-start: 12;
+  grid-row-end: 13;
+  grid-column-start: 1;
+  grid-column-end: 1;
+  display: flex;
+  flex-direction: column;
+  gap: $gutter;
+  border: dashed 2px black;
+}
+
 .player_lanes {
   grid-row-start: 13;
   grid-row-end: 14;

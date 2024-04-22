@@ -1,5 +1,5 @@
-import {GamePhase} from "../../domain/game-card";
 import {GameEvent} from "./gameEvent";
+import {GamePhase} from "../../domain/GamePhase";
 
 type PlayerPhaseStartedEventPayload = {
   gameId: string

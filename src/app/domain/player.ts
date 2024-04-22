@@ -4,13 +4,13 @@ import {
   GameBuildingCard,
   GameCardDto,
   GameCitizenCard,
-  GameEventCard,
-  GamePhase
+  GameEventCard
 } from "./game-card";
 import {shuffleArray} from "../utils/shuffle";
 import {Lane} from "./lane";
 import {v4 as uuidv4} from "uuid";
 import {GameSpace} from "./game-space";
+import {GamePhase} from "./GamePhase";
 
 export class Player {
   private _deck: (GameBuildingCard | GameCitizenCard | GameEventCard)[]
