@@ -1,1 +1,1 @@
-export * from './cards-overview.component'
+export * from './cards-overview.component';

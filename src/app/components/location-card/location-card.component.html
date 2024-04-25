@@ -1,15 +1,18 @@
-  <div (mouseenter)="handleHover($event)" (mouseleave)="handleHoverLeave($event)" *ngIf="card"
-       [class.location-card--small]="cardStyle === 'SMALL'"
-       [class.location-card--exhausted]="card.exhausted"
-       class="location-card__container" id="{{card.id}}">
+<div
+    (mouseenter)="handleHover($event)"
+    (mouseleave)="handleHoverLeave($event)"
+    *ngIf="card"
+    [class.location-card--small]="cardStyle === 'SMALL'"
+    [class.location-card--exhausted]="card.exhausted"
+    class="location-card__container"
+    id="{{ card.id }}">
     <section class="location-card__header">
-      <div class="location-card__title">{{card.title}}</div>
+        <div class="location-card__title">{{ card.title }}</div>
     </section>
     <section class="location-card__main">
         <ng-container *ngIf="cardStyle !== 'SMALL'">
-          <p [innerHTML]="card.description"></p>
+            <p [innerHTML]="card.description"></p>
         </ng-container>
     </section>
-    <section class="location-card__footer">
-    </section>
-  </div>
+    <section class="location-card__footer"></section>
+</div>

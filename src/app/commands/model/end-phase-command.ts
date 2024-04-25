@@ -1,27 +1,29 @@
-import {Command} from "./command";
+import { Command } from './command';
 
 type EndPhaseCommandPayload = {
-  gameId: string
-  playerId: string
-}
+    gameId: string;
+    playerId: string;
+};
 
-export const isEndPhaseCommand = (command: Command): command is EndPhaseCommand => {
-  return command.type === 'EndPhase'
-}
+export const isEndPhaseCommand = (
+    command: Command
+): command is EndPhaseCommand => {
+    return command.type === 'EndPhase';
+};
 
 export class EndPhaseCommand implements Command {
-  private readonly _payload: EndPhaseCommandPayload
-  private readonly _type = "EndPhase";
+    private readonly _payload: EndPhaseCommandPayload;
+    private readonly _type = 'EndPhase';
 
-  constructor(payload: EndPhaseCommandPayload) {
-    this._payload = payload
-  }
+    constructor(payload: EndPhaseCommandPayload) {
+        this._payload = payload;
+    }
 
-  public get payload() {
-    return this._payload
-  }
+    public get payload() {
+        return this._payload;
+    }
 
-  public get type() {
-    return this._type
-  }
+    public get type() {
+        return this._type;
+    }
 }

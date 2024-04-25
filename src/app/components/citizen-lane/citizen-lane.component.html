@@ -1,17 +1,28 @@
 <div class="citizen-lane">
-  <ng-container *ngFor="let citizen of (citizenLane$ | async); index as i">
-    <ng-container *ngIf="citizen">
-      <div class="card-and-action-wrapper">
-        <app-card-actions-wrapper>
-          <app-game-card (handleHoverHandle)="handleHoverCard($event.id)" (handleHoverLeaveHandler)="handleMouseLeaveCard()" [card]="citizen" cardSide="FRONT" cardStyle="SMALL"/>
-          <app-card-actions [defaultActions]="defaultActions" [card]="citizen" [gameSpace]="'CITIZEN_LANE'"
-                            cardButtons/>
-        </app-card-actions-wrapper>
-      </div>
+    <ng-container *ngFor="let citizen of citizenLane$ | async; index as i">
+        <ng-container *ngIf="citizen">
+            <div class="card-and-action-wrapper">
+                <app-card-actions-wrapper>
+                    <app-game-card
+                        (handleHoverHandle)="handleHoverCard($event.id)"
+                        (handleHoverLeaveHandler)="handleMouseLeaveCard()"
+                        [card]="citizen"
+                        cardSide="FRONT"
+                        cardStyle="SMALL" />
+                    <app-card-actions
+                        [defaultActions]="defaultActions"
+                        [card]="citizen"
+                        [gameSpace]="'CITIZEN_LANE'"
+                        cardButtons />
+                </app-card-actions-wrapper>
+            </div>
+        </ng-container>
+        <ng-container *ngIf="showSlots$ | async">
+            <app-card-slot
+                (indexEventEmitter)="handleClickOnSlot($event)"
+                [index]="i + 1"
+                text="+" />
+        </ng-container>
     </ng-container>
-    <ng-container *ngIf="(showSlots$ | async)">
-      <app-card-slot (indexEventEmitter)="handleClickOnSlot($event)" [index]="i +1" text="+"/>
-    </ng-container>
-  </ng-container>
-  <p>Citizen Lane</p>
+    <p>Citizen Lane</p>
 </div>

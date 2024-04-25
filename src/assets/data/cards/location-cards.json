@@ -1,247 +1,202 @@
 {
-  "data": [
-    {
-      "cardId": "101",
-      "title": "The Tree Oaks",
-      "locationRank": 1,
-      "claim": 4,
-      "dispute": 2,
-      "description": "Produces 2 <b>Food</b> when exhausting an Unit to collect <b>Food</b>.\n When <b>Claimed</b> immediately gain 3 <b>Wood</b>",
-      "release": "base",
-      "campaign": "The-Start",
-      "allowedCardLimit": 1,
-      "actions": [
+    "data": [
         {
-          "trigger": "gainFood",
-          "commands": [
-            "GainFoodFromLocation"
-          ],
-          "phases": [
-            "production"
-          ],
-          "args":
-          {
-            "amount": 1
-          },
-          "icon": "eco"
-        }
-      ]
-    },
-    {
-      "cardId": "102",
-      "title": "The Tree Oaks",
-      "locationRank": 1,
-      "claim": 4,
-      "dispute": 2,
-      "description": "Produces 2 <b>Food</b> when exhausting an Unit to collect <b>Food</b>.\n When <b>Claimed</b> immediately gain 3 <b>Wood</b>",
-      "release": "base",
-      "campaign": "The-Start",
-      "allowedCardLimit": 1,
-      "actions": [
+            "cardId": "101",
+            "title": "The Tree Oaks",
+            "locationRank": 1,
+            "claim": 4,
+            "dispute": 2,
+            "description": "Produces 2 <b>Food</b> when exhausting an Unit to collect <b>Food</b>.\n When <b>Claimed</b> immediately gain 3 <b>Wood</b>",
+            "release": "base",
+            "campaign": "The-Start",
+            "allowedCardLimit": 1,
+            "actions": [
+                {
+                    "trigger": "gainFood",
+                    "commands": ["GainFoodFromLocation"],
+                    "phases": ["production"],
+                    "args": {
+                        "amount": 1
+                    },
+                    "icon": "eco"
+                }
+            ]
+        },
         {
-          "trigger": "gainFood",
-          "commands": [
-            "GainFoodFromLocation"
-          ],
-          "phases": [
-            "production"
-          ],
-          "args":
-          {
-            "amount": 1
-          },
-          "icon": "eco"
-        }
-      ]
-    },
-    {
-      "cardId": "103",
-      "title": "The Tree Oaks",
-      "locationRank": 1,
-      "claim": 4,
-      "dispute": 2,
-      "description": "Produces 2 <b>Food</b> when exhausting an Unit to collect <b>Food</b>.\n When <b>Claimed</b> immediately gain 3 <b>Wood</b>",
-      "release": "base",
-      "campaign": "The-Start",
-      "allowedCardLimit": 1,
-      "actions": [
+            "cardId": "102",
+            "title": "The Tree Oaks",
+            "locationRank": 1,
+            "claim": 4,
+            "dispute": 2,
+            "description": "Produces 2 <b>Food</b> when exhausting an Unit to collect <b>Food</b>.\n When <b>Claimed</b> immediately gain 3 <b>Wood</b>",
+            "release": "base",
+            "campaign": "The-Start",
+            "allowedCardLimit": 1,
+            "actions": [
+                {
+                    "trigger": "gainFood",
+                    "commands": ["GainFoodFromLocation"],
+                    "phases": ["production"],
+                    "args": {
+                        "amount": 1
+                    },
+                    "icon": "eco"
+                }
+            ]
+        },
         {
-          "trigger": "gainFood",
-          "commands": [
-            "GainFoodFromLocation"
-          ],
-          "phases": [
-            "production"
-          ],
-          "args":
-          {
-            "amount": 1
-          },
-          "icon": "eco"
-        }
-      ]
-    },
-    {
-      "cardId": "104",
-      "title": "The Tree Oaks",
-      "locationRank": 1,
-      "claim": 4,
-      "dispute": 2,
-      "description": "Produces 2 <b>Food</b> when exhausting an Unit to collect <b>Food</b>.\n When <b>Claimed</b> immediately gain 3 <b>Wood</b>",
-      "release": "base",
-      "campaign": "The-Start",
-      "allowedCardLimit": 1,
-      "actions": [
+            "cardId": "103",
+            "title": "The Tree Oaks",
+            "locationRank": 1,
+            "claim": 4,
+            "dispute": 2,
+            "description": "Produces 2 <b>Food</b> when exhausting an Unit to collect <b>Food</b>.\n When <b>Claimed</b> immediately gain 3 <b>Wood</b>",
+            "release": "base",
+            "campaign": "The-Start",
+            "allowedCardLimit": 1,
+            "actions": [
+                {
+                    "trigger": "gainFood",
+                    "commands": ["GainFoodFromLocation"],
+                    "phases": ["production"],
+                    "args": {
+                        "amount": 1
+                    },
+                    "icon": "eco"
+                }
+            ]
+        },
         {
-          "trigger": "gainFood",
-          "commands": [
-            "GainFoodFromLocation"
-          ],
-          "phases": [
-            "production"
-          ],
-          "args":
-          {
-            "amount": 1
-          },
-          "icon": "eco"
-        }
-      ]
-    },
-    {
-      "cardId": "105",
-      "title": "The Tree Oaks",
-      "locationRank": 1,
-      "claim": 4,
-      "dispute": 2,
-      "description": "Produces 2 <b>Food</b> when exhausting an Unit to collect <b>Food</b>.\n When <b>Claimed</b> immediately gain 3 <b>Wood</b>",
-      "release": "base",
-      "campaign": "The-Start",
-      "allowedCardLimit": 1,
-      "actions": [
+            "cardId": "104",
+            "title": "The Tree Oaks",
+            "locationRank": 1,
+            "claim": 4,
+            "dispute": 2,
+            "description": "Produces 2 <b>Food</b> when exhausting an Unit to collect <b>Food</b>.\n When <b>Claimed</b> immediately gain 3 <b>Wood</b>",
+            "release": "base",
+            "campaign": "The-Start",
+            "allowedCardLimit": 1,
+            "actions": [
+                {
+                    "trigger": "gainFood",
+                    "commands": ["GainFoodFromLocation"],
+                    "phases": ["production"],
+                    "args": {
+                        "amount": 1
+                    },
+                    "icon": "eco"
+                }
+            ]
+        },
         {
-          "trigger": "gainFood",
-          "commands": [
-            "GainFoodFromLocation"
-          ],
-          "phases": [
-            "production"
-          ],
-          "args":
-          {
-            "amount": 1
-          },
-          "icon": "eco"
-        }
-      ]
-    },
-    {
-      "cardId": "106",
-      "title": "The Tree Oaks",
-      "locationRank": 1,
-      "claim": 4,
-      "dispute": 2,
-      "description": "Produces 2 <b>Food</b> when exhausting an Unit to collect <b>Food</b>.\n When <b>Claimed</b> immediately gain 3 <b>Wood</b>",
-      "release": "base",
-      "campaign": "The-Start",
-      "allowedCardLimit": 1,
-      "actions": [
+            "cardId": "105",
+            "title": "The Tree Oaks",
+            "locationRank": 1,
+            "claim": 4,
+            "dispute": 2,
+            "description": "Produces 2 <b>Food</b> when exhausting an Unit to collect <b>Food</b>.\n When <b>Claimed</b> immediately gain 3 <b>Wood</b>",
+            "release": "base",
+            "campaign": "The-Start",
+            "allowedCardLimit": 1,
+            "actions": [
+                {
+                    "trigger": "gainFood",
+                    "commands": ["GainFoodFromLocation"],
+                    "phases": ["production"],
+                    "args": {
+                        "amount": 1
+                    },
+                    "icon": "eco"
+                }
+            ]
+        },
         {
-          "trigger": "gainFood",
-          "commands": [
-            "GainFoodFromLocation"
-          ],
-          "phases": [
-            "production"
-          ],
-          "args":
-          {
-            "amount": 1
-          },
-          "icon": "eco"
-        }
-      ]
-    },    {
-      "cardId": "107",
-      "title": "The Tree Oaks",
-      "locationRank": 2,
-      "claim": 4,
-      "dispute": 2,
-      "description": "Produces 2 <b>Food</b> when exhausting an Unit to collect <b>Food</b>.\n When <b>Claimed</b> immediately gain 3 <b>Wood</b>",
-      "release": "base",
-      "campaign": "The-Start",
-      "allowedCardLimit": 1,
-      "actions": [
+            "cardId": "106",
+            "title": "The Tree Oaks",
+            "locationRank": 1,
+            "claim": 4,
+            "dispute": 2,
+            "description": "Produces 2 <b>Food</b> when exhausting an Unit to collect <b>Food</b>.\n When <b>Claimed</b> immediately gain 3 <b>Wood</b>",
+            "release": "base",
+            "campaign": "The-Start",
+            "allowedCardLimit": 1,
+            "actions": [
+                {
+                    "trigger": "gainFood",
+                    "commands": ["GainFoodFromLocation"],
+                    "phases": ["production"],
+                    "args": {
+                        "amount": 1
+                    },
+                    "icon": "eco"
+                }
+            ]
+        },
         {
-          "trigger": "gainFood",
-          "commands": [
-            "GainFoodFromLocation"
-          ],
-          "phases": [
-            "production"
-          ],
-          "args":
-          {
-            "amount": 1
-          },
-          "icon": "eco"
-        }
-      ]
-    },
-    {
-      "cardId": "108",
-      "title": "The Tree Oaks",
-      "locationRank": 2,
-      "claim": 4,
-      "dispute": 2,
-      "description": "Produces 2 <b>Food</b> when exhausting an Unit to collect <b>Food</b>.\n When <b>Claimed</b> immediately gain 3 <b>Wood</b>",
-      "release": "base",
-      "campaign": "The-Start",
-      "allowedCardLimit": 1,
-      "actions": [
+            "cardId": "107",
+            "title": "The Tree Oaks",
+            "locationRank": 2,
+            "claim": 4,
+            "dispute": 2,
+            "description": "Produces 2 <b>Food</b> when exhausting an Unit to collect <b>Food</b>.\n When <b>Claimed</b> immediately gain 3 <b>Wood</b>",
+            "release": "base",
+            "campaign": "The-Start",
+            "allowedCardLimit": 1,
+            "actions": [
+                {
+                    "trigger": "gainFood",
+                    "commands": ["GainFoodFromLocation"],
+                    "phases": ["production"],
+                    "args": {
+                        "amount": 1
+                    },
+                    "icon": "eco"
+                }
+            ]
+        },
         {
-          "trigger": "gainFood",
-          "commands": [
-            "GainFoodFromLocation"
-          ],
-          "phases": [
-            "production"
-          ],
-          "args":
-          {
-            "amount": 1
-          },
-          "icon": "eco"
-        }
-      ]
-    },
-    {
-      "cardId": "109",
-      "title": "The Tree Oaks",
-      "locationRank": 2,
-      "claim": 4,
-      "dispute": 2,
-      "description": "Produces 2 <b>Food</b> when exhausting an Unit to collect <b>Food</b>.\n When <b>Claimed</b> immediately gain 3 <b>Wood</b>",
-      "release": "base",
-      "campaign": "The-Start",
-      "allowedCardLimit": 1,
-      "actions": [
+            "cardId": "108",
+            "title": "The Tree Oaks",
+            "locationRank": 2,
+            "claim": 4,
+            "dispute": 2,
+            "description": "Produces 2 <b>Food</b> when exhausting an Unit to collect <b>Food</b>.\n When <b>Claimed</b> immediately gain 3 <b>Wood</b>",
+            "release": "base",
+            "campaign": "The-Start",
+            "allowedCardLimit": 1,
+            "actions": [
+                {
+                    "trigger": "gainFood",
+                    "commands": ["GainFoodFromLocation"],
+                    "phases": ["production"],
+                    "args": {
+                        "amount": 1
+                    },
+                    "icon": "eco"
+                }
+            ]
+        },
         {
-          "trigger": "gainFood",
-          "commands": [
-            "GainFoodFromLocation"
-          ],
-          "phases": [
-            "production"
-          ],
-          "args":
-          {
-            "amount": 1
-          },
-          "icon": "eco"
+            "cardId": "109",
+            "title": "The Tree Oaks",
+            "locationRank": 2,
+            "claim": 4,
+            "dispute": 2,
+            "description": "Produces 2 <b>Food</b> when exhausting an Unit to collect <b>Food</b>.\n When <b>Claimed</b> immediately gain 3 <b>Wood</b>",
+            "release": "base",
+            "campaign": "The-Start",
+            "allowedCardLimit": 1,
+            "actions": [
+                {
+                    "trigger": "gainFood",
+                    "commands": ["GainFoodFromLocation"],
+                    "phases": ["production"],
+                    "args": {
+                        "amount": 1
+                    },
+                    "icon": "eco"
+                }
+            ]
         }
-      ]
-    }
-  ]
+    ]
 }
-

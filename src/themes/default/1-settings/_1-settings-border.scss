@@ -10,16 +10,15 @@ $border-size-400: 4px;
 $border-style-default: solid;
 $border-style-dashed: dashed;
 
-
 @mixin default-border($color) {
-  border: $border-style-default $border-size-200 $color;
+    border: $border-style-default $border-size-200 $color;
 }
 
 @mixin default-border-up-down($color) {
-  border-top: $border-style-default $border-size-200 $color;
-  border-bottom: $border-style-default $border-size-200 $color;
+    border-top: $border-style-default $border-size-200 $color;
+    border-bottom: $border-style-default $border-size-200 $color;
 }
 
 @mixin border-dashed($color) {
-  border: $border-style-dashed $border-size-200 $color;
+    border: $border-style-dashed $border-size-200 $color;
 }

@@ -1,15 +1,18 @@
 <div class="player-interface">
-  <div class="player-resources">
-    <div class="player-wood">
-      <mat-icon>forest</mat-icon>
-      <p>{{wood$ | async}}</p>
+    <div class="player-resources">
+        <div class="player-wood">
+            <mat-icon>forest</mat-icon>
+            <p>{{ wood$ | async }}</p>
+        </div>
+        <div class="player-grain">
+            <mat-icon>eco</mat-icon>
+            <p>{{ food$ | async }}</p>
+        </div>
     </div>
-    <div class="player-grain">
-      <mat-icon>eco</mat-icon>
-      <p>{{food$ | async}}</p>
+    <div class="end-turn-btn">
+        <app-button
+            (clickHandler)="handleEndTurnClicked()"
+            *ngIf="showEndTurn$ | async"
+            text="{{ endTurnLabel$ | async }}" />
     </div>
-  </div>
-  <div class="end-turn-btn">
-    <app-button *ngIf="showEndTurn$ | async" text="{{endTurnLabel$ | async}}" (onClickHandler)="handleEndTurnClicked($event)"/>
-  </div>
 </div>

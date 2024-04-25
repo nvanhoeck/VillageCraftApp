@@ -1,53 +1,52 @@
-@import "1-settings";
+@import '1-settings';
 
 .btn {
+    padding: 0.5rem;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
 
-  padding: 0.5rem;
-  word-wrap: break-word;
-  overflow-wrap: break-word;
+    &--rounded {
+        &--small {
+            border-radius: $border-radius-1;
+        }
 
-  &--rounded {
+        &--medium {
+            border-radius: $border-radius-2;
+        }
+
+        &--large {
+            border-radius: $border-radius-3;
+        }
+    }
+
     &--small {
-      border-radius: $border-radius-1;
+        width: 2rem;
+        height: 2rem;
     }
 
     &--medium {
-      border-radius: $border-radius-2;
+        width: 7rem;
+        height: 4.5rem;
     }
 
-    &--large {
-      border-radius: $border-radius-3;
+    &--bg-black {
+        background-color: $color-background;
+
+        &:hover {
+            background-color: lighten($color-background, 15%);
+        }
     }
-  }
 
-  &--small {
-    width: 2rem;
-    height: 2rem;
-  }
-
-  &--medium {
-    width: 7rem;
-    height: 4.5rem;
-  }
-
-  &--bg-black {
-    background-color: $color-background;
-
-    &:hover {
-      background-color: lighten($color-background, 15%);
+    &--font-white {
+        color: $color-whites;
     }
-  }
-
-  &--font-white {
-    color: $color-whites
-  }
 }
 
 mat-icon {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  overflow: visible;
-  height: 100%;
-  width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: visible;
+    height: 100%;
+    width: 100%;
 }

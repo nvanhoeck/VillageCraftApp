@@ -1,65 +1,65 @@
-@import "1-settings";
+@import '1-settings';
 
 .location-card {
-  &--small {
-    @include small-font;
-    width: 100px !important;
-    height: 150px !important;
+    &--small {
+        @include small-font;
+        width: 100px !important;
+        height: 150px !important;
 
-    & b {
-      @include small-font;
+        & b {
+            @include small-font;
+        }
+
+        & * {
+            @include small-font;
+        }
     }
 
-    & * {
-      @include small-font;
+    &__container {
+        border-radius: $border-radius-2;
+        background-color: $color-whites;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Adjust the values as needed */
+        @apply flex flex-col items-center justify-between;
+        aspect-ratio: 2/3;
+        width: 210px;
     }
-  }
 
-  &__container {
-    border-radius: $border-radius-2;
-    background-color: $color-whites;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Adjust the values as needed */
-    @apply flex flex-col items-center justify-between;
-    aspect-ratio: 2/3;
-    width: 210px;
-  }
+    &__header {
+        font-size: 1.5rem;
+        font-weight: bold;
+        width: 100%;
+        height: 15%;
+        display: grid;
+        grid-template-columns: 20% 60% 20%;
+        gap: 1%;
+        text-align: center;
+    }
 
-  &__header {
-    font-size: 1.5rem;
-    font-weight: bold;
-    width: 100%;
-    height: 15%;
-    display: grid;
-    grid-template-columns: 20% 60% 20%;
-    gap: 1%;
-    text-align: center;
-  }
+    &__title {
+        grid-column: 2;
+        word-wrap: break-word;
+        overflow-wrap: break-word;
+        text-overflow: ellipsis;
+    }
 
-  &__title {
-    grid-column: 2;
-    word-wrap: break-word;
-    overflow-wrap: break-word;
-    text-overflow: ellipsis;
-  }
+    &__main {
+        padding-left: 0.5rem;
+        padding-right: 0.5rem;
+        overflow: hidden;
+        word-wrap: break-word;
+        overflow-wrap: break-word;
+        text-overflow: ellipsis;
+    }
 
-  &__main {
-    padding-left: 0.5rem;
-    padding-right: 0.5rem;
-    overflow: hidden;
-    word-wrap: break-word;
-    overflow-wrap: break-word;
-    text-overflow: ellipsis;
-  }
-
-  &__footer {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    word-wrap: break-word;
-    overflow-wrap: break-word;
-  }
-  &--exhausted{
-    transform: rotate(15deg);
-    margin: 0 2rem;
-  }
+    &__footer {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        word-wrap: break-word;
+        overflow-wrap: break-word;
+    }
+    &--exhausted {
+        transform: rotate(15deg);
+        margin: 0 2rem;
+    }
 }

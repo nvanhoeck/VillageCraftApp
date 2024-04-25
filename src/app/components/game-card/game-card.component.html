@@ -1,56 +1,85 @@
 <ng-container *ngIf="cardStyle === 'PLACEHOLDER'; else trueCard">
-  <p class="game-card__placeholder">{{placeholderLabel}}</p>
+    <p class="game-card__placeholder">{{ placeholderLabel }}</p>
 </ng-container>
 <ng-template #trueCard>
-  <div (mouseenter)="handleHover($event)" (mouseleave)="handleHoverLeave($event)" *ngIf="card"
-       [class.game-card--backside]="cardSide === 'BACK'" [class.game-card--small]="cardStyle === 'SMALL'"
-       [class.game-card--exhausted]="card.exhausted" [class.game-card--under-construction]="card.underConstruction"
-       class="game-card__container" id="{{card.id}}">
-    <section class="game-card__header">
-      <div *ngIf="card.cardType === 'building' && (gameSpace === 'HAND' || cardStyle === 'NORMAL')" class="game-card__cost">
-        <div *ngIf="card.cost?.wood !== undefined" class="game-card__cost-wood">
-          <mat-icon>forest</mat-icon>{{card.cost?.wood}}
-        </div>
-        <div *ngIf="card.cost?.food !== undefined" class="game-card__cost-food">
-          <mat-icon>eco</mat-icon>{{card.cost?.food}}
-        </div>
-      </div>
-      <div class="game-card__title">{{card.title}}</div>
-      <div *ngIf="card.health && (card.cardType === 'building' || card.cardType === 'settlement')"
-           class="game-card__health-building game-card__stat">
-        <p>{{card.health}}</p>
-      </div>
-    </section>
-    <section class="game-card__main">
-      <ng-container *ngIf="cardSide === 'BACK'; else normalDesc">
-        <p class="back-text">{{backText}}</p>
-      </ng-container>
-      <ng-template #normalDesc>
-        <ng-container *ngIf="cardStyle !== 'SMALL'">
-          <p [innerHTML]="card.description"></p>
-        </ng-container>
-      </ng-template>
-    </section>
-    <section class="game-card__footer">
-      <div class="game-card__class-type">
-        <p>
-          {{card.cardType}}
-        </p>
-      </div>
-      <div class="game-card__stats">
-        <div *ngIf="card.cardType==='unit' || card.cardType==='citizen'"
-             class="game-card__attack-value game-card__stat">
-          <p>{{card.attack}}</p>
-        </div>
-        <div *ngIf="card.cardType==='unit' || card.cardType==='citizen'"
-             class="game-card__health-value game-card__stat">
-          <p>{{card.health}}</p>
-        </div>
-        <div *ngIf="card.cardType==='unit' || card.cardType==='citizen'"
-             class="game-card__defence-value game-card__stat">
-          <p>{{card.defence}}</p>
-        </div>
-      </div>
-    </section>
-  </div>
+    <div
+        (mouseenter)="handleHover($event)"
+        (mouseleave)="handleHoverLeave($event)"
+        *ngIf="card"
+        [class.game-card--backside]="cardSide === 'BACK'"
+        [class.game-card--small]="cardStyle === 'SMALL'"
+        [class.game-card--exhausted]="card.exhausted"
+        [class.game-card--under-construction]="card.underConstruction"
+        class="game-card__container"
+        id="{{ card.id }}">
+        <section class="game-card__header">
+            <div
+                *ngIf="
+                    card.cardType === 'building' &&
+                    (gameSpace === 'HAND' || cardStyle === 'NORMAL')
+                "
+                class="game-card__cost">
+                <div
+                    *ngIf="card.cost?.wood !== undefined"
+                    class="game-card__cost-wood">
+                    <mat-icon>forest</mat-icon>{{ card.cost?.wood }}
+                </div>
+                <div
+                    *ngIf="card.cost?.food !== undefined"
+                    class="game-card__cost-food">
+                    <mat-icon>eco</mat-icon>{{ card.cost?.food }}
+                </div>
+            </div>
+            <div class="game-card__title">{{ card.title }}</div>
+            <div
+                *ngIf="
+                    card.health &&
+                    (card.cardType === 'building' ||
+                        card.cardType === 'settlement')
+                "
+                class="game-card__health-building game-card__stat">
+                <p>{{ card.health }}</p>
+            </div>
+        </section>
+        <section class="game-card__main">
+            <ng-container *ngIf="cardSide === 'BACK'; else normalDesc">
+                <p class="back-text">{{ backText }}</p>
+            </ng-container>
+            <ng-template #normalDesc>
+                <ng-container *ngIf="cardStyle !== 'SMALL'">
+                    <p [innerHTML]="card.description"></p>
+                </ng-container>
+            </ng-template>
+        </section>
+        <section class="game-card__footer">
+            <div class="game-card__class-type">
+                <p>
+                    {{ card.cardType }}
+                </p>
+            </div>
+            <div class="game-card__stats">
+                <div
+                    *ngIf="
+                        card.cardType === 'unit' || card.cardType === 'citizen'
+                    "
+                    class="game-card__attack-value game-card__stat">
+                    <p>{{ card.attack }}</p>
+                </div>
+                <div
+                    *ngIf="
+                        card.cardType === 'unit' || card.cardType === 'citizen'
+                    "
+                    class="game-card__health-value game-card__stat">
+                    <p>{{ card.health }}</p>
+                </div>
+                <div
+                    *ngIf="
+                        card.cardType === 'unit' || card.cardType === 'citizen'
+                    "
+                    class="game-card__defence-value game-card__stat">
+                    <p>{{ card.defence }}</p>
+                </div>
+            </div>
+        </section>
+    </div>
 </ng-template>

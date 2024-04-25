@@ -1,13 +1,20 @@
 <div class="location-lane">
-  <ng-container *ngFor="let location of (locationLane$ | async); index as i">
-    <ng-container *ngIf="location">
-      <div class="card-and-action-wrapper">
-        <app-card-actions-wrapper>
-          <app-location-card (handleHoverHandle)="handleHoverCard($event.id)" (handleHoverLeaveHandler)="handleMouseLeaveCard()" [card]="location" cardStyle="SMALL"/>
-          <app-card-actions [defaultActions]="defaultActions" [card]="location" [gameSpace]="'CITIZEN_LANE'"
-                            cardButtons/>
-        </app-card-actions-wrapper>
-      </div>
+    <ng-container *ngFor="let location of locationLane$ | async; index as i">
+        <ng-container *ngIf="location">
+            <div class="card-and-action-wrapper">
+                <app-card-actions-wrapper>
+                    <app-location-card
+                        (handleHoverHandle)="handleHoverCard($event.id)"
+                        (handleHoverLeaveHandler)="handleMouseLeaveCard()"
+                        [card]="location"
+                        cardStyle="SMALL" />
+                    <app-card-actions
+                        [defaultActions]="defaultActions"
+                        [card]="location"
+                        [gameSpace]="'CITIZEN_LANE'"
+                        cardButtons />
+                </app-card-actions-wrapper>
+            </div>
+        </ng-container>
     </ng-container>
-  </ng-container>
 </div>

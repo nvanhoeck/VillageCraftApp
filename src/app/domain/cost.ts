@@ -1,4 +1,4 @@
 export type Cost = {
-  wood: number
-  food?: number
-}
+    wood: number;
+    food?: number;
+};

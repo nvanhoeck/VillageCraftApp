@@ -1,16 +1,15 @@
-import {GameEvent} from './gameEvent'
+import { GameEvent } from './gameEvent';
 
 type GameInitiatedEventPayload = {
-  gameId: string
-}
+    gameId: string;
+};
 
 export class GameInitiatedEvent extends GameEvent {
+    public constructor(payload: GameInitiatedEventPayload) {
+        super('GameInitiated', payload);
+    }
 
-  public constructor(payload: GameInitiatedEventPayload) {
-    super('GameInitiated', payload)
-  }
-
-  public override get payload(): GameInitiatedEventPayload {
-    return super.payload
-  }
+    public override get payload(): GameInitiatedEventPayload {
+        return super.payload;
+    }
 }

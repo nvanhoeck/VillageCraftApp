@@ -1,18 +1,16 @@
-import {GameEvent} from './gameEvent'
-import {Player} from "../../domain/player";
-import {Game} from "../../domain/game";
+import { GameEvent } from './gameEvent';
+import { Game } from '../../domain/game';
 
 type LocationsLoadedEventPayload = {
-  game: Game
-}
+    game: Game;
+};
 
 export class LocationsLoadedEvent extends GameEvent {
+    public constructor(payload: LocationsLoadedEventPayload) {
+        super('LocationsLoaded', payload);
+    }
 
-  public constructor(payload: LocationsLoadedEventPayload) {
-    super('LocationsLoaded', payload)
-  }
-
-  public override get payload(): LocationsLoadedEventPayload {
-    return super.payload
-  }
+    public override get payload(): LocationsLoadedEventPayload {
+        return super.payload;
+    }
 }

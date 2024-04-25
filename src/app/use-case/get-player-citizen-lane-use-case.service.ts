@@ -1,19 +1,19 @@
-import {Injectable} from '@angular/core';
-import {GameProjectionService} from "../query/game/game-projection.service";
-import {map, Observable} from "rxjs";
-import {Lane} from "../query/model/lane";
+import { Injectable } from '@angular/core';
+import { GameProjectionService } from '../query/game/game-projection.service';
+import { map, Observable } from 'rxjs';
+import { Lane } from '../query/model/lane';
 
 @Injectable({
-  providedIn: 'root'
+    providedIn: 'root',
 })
 export class GetPlayerCitizenLaneUseCaseService {
+    constructor(private projectionService: GameProjectionService) {}
 
-  constructor(private projectionService: GameProjectionService) {
-  }
-
-  getPlayerCitizenLane$(playerId: string): Observable<Lane> {
-    return this.projectionService.getPlayer$(playerId).pipe(map((player) => {
-      return player.findCitizenLane()
-    }))
-  }
+    getPlayerCitizenLane$(playerId: string): Observable<Lane> {
+        return this.projectionService.getPlayer$(playerId).pipe(
+            map(player => {
+                return player.findCitizenLane();
+            })
+        );
+    }
 }

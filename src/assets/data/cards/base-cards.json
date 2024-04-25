@@ -1,632 +1,472 @@
 {
-  "data": [
-    {
-      "cardId": "1",
-      "title": "Settlement",
-      "cardType": "settlement",
-      "health": 10,
-      "description": "When this card has been destroyed, you lose the game. <br/><b>Exhaust</b> Place 1 card from your <b>Hand</b> into your <b>Archive</b>",
-      "cardAffiliation": "base",
-      "deckLimit": 1,
-      "actions": [
+    "data": [
         {
-          "trigger":
-            "exhaust"
-          ,
-          "commands": [
-            "CardFromHandToArchive"
-          ],
-          "phases": [
-            "action"
-          ],
-          "args": {}
-        }, {
-          "trigger":
-          "destruction"
-        ,
-          "commands": [
-            "PlayerLosesGame"
-          ],
-          "phases": [
-            "setup" , "mulligan" , "draw" , "production" , "action" , "combat" , "refresh" , "consumption" , "end_turn"
-          ],
-          "args": {}
-        }
-      ]
-    },
-    {
-      "cardId": "2",
-      "cost": {
-        "wood": 3
-      },
-      "title": "Farm",
-      "cardType": "building",
-      "health": 3,
-      "description": "During the <b>Production Phase</b> you may <b>Exhaust</b> this card to gain 3 <b>Food</b>.",
-      "cardAffiliation": "base",
-      "deckLimit": 4,
-      "actions": [
-        {
-          "trigger":"gainFood",
-          "commands": [
-            "GainFood"
-          ],
-          "phases": [
-            "production"
-          ],
-          "args":
-            {
-              "amount": 3
-            },
-          "icon": "eco"
-        }
-      ]
-    },
-    {
-      "cardId": "3",
-      "cost": {
-        "wood": 3
-      },
-      "title": "Lumbermill",
-      "cardType": "building",
-      "health": 3,
-      "description": "During the <b>Production Phase</b> you may <b>Exhaust</b> this card to gain 3 <b>Wood</b>.",
-      "cardAffiliation": "base",
-      "deckLimit": 4,
-      "actions": [
-        {
-          "trigger":"gainWood",
-          "commands": [
-            "GainWood"
-          ],
-          "phases": [
-            "production"
-          ],
-          "args":
-            {
-              "amount": 1
-            },
-          "icon": "forest"
-        }
-      ]
-    },
-    {
-      "cardId": "4",
-      "title": "Regular Citizen",
-      "cardType": "citizen",
-      "health": 2,
-      "attack": 0,
-      "defence": 0,
-      "description": "",
-      "cardAffiliation": "base",
-      "deckLimit": 5,
-      "actions": []
-    },
-    {
-      "cardId": "5",
-      "cost": {
-        "wood": 3
-      },
-      "title": "Hunting Lodge",
-      "cardType": "building",
-      "health": 3,
-      "description": "During the <b>Production Phase</b> you may <b>Exhaust</b> this card to gain 1 <b>Wood</b> and 1 <b>Food</b>.",
-      "cardAffiliation": "base",
-      "deckLimit": 3,
-      "actions": [
-        {
-          "trigger":"gainFoodAndWood",
-          "commands": [
-            "GainFoodAndWood"
-          ],
-          "phases": [
-            "production"
-          ],
-          "args":
-            {
-              "amountFood": 1,
-              "amountWood": 1
-            },
-          "icon": "forest"
-        }
-      ]
-    },
-    {
-      "cardId": "6",
-      "cost": {
-        "wood": 2
-      },
-      "title": "Marketplace",
-      "cardType": "building",
-      "health": 2,
-      "description": "<b>Exhaust</b> a 1 <b>Wood</b> to convert into 2 <b>Marketplace Credits</b>",
-      "cardAffiliation": "base",
-      "deckLimit": 3,
-      "actions": [
-        {
-          "trigger":"exhaust",
-          "commands": [
-            "ConvertWoodIntoMarketplaceCredits"
-          ],
-          "phases": [
-            "action"
-          ],
-          "args":
-            {
-              "amountWood": 1,
-              "amountMarketplaceCredits": 1
-            }
-        }
-      ]
-    },
-    {
-      "cardId": "7",
-      "title": "Coordinated Ambush",
-      "cardType": "event",
-      "description": "Give each <b>Citizen</b> with 1 <b>Base Attack</b> the keyword <b>Ambush</b> this turn.",
-      "cardAffiliation": "base",
-      "deckLimit": 3,
-      "actions": [
-        {
-          "trigger":
-            "deploy"
-          ,
-          "commands": [
-            "AddAmbushKeyWord"
-          ],
-          "phases": [
-            "action"
-          ],
-          "args":
-            {
-              "duration": {
-                "turns": 1
-              },
-              "conditions": [
+            "cardId": "1",
+            "title": "Settlement",
+            "cardType": "settlement",
+            "health": 10,
+            "description": "When this card has been destroyed, you lose the game. <br/><b>Exhaust</b> Place 1 card from your <b>Hand</b> into your <b>Archive</b>",
+            "cardAffiliation": "base",
+            "deckLimit": 1,
+            "actions": [
                 {
-                  "greaterThan": {
-                    "attack": 0
-                  }
+                    "trigger": "exhaust",
+                    "commands": ["CardFromHandToArchive"],
+                    "phases": ["action"],
+                    "args": {}
+                },
+                {
+                    "trigger": "destruction",
+                    "commands": ["PlayerLosesGame"],
+                    "phases": [
+                        "setup",
+                        "mulligan",
+                        "draw",
+                        "production",
+                        "action",
+                        "combat",
+                        "refresh",
+                        "consumption",
+                        "end_turn"
+                    ],
+                    "args": {}
                 }
-              ]
-            }
-        }
-      ]
-    },
-    {
-      "cardId": "8",
-      "title": "Powerfull Leadership",
-      "cardType": "event",
-      "description": "<b>Exhaust</b> to return the topmost <b>Citizen</b> from <b>Banishment</b>.",
-      "cardAffiliation": "base",
-      "deckLimit": 3,
-      "actions": [
+            ]
+        },
         {
-          "trigger":
-            "deploy"
-          ,
-          "commands": [
-            "ReturnTypeFromBanishment"
-          ],
-          "phases": [
-            "action"
-          ],
-          "args":
-            {
-              "cardType": "citizen"
-            }
-        }
-      ]
-    },
-    {
-      "cardId": "9",
-      "title": "Fabricate Claim",
-      "cardType": "event",
-      "description": "Add 2 <b>Claim Tokens</b> to a <b>Location</b>.",
-      "cardAffiliation": "base",
-      "deckLimit": 3,
-      "actions": [
-        {
-          "trigger":
-            "deploy"
-          ,
-          "commands": [
-            "AddClaimToLocation"
-          ],
-          "phases": [
-            "action"
-          ],
-          "args": {}
-        }
-      ]
-    },
-    {
-      "cardId": "10",
-      "title": "Salvo",
-      "cardType": "event",
-      "description": "Deal 1 <b>Damage</b> to all <b>Hostile Units</b> from an hostile player.",
-      "cardAffiliation": "base",
-      "deckLimit": 3,
-      "actions": [
-        {
-          "trigger":
-            "deploy"
-          ,
-          "commands": [
-            "DealDamageToAll"
-          ],
-          "phases": [
-            "action"
-          ],
-          "args":
-            {
-              "target": "hostilePlayer"
-            }
-        }
-      ]
-    },
-    {
-      "cardId": "11",
-      "title": "Delay Tactics",
-      "cardType": "event",
-      "description": "At the start of the <b>Combat Phase</b>, <b>Exhaust</b> an hostile <b>Unit</b>.",
-      "cardAffiliation": "base",
-      "deckLimit": 3,
-      "actions": [
-        {
-          "trigger":
-            "deploy"
-          ,
-          "commands": [
-            "ExhaustUnit"
-          ],
-          "phases": [
-            "action"
-          ],
-          "args":
-            {
-              "target": "hostile"
-            }
-        }
-      ]
-    },
-    {
-      "cardId": "12",
-      "title": "Hunt",
-      "cardType": "event",
-      "description": "Gain 2 <b>Food</b> for this turn.",
-      "cardAffiliation": "base",
-      "deckLimit": 3,
-      "actions": [
-        {
-          "trigger":
-            "gainFood"
-          ,
-          "commands": [
-            "GainFood"
-          ],
-          "phases": [
-            "economics"
-          ],
-          "args":
-            {
-              "amount": 2
+            "cardId": "2",
+            "cost": {
+                "wood": 3
             },
-          "icon": "eco"
-        }
-      ]
-    },
-    {
-      "cardId": "13",
-      "title": "Healing Hand",
-      "cardType": "event",
-      "description": "Heal 1 <b>Damage</b> from a <b>Citizen</b>.",
-      "cardAffiliation": "base",
-      "deckLimit": 3,
-      "actions": [
+            "title": "Farm",
+            "cardType": "building",
+            "health": 3,
+            "description": "During the <b>Production Phase</b> you may <b>Exhaust</b> this card to gain 3 <b>Food</b>.",
+            "cardAffiliation": "base",
+            "deckLimit": 4,
+            "actions": [
+                {
+                    "trigger": "gainFood",
+                    "commands": ["GainFood"],
+                    "phases": ["production"],
+                    "args": {
+                        "amount": 3
+                    },
+                    "icon": "eco"
+                }
+            ]
+        },
         {
-          "trigger":
-            "deploy"
-          ,
-          "commands": [
-            "GainFood"
-          ],
-          "phases": [
-            "action",
-            "refresh",
-            "combat"
-          ],
-          "args":
-            {
-              "amount": 1
+            "cardId": "3",
+            "cost": {
+                "wood": 3
             },
-          "icon": "eco"
-        }
-      ]
-    },
-    {
-      "cardId": "14",
-      "title": "Hasty Constructions",
-      "cardType": "event",
-      "description": "Complete a <b>Building</b>. Deal x <b>Damage</b> to it, where x was the amount of <b>Building cost</b> missing to complete this card.",
-      "cardAffiliation": "base",
-      "deckLimit": 3,
-      "actions": [
-        {
-          "trigger":
-            "deploy"
-          ,
-          "commands": [
-            "DealAllDamageWithoutKilling"
-          ],
-          "phases": [
-            "action",
-            "refresh",
-            "combat"
-          ],
-          "args": {}
+            "title": "Lumbermill",
+            "cardType": "building",
+            "health": 3,
+            "description": "During the <b>Production Phase</b> you may <b>Exhaust</b> this card to gain 3 <b>Wood</b>.",
+            "cardAffiliation": "base",
+            "deckLimit": 4,
+            "actions": [
+                {
+                    "trigger": "gainWood",
+                    "commands": ["GainWood"],
+                    "phases": ["production"],
+                    "args": {
+                        "amount": 1
+                    },
+                    "icon": "forest"
+                }
+            ]
         },
         {
-          "trigger":
-            "previousAction"
-          ,
-          "commands": [
-            "CompleteBuilding"
-          ],
-          "phases": [
-          ],
-          "args": {}
+            "cardId": "4",
+            "title": "Regular Citizen",
+            "cardType": "citizen",
+            "health": 2,
+            "attack": 0,
+            "defence": 0,
+            "description": "",
+            "cardAffiliation": "base",
+            "deckLimit": 5,
+            "actions": []
         },
         {
-          "trigger":
-            "previousAction"
-          ,
-          "commands": [
-            "HealBuilding"
-          ],
-          "phases": [
-          ],
-          "args":
-            {
-              "amount": "totalHealth"
-            }
-        }
-      ]
-    },
-    {
-      "cardId": "15",
-      "title": "Townsguard",
-      "cardType": "citizen",
-      "health": 2,
-      "attack": 1,
-      "defence": 1,
-      "description": "<b>Guard</b>(Adjacent citizens do not get attacked)",
-      "cardAffiliation": "base",
-      "deckLimit": 3,
-      "actions": [
-        {
-          "trigger":
-            "condition"
-          ,
-          "commands": [
-            "Guard"
-          ],
-          "phases": [
-          ],
-          "args": {}
-        }
-      ]
-    },
-    {
-      "cardId": "16",
-      "title": "Merchant",
-      "cardType": "citizen",
-      "health": 2,
-      "attack": 0,
-      "defence": 0,
-      "description": "<b>Exhaust</b> to put the first card from the <b>Marketplace</b> on top of your <b>Deck</b>. <br/> <b>Banish</b> this card to place any card from the <b>Marketplace</b> into your <b>Discard Pile</b>",
-      "cardAffiliation": "base",
-      "deckLimit": 3,
-      "actions": [
-        {
-          "trigger":"exhaust",
-          "commands": [
-            "CardFromMarketplaceToTopOfDeck"
-          ],
-          "phases": [
-            "action"
-          ],
-          "args":
-            {
-              "min": 0,
-              "max": 0
-            }
-        },
-        {
-          "trigger":
-            "banish"
-          ,
-          "commands": [
-            "CardFromMarketplaceToDiscardPile"
-          ],
-          "phases": [
-            "action"
-          ],
-          "args":
-            {
-              "min": 0,
-              "max": 4
-            }
-        }
-      ]
-    },
-    {
-      "cardId": "17",
-      "title": "Scout",
-      "cardType": "citizen",
-      "health": 3,
-      "attack": 1,
-      "defence": 0,
-      "description": "<b>Rush</b> (You may deploy this unit immediately ready). <br/> When <b>Exhausting/<b> to do a <b> Claim action</b>, add 2 <b> Claim tokens</b> to that <b>Location</b>.<br/><b>Banish</b> this card to look at the top card of an hostile deck.",
-      "cardAffiliation": "base",
-      "deckLimit": 3,
-      "actions": [
-        {
-          "trigger":
-            "condition"
-          ,
-          "commands": [
-            "Rush"
-          ],
-          "phases": [
-          ],
-          "args": {}
-        },
-        {
-          "trigger":
-            "claim"
-          ,
-          "commands": [
-            "AddClaimToLocation"
-          ],
-          "phases": [
-            "action"
-          ],
-          "args":
-            {
-              "amount": 2
+            "cardId": "5",
+            "cost": {
+                "wood": 3
             },
-          "icon": "flag"
+            "title": "Hunting Lodge",
+            "cardType": "building",
+            "health": 3,
+            "description": "During the <b>Production Phase</b> you may <b>Exhaust</b> this card to gain 1 <b>Wood</b> and 1 <b>Food</b>.",
+            "cardAffiliation": "base",
+            "deckLimit": 3,
+            "actions": [
+                {
+                    "trigger": "gainFoodAndWood",
+                    "commands": ["GainFoodAndWood"],
+                    "phases": ["production"],
+                    "args": {
+                        "amountFood": 1,
+                        "amountWood": 1
+                    },
+                    "icon": "forest"
+                }
+            ]
         },
         {
-          "trigger":
-            "banish"
-          ,
-          "commands": [
-            "LookAtTopOfHostileDeck"
-          ],
-          "phases": [
-            "action"
-          ],
-          "args":
-            {
-              "amount": 1
-            }
-        }
-      ]
-    },
-    {
-      "cardId": "18",
-      "title": "Farmer",
-      "cardType": "citizen",
-      "health": 2,
-      "attack": 1,
-      "defence": 0,
-      "description": "When <b>Exhausting</b> to gain <b> Food</b>, gain 1 Additional <b>Food</b>. <b>Banish</b> this card to remove up to 2 <b>Hunger Tokens</b>.",
-      "cardAffiliation": "base",
-      "deckLimit": 3,
-      "actions": [
-        {
-          "trigger":
-            "gainFood"
-          ,
-          "commands": [
-            "GainFood"
-          ],
-          "phases": [
-            "action"
-          ],
-          "args":
-            {
-              "amount": 1
+            "cardId": "6",
+            "cost": {
+                "wood": 2
             },
-          "icon": "eco"
+            "title": "Marketplace",
+            "cardType": "building",
+            "health": 2,
+            "description": "<b>Exhaust</b> a 1 <b>Wood</b> to convert into 2 <b>Marketplace Credits</b>",
+            "cardAffiliation": "base",
+            "deckLimit": 3,
+            "actions": [
+                {
+                    "trigger": "exhaust",
+                    "commands": ["ConvertWoodIntoMarketplaceCredits"],
+                    "phases": ["action"],
+                    "args": {
+                        "amountWood": 1,
+                        "amountMarketplaceCredits": 1
+                    }
+                }
+            ]
         },
         {
-          "trigger":
-            "banish"
-          ,
-          "commands": [
-            "RemoveHungerTokens"
-          ],
-          "phases": [
-            "action"
-          ],
-          "args":
-            {
-              "amount": 2
-            }
-        }
-      ]
-    },
-    {
-      "cardId": "19",
-      "title": "Builder",
-      "cardType": "citizen",
-      "health": 2,
-      "attack": 0,
-      "defence": 0,
-      "description": "When <b>Exhausting</b> to do a <b>Build</b> action, gain 2 Additional <b>Build credits</b>. <b>Banish</b> this card to instantly complete a <b>Building</b>.",
-      "cardAffiliation": "base",
-      "deckLimit": 3,
-      "actions": [
-        {
-          "trigger":
-            "build"
-          ,
-          "commands": [
-            "AddBuildCredits"
-          ],
-          "phases": [
-            "action"
-          ],
-          "args":
-            {
-              "amount": 2
-            }
+            "cardId": "7",
+            "title": "Coordinated Ambush",
+            "cardType": "event",
+            "description": "Give each <b>Citizen</b> with 1 <b>Base Attack</b> the keyword <b>Ambush</b> this turn.",
+            "cardAffiliation": "base",
+            "deckLimit": 3,
+            "actions": [
+                {
+                    "trigger": "deploy",
+                    "commands": ["AddAmbushKeyWord"],
+                    "phases": ["action"],
+                    "args": {
+                        "duration": {
+                            "turns": 1
+                        },
+                        "conditions": [
+                            {
+                                "greaterThan": {
+                                    "attack": 0
+                                }
+                            }
+                        ]
+                    }
+                }
+            ]
         },
         {
-          "trigger":
-            "banish"
-          ,
-          "commands": [
-            "CompleteBuilding"
-          ],
-          "phases": [
-            "action"
-          ],
-          "args": {}
-        }
-      ]
-    },
-    {
-      "cardId": "20",
-      "title": "Woodcutter",
-      "cardType": "citizen",
-      "health": 2,
-      "attack": 1,
-      "defence": 0,
-      "description": "When <b>Exhausting</b> to gain <b>Wood</b>, gain 1 Additional <b>Wood</b>.",
-      "cardAffiliation": "base",
-      "deckLimit": 3,
-      "actions": [
+            "cardId": "8",
+            "title": "Powerfull Leadership",
+            "cardType": "event",
+            "description": "<b>Exhaust</b> to return the topmost <b>Citizen</b> from <b>Banishment</b>.",
+            "cardAffiliation": "base",
+            "deckLimit": 3,
+            "actions": [
+                {
+                    "trigger": "deploy",
+                    "commands": ["ReturnTypeFromBanishment"],
+                    "phases": ["action"],
+                    "args": {
+                        "cardType": "citizen"
+                    }
+                }
+            ]
+        },
         {
-          "trigger":
-            "gainWood"
-          ,
-          "commands": [
-            "GainWood"
-          ],
-          "phases": [
-            "action"
-          ],
-          "args":
-            {
-              "amount": 1
-            },
-          "icon": "forest"
+            "cardId": "9",
+            "title": "Fabricate Claim",
+            "cardType": "event",
+            "description": "Add 2 <b>Claim Tokens</b> to a <b>Location</b>.",
+            "cardAffiliation": "base",
+            "deckLimit": 3,
+            "actions": [
+                {
+                    "trigger": "deploy",
+                    "commands": ["AddClaimToLocation"],
+                    "phases": ["action"],
+                    "args": {}
+                }
+            ]
+        },
+        {
+            "cardId": "10",
+            "title": "Salvo",
+            "cardType": "event",
+            "description": "Deal 1 <b>Damage</b> to all <b>Hostile Units</b> from an hostile player.",
+            "cardAffiliation": "base",
+            "deckLimit": 3,
+            "actions": [
+                {
+                    "trigger": "deploy",
+                    "commands": ["DealDamageToAll"],
+                    "phases": ["action"],
+                    "args": {
+                        "target": "hostilePlayer"
+                    }
+                }
+            ]
+        },
+        {
+            "cardId": "11",
+            "title": "Delay Tactics",
+            "cardType": "event",
+            "description": "At the start of the <b>Combat Phase</b>, <b>Exhaust</b> an hostile <b>Unit</b>.",
+            "cardAffiliation": "base",
+            "deckLimit": 3,
+            "actions": [
+                {
+                    "trigger": "deploy",
+                    "commands": ["ExhaustUnit"],
+                    "phases": ["action"],
+                    "args": {
+                        "target": "hostile"
+                    }
+                }
+            ]
+        },
+        {
+            "cardId": "12",
+            "title": "Hunt",
+            "cardType": "event",
+            "description": "Gain 2 <b>Food</b> for this turn.",
+            "cardAffiliation": "base",
+            "deckLimit": 3,
+            "actions": [
+                {
+                    "trigger": "gainFood",
+                    "commands": ["GainFood"],
+                    "phases": ["economics"],
+                    "args": {
+                        "amount": 2
+                    },
+                    "icon": "eco"
+                }
+            ]
+        },
+        {
+            "cardId": "13",
+            "title": "Healing Hand",
+            "cardType": "event",
+            "description": "Heal 1 <b>Damage</b> from a <b>Citizen</b>.",
+            "cardAffiliation": "base",
+            "deckLimit": 3,
+            "actions": [
+                {
+                    "trigger": "deploy",
+                    "commands": ["GainFood"],
+                    "phases": ["action", "refresh", "combat"],
+                    "args": {
+                        "amount": 1
+                    },
+                    "icon": "eco"
+                }
+            ]
+        },
+        {
+            "cardId": "14",
+            "title": "Hasty Constructions",
+            "cardType": "event",
+            "description": "Complete a <b>Building</b>. Deal x <b>Damage</b> to it, where x was the amount of <b>Building cost</b> missing to complete this card.",
+            "cardAffiliation": "base",
+            "deckLimit": 3,
+            "actions": [
+                {
+                    "trigger": "deploy",
+                    "commands": ["DealAllDamageWithoutKilling"],
+                    "phases": ["action", "refresh", "combat"],
+                    "args": {}
+                },
+                {
+                    "trigger": "previousAction",
+                    "commands": ["CompleteBuilding"],
+                    "phases": [],
+                    "args": {}
+                },
+                {
+                    "trigger": "previousAction",
+                    "commands": ["HealBuilding"],
+                    "phases": [],
+                    "args": {
+                        "amount": "totalHealth"
+                    }
+                }
+            ]
+        },
+        {
+            "cardId": "15",
+            "title": "Townsguard",
+            "cardType": "citizen",
+            "health": 2,
+            "attack": 1,
+            "defence": 1,
+            "description": "<b>Guard</b>(Adjacent citizens do not get attacked)",
+            "cardAffiliation": "base",
+            "deckLimit": 3,
+            "actions": [
+                {
+                    "trigger": "condition",
+                    "commands": ["Guard"],
+                    "phases": [],
+                    "args": {}
+                }
+            ]
+        },
+        {
+            "cardId": "16",
+            "title": "Merchant",
+            "cardType": "citizen",
+            "health": 2,
+            "attack": 0,
+            "defence": 0,
+            "description": "<b>Exhaust</b> to put the first card from the <b>Marketplace</b> on top of your <b>Deck</b>. <br/> <b>Banish</b> this card to place any card from the <b>Marketplace</b> into your <b>Discard Pile</b>",
+            "cardAffiliation": "base",
+            "deckLimit": 3,
+            "actions": [
+                {
+                    "trigger": "exhaust",
+                    "commands": ["CardFromMarketplaceToTopOfDeck"],
+                    "phases": ["action"],
+                    "args": {
+                        "min": 0,
+                        "max": 0
+                    }
+                },
+                {
+                    "trigger": "banish",
+                    "commands": ["CardFromMarketplaceToDiscardPile"],
+                    "phases": ["action"],
+                    "args": {
+                        "min": 0,
+                        "max": 4
+                    }
+                }
+            ]
+        },
+        {
+            "cardId": "17",
+            "title": "Scout",
+            "cardType": "citizen",
+            "health": 3,
+            "attack": 1,
+            "defence": 0,
+            "description": "<b>Rush</b> (You may deploy this unit immediately ready). <br/> When <b>Exhausting/<b> to do a <b> Claim action</b>, add 2 <b> Claim tokens</b> to that <b>Location</b>.<br/><b>Banish</b> this card to look at the top card of an hostile deck.",
+            "cardAffiliation": "base",
+            "deckLimit": 3,
+            "actions": [
+                {
+                    "trigger": "condition",
+                    "commands": ["Rush"],
+                    "phases": [],
+                    "args": {}
+                },
+                {
+                    "trigger": "claim",
+                    "commands": ["AddClaimToLocation"],
+                    "phases": ["action"],
+                    "args": {
+                        "amount": 2
+                    },
+                    "icon": "flag"
+                },
+                {
+                    "trigger": "banish",
+                    "commands": ["LookAtTopOfHostileDeck"],
+                    "phases": ["action"],
+                    "args": {
+                        "amount": 1
+                    }
+                }
+            ]
+        },
+        {
+            "cardId": "18",
+            "title": "Farmer",
+            "cardType": "citizen",
+            "health": 2,
+            "attack": 1,
+            "defence": 0,
+            "description": "When <b>Exhausting</b> to gain <b> Food</b>, gain 1 Additional <b>Food</b>. <b>Banish</b> this card to remove up to 2 <b>Hunger Tokens</b>.",
+            "cardAffiliation": "base",
+            "deckLimit": 3,
+            "actions": [
+                {
+                    "trigger": "gainFood",
+                    "commands": ["GainFood"],
+                    "phases": ["action"],
+                    "args": {
+                        "amount": 1
+                    },
+                    "icon": "eco"
+                },
+                {
+                    "trigger": "banish",
+                    "commands": ["RemoveHungerTokens"],
+                    "phases": ["action"],
+                    "args": {
+                        "amount": 2
+                    }
+                }
+            ]
+        },
+        {
+            "cardId": "19",
+            "title": "Builder",
+            "cardType": "citizen",
+            "health": 2,
+            "attack": 0,
+            "defence": 0,
+            "description": "When <b>Exhausting</b> to do a <b>Build</b> action, gain 2 Additional <b>Build credits</b>. <b>Banish</b> this card to instantly complete a <b>Building</b>.",
+            "cardAffiliation": "base",
+            "deckLimit": 3,
+            "actions": [
+                {
+                    "trigger": "build",
+                    "commands": ["AddBuildCredits"],
+                    "phases": ["action"],
+                    "args": {
+                        "amount": 2
+                    }
+                },
+                {
+                    "trigger": "banish",
+                    "commands": ["CompleteBuilding"],
+                    "phases": ["action"],
+                    "args": {}
+                }
+            ]
+        },
+        {
+            "cardId": "20",
+            "title": "Woodcutter",
+            "cardType": "citizen",
+            "health": 2,
+            "attack": 1,
+            "defence": 0,
+            "description": "When <b>Exhausting</b> to gain <b>Wood</b>, gain 1 Additional <b>Wood</b>.",
+            "cardAffiliation": "base",
+            "deckLimit": 3,
+            "actions": [
+                {
+                    "trigger": "gainWood",
+                    "commands": ["GainWood"],
+                    "phases": ["action"],
+                    "args": {
+                        "amount": 1
+                    },
+                    "icon": "forest"
+                }
+            ]
         }
-      ]
-    }
-  ]
+    ]
 }

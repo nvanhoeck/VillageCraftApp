@@ -1,1 +1,1 @@
-export type PlayerType = 'HUMAN' | 'PC'
+export type PlayerType = 'HUMAN' | 'PC';

@@ -1,15 +1,27 @@
 <div class="settlement">
-  <ng-container *ngIf="(settlement$ | async) as settlement">
-    <div (mouseenter)="isHovered = true" (mouseleave)="isHovered=false" *ngIf="settlement?.id"
-         class="card-and-action-wrapper">
-      <app-card-actions-wrapper>
-        <app-game-card [cardStyle]="'SMALL'" [card]="settlement"></app-game-card>
-        <app-card-actions *ngIf="isHovered" [defaultActions]="actions" [card]="settlement" [gameSpace]="'SETTLEMENT'"
-                          cardButtons/>
-      </app-card-actions-wrapper>
-    </div>
-    <ng-container *ngIf="(showSlots$ | async)">
-      <app-card-slot (indexEventEmitter)="handleSettlementSlotClicked($event)" [index]="0" text="+"/>
+    <ng-container *ngIf="settlement$ | async as settlement">
+        <div
+            (mouseenter)="isHovered = true"
+            (mouseleave)="isHovered = false"
+            *ngIf="settlement?.id"
+            class="card-and-action-wrapper">
+            <app-card-actions-wrapper>
+                <app-game-card
+                    [cardStyle]="'SMALL'"
+                    [card]="settlement"></app-game-card>
+                <app-card-actions
+                    *ngIf="isHovered"
+                    [defaultActions]="actions"
+                    [card]="settlement"
+                    [gameSpace]="'SETTLEMENT'"
+                    cardButtons />
+            </app-card-actions-wrapper>
+        </div>
+        <ng-container *ngIf="showSlots$ | async">
+            <app-card-slot
+                (indexEventEmitter)="handleSettlementSlotClicked($event)"
+                [index]="0"
+                text="+" />
+        </ng-container>
     </ng-container>
-  </ng-container>
 </div>

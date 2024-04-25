@@ -1,7 +1,11 @@
 <div class="container mx-auto">
-  <div class="home-container">
-    <app-button [text]="'Play locally 1vs1'" (onClickHandler)="redirectToPlayerVsPCOverview()"></app-button>
-    <app-button [text]="'Show all cards'" (onClickHandler)="redirectToCardsOverview()"></app-button>
-    <app-button [text]="'Create Deck'"></app-button>
-  </div>
+    <div class="home-container">
+        <app-button
+            (clickHandler)="redirectToPlayerVsPCOverview()"
+            [text]="'Play locally 1vs1'"></app-button>
+        <app-button
+            (clickHandler)="redirectToCardsOverview()"
+            [text]="'Show all cards'"></app-button>
+        <app-button [text]="'Create Deck'"></app-button>
+    </div>
 </div>

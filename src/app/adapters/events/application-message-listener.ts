@@ -1,6 +1,5 @@
-import {ApplicationMessage} from "./application-message";
+import { ApplicationMessage } from './application-message';
 
 export interface ApplicationMessageListener {
-
-  subscribe(message: ApplicationMessage): void
+    subscribe(message: ApplicationMessage): void;
 }

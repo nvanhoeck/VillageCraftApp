@@ -1,7 +1,7 @@
 .home-container {
-  height: calc(100vh - 70px);
-  padding-top: 4rem;
-  padding-left: 4rem;
-  padding-right: 4rem;
-  @apply flex items-center justify-center gap-8
+    height: calc(100vh - 70px);
+    padding-top: 4rem;
+    padding-left: 4rem;
+    padding-right: 4rem;
+    @apply flex items-center justify-center gap-8;
 }

@@ -1,4 +1,4 @@
 export interface Command {
-  type: string
-  payload: Object
+    type: string;
+    payload: object;
 }

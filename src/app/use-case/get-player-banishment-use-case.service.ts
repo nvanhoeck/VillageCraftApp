@@ -1,18 +1,18 @@
-import {Injectable} from '@angular/core';
-import {GameProjectionService} from "../query/game/game-projection.service";
-import {map} from "rxjs";
+import { Injectable } from '@angular/core';
+import { GameProjectionService } from '../query/game/game-projection.service';
+import { map } from 'rxjs';
 
 @Injectable({
-  providedIn: 'root'
+    providedIn: 'root',
 })
 export class GetPlayerBanishmentUseCaseService {
+    constructor(private projectionService: GameProjectionService) {}
 
-  constructor(private projectionService: GameProjectionService) {
-  }
-
-  getPlayerBanishment$(playerId: string) {
-    return this.projectionService.getPlayer$(playerId).pipe(map((player) => {
-      return player.findBanishment()
-    }))
-  }
+    getPlayerBanishment$(playerId: string) {
+        return this.projectionService.getPlayer$(playerId).pipe(
+            map(player => {
+                return player.findBanishment();
+            })
+        );
+    }
 }

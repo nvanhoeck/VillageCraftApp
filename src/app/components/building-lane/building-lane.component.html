@@ -1,17 +1,28 @@
 <div class="building-lane">
-  <ng-container *ngFor="let building of (buildingLane$ | async); index as i">
-    <ng-container *ngIf="building">
-      <div class="card-and-action-wrapper">
-        <app-card-actions-wrapper>
-          <app-game-card (handleHoverHandle)="handleHoverCard($event.id)" (handleHoverLeaveHandler)="handleMouseLeaveCard()" [card]="building" cardSide="FRONT" cardStyle="SMALL"/>
-          <app-card-actions [defaultActions]="defaultActions" [card]="building" [gameSpace]="'BUILDING_LANE'"
-                            cardButtons/>
-        </app-card-actions-wrapper>
-      </div>
+    <ng-container *ngFor="let building of buildingLane$ | async; index as i">
+        <ng-container *ngIf="building">
+            <div class="card-and-action-wrapper">
+                <app-card-actions-wrapper>
+                    <app-game-card
+                        (handleHoverHandle)="handleHoverCard($event.id)"
+                        (handleHoverLeaveHandler)="handleMouseLeaveCard()"
+                        [card]="building"
+                        cardSide="FRONT"
+                        cardStyle="SMALL" />
+                    <app-card-actions
+                        [defaultActions]="defaultActions"
+                        [card]="building"
+                        [gameSpace]="'BUILDING_LANE'"
+                        cardButtons />
+                </app-card-actions-wrapper>
+            </div>
+        </ng-container>
+        <ng-container *ngIf="showSlots$ | async">
+            <app-card-slot
+                (indexEventEmitter)="handleClickOnSlot($event)"
+                [index]="i + 1"
+                text="+" />
+        </ng-container>
     </ng-container>
-    <ng-container *ngIf="showSlots$ | async">
-      <app-card-slot (indexEventEmitter)="handleClickOnSlot($event)" [index]="i + 1" text="+"/>
-    </ng-container>
-  </ng-container>
-  <p>Building Lane</p>
+    <p>Building Lane</p>
 </div>

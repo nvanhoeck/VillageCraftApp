@@ -1,1 +1,1 @@
-export const NO_TEXT = ''
+export const NO_TEXT = '';

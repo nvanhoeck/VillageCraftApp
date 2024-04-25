@@ -1,1 +1,1 @@
-export * from './model/GameCreatedEvent'
+export * from './model/GameCreatedEvent';

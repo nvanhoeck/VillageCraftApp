@@ -1,6 +1,6 @@
-import {GameCard} from "../domain/game-card";
-import {Observable} from "rxjs";
+import { GameCard } from '../domain/game-card';
+import { Observable } from 'rxjs';
 
 export interface CardsFetchPort {
-  getAllCards: () => Observable<GameCard[]>
+    getAllCards: () => Observable<GameCard[]>;
 }

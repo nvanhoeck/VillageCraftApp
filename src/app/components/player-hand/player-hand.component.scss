@@ -1,26 +1,26 @@
-@import "1-settings";
+@import '1-settings';
 
 .player_hand {
-  display: flex;
-  flex-direction: row;
-  gap: $gutter;
+    display: flex;
+    flex-direction: row;
+    gap: $gutter;
 }
 
 .card-and-action-wrapper {
-  transition: transform 0.5s ease;
+    transition: transform 0.5s ease;
 
-  &--selected {
-    transform: translatey(-160px);
-    cursor: pointer;
-    opacity: 60%;
-  }
+    &--selected {
+        transform: translatey(-160px);
+        cursor: pointer;
+        opacity: 60%;
+    }
 
-  &--hover-high:hover {
-    transform: translatey(-160px);
-  }
+    &--hover-high:hover {
+        transform: translatey(-160px);
+    }
 
-  &--hover-normal:hover {
-    transform: translatey(-2rem);
-    cursor: pointer;
-  }
+    &--hover-normal:hover {
+        transform: translatey(-2rem);
+        cursor: pointer;
+    }
 }

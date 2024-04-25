@@ -1,5 +1,5 @@
-import {Command} from "../model/command";
+import { Command } from '../model/command';
 
 export interface CommandHandler {
-  execute: (cmd: Command) => void
+    execute: (cmd: Command) => void;
 }

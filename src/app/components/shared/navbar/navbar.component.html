@@ -1,23 +1,27 @@
 <!-- navbar.component.html -->
-<nav class="bg-gray-800 p-4  w-full">
-  <div class="flex items-center justify-between">
-    <div class="flex items-center">
-      <button class="text-white focus:outline-none" (click)="toggleRail()">
-        <mat-icon>menu</mat-icon>
-      </button>
+<nav class="bg-gray-800 p-4 w-full">
+    <div class="flex items-center justify-between">
+        <div class="flex items-center">
+            <button
+                class="text-white focus:outline-none"
+                (click)="toggleRail()">
+                <mat-icon>menu</mat-icon>
+            </button>
+        </div>
     </div>
-  </div>
 </nav>
 
 <!-- Navigation rail -->
-<div *ngIf="showRail" class="lg:hidden fixed inset-0 bg-gray-800 bg-opacity-75 z-50">
-  <!-- Add your rail content here -->
-  <div class="flex items-start p-4">
-    <div class="flex-shrink-0">
-      <!-- Add your rail links here -->
-      <a href="#" class="text-white">Rail Link 1</a>
-      <a href="#" class="text-white ml-4">Rail Link 2</a>
-      <a href="#" class="text-white ml-4">Rail Link 3</a>
+<div
+    *ngIf="showRail"
+    class="lg:hidden fixed inset-0 bg-gray-800 bg-opacity-75 z-50">
+    <!-- Add your rail content here -->
+    <div class="flex items-start p-4">
+        <div class="flex-shrink-0">
+            <!-- Add your rail links here -->
+            <a href="#" class="text-white">Rail Link 1</a>
+            <a href="#" class="text-white ml-4">Rail Link 2</a>
+            <a href="#" class="text-white ml-4">Rail Link 3</a>
+        </div>
     </div>
-  </div>
 </div>

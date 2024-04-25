@@ -1,1 +1,1 @@
-export type GameType =  'PVC' | 'PVP'
+export type GameType = 'PVC' | 'PVP';
