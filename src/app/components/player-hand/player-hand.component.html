@@ -1,6 +1,7 @@
 <div *ngIf="hand$ | async as hand" class="player_hand">
     <ng-container *ngFor="let card of hand">
         <div
+            (click)="handleCardClicked(card.id)"
             (keyup)="handleCardClicked(card.id)"
             [class]="
                 'card-and-action-wrapper' + hideActions &&
